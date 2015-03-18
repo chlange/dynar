@@ -14,11 +14,11 @@
 /**
  * Group of parameter errors.
  * 
- * The actual error gets OR'ed with this value.
+ * The actual parameter error gets bitwise OR'ed with this value.
  */
 #define DA_PARAM_ERR  0x10000000
 /**
- * Indicates that a NULL-pointer was passed.
+ * Indicates that a NULL-pointer was passed to a function.
  */
 #define DA_PARAM_NULL 0x00000001
 
@@ -122,7 +122,7 @@ int DaDestroy(DaPtr *da, int *err);
  * @returns Otherwise, @p err gets appropriately.
  *
  * @returns @p err gets set to ::DA_OK if the operation was successful.
- * @returns @p err gets set to (DA_PARAM_ERR | DA_NULL) if @p da is a NULL-pointer.
+ * @returns @p err gets set to (::DA_PARAM_ERR|::DA_PARAM_NULL) if @p da is a NULL-pointer.
  */
 size_t DaSize(DaPtr *da, int *err);
 
