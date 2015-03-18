@@ -80,8 +80,8 @@ DaPtr *DaCreate(DaDesc *desc, int *err);
  *
  * The function free's all allocated memory of the dynamic array \p da.
  * 
- * @param da The array that should be destroyed.
- * @param err Indicates what went wrong in the event of an error.
+ * @param[in]  da The array that should be destroyed.
+ * @param[out] err Indicates what went wrong in the event of an error.
  *
  * @returns Returns 0 on success.
  * @returns Otherwise, the function returns -1 and @p err is set appropriately.
