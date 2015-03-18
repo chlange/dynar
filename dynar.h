@@ -7,6 +7,23 @@
  */
 
 /**
+ * Indicates that the operation was successful.
+ */
+#define DA_OK         0x00000000
+
+/**
+ * Group of parameter errors.
+ * 
+ * The actual error gets OR'ed with this value.
+ */
+#define DA_PARAM_ERR  0x10000000
+/**
+ * Indicates that a NULL-pointer was passed.
+ */
+#define DA_PARAM_NULL 0x00000001
+
+
+/**
  * The structure defines the initial setup for 
  * an array.
  */
@@ -69,9 +86,11 @@ typedef struct __str_da_ptr
  * @param[in]  desc Initial settings for the database.
  * @param[out] err  Indicates what went wrong in the event of an error.
  * 
- * @returns A non-NULL pointer to the dynamic array on success
- * @returns that can be successfully passed to DaDestroy().
- * @returns Otherwise, a NULL pointer is returned and @p err is set appropriately.
+ * @returns A non-NULL pointer to the dynamic array on success that can be successfully passed to DaDestroy().
+ * @returns Otherwise, a NULL pointer is returned and @p err gets set appropriately.
+ * 
+ * @returns @p err gets set to ::DA_OK if the operation was successful.
+ * @returns @p err gets set to (::DA_PARAM_ERR|::DA_PARAM_NULL) if @p desc is a NULL-pointer.
  */
 DaPtr *DaCreate(DaDesc *desc, int *err);
 
@@ -84,20 +103,28 @@ DaPtr *DaCreate(DaDesc *desc, int *err);
  * @param[out] err Indicates what went wrong in the event of an error.
  *
  * @returns Returns 0 on success.
- * @returns Otherwise, the function returns -1 and @p err is set appropriately.
+ * @returns Otherwise, the function returns -1 and @p err gets set appropriately.
+ * 
+ * @returns @p err gets set to ::DA_OK if the operation was successful.
+ * @returns @p err gets set to (::DA_PARAM_ERR|::DA_PARAM_NULL) if @p da is a NULL-pointer.
  */
 int DaDestroy(DaPtr *da, int *err);
 
 /* static int DaRealloc(DaPtr *desc, int *err) */
 
-/*
- * The function returns the number of elements currently used.
+/**
+ * @brief The function returns the number of elements currently used.
  *
- * Returns:
- *	The function returns a value greater than or equal 0 on success.
- *  The function returns -1 if da is null.
+ * @param[in]  da  Return the number of elements of this array. 
+ * @param[out] err Indicates what went wrong in the event of an error.
+ * 
+ * @returns The function sets \p err to DA_OK and returns the number of elements of the array on success.
+ * @returns Otherwise, @p err gets appropriately.
+ *
+ * @returns @p err gets set to ::DA_OK if the operation was successful.
+ * @returns @p err gets set to (DA_PARAM_ERR | DA_NULL) if @p da is a NULL-pointer.
  */
-/* size_t DaSize(DaPtr *da) */
+size_t DaSize(DaPtr *da, int *err);
 
 /* 
  * The function returns the fill state.
@@ -107,7 +134,7 @@ int DaDestroy(DaPtr *da, int *err);
  *  The function returns  0 if da is not empty.
  *  The function returns -1 if da is null.
  */
-/* int DaIsEmpty(DaPtr *da) */
+/* int DaIsEmpty(DaPtr *da, int *err) */
 
 /* The function will append the element. */
 /* The functions returns a non-NULL pointer that points to the top of the area that contains the element. */
