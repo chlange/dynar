@@ -1,27 +1,92 @@
-#ifndef __DYNARRAY_H__
-#define __DYNARRAY_H__
+#ifndef __DYNAR_H__
+#define __DYNAR_H__
 
-typedef struct __str_da_desc {
-	/* size_t elements */
-	/* size_t bytesPerElement */
+/** 
+ * @file
+ * @brief Header file for dynamic array.
+ */
+
+/**
+ * The structure defines the initial setup for 
+ * an array.
+ */
+typedef struct __str_da_desc 
+{
+    /** 
+     * Initial amount of elements for the array.
+     */
+	size_t elements;
+    
+    /**
+     * Amount of bytes each element consists of.
+     */
+	size_t bytesPerElement;
+
 } DaDesc;
 
+/**
+ * The structure holds all relevant information
+ * about the dynamic array.
+ */
 typedef struct __str_da_ptr
 {
-	/* void *startCap */
-	/* void *endCap */
+    /**
+     * First address of array.
+     */
+	void *firstAddr;
 
-	/* void *free */
+	/**
+     * Last address of array.
+     */
+    void *lastAddr;
 
-	/* size_t used */
-	/* size_t max */
+    /**
+     * Next free address in the array.
+     */
+	void *freeAddr;
 
-	/* size_t bytesPerElement */
+    /**
+     * Amount of elements currently used.
+     */
+	size_t used;
+    /**
+     * Amount of maximum elements in the array.
+     */
+	size_t max;
+
+	/**
+     * Amount of bytes each element consists of.
+     */
+    size_t bytesPerElement;
+
 } DaPtr;
 
-/* DaPtr *DaOpen(DaDesc *desc, int *err) */
+/**
+ * @brief The function creates a new dynamic array.
+ *
+ * The function creates a dynamic array with the values given from @p desc.
+ *
+ * @param[in]  desc Initial settings for the database.
+ * @param[out] err  Indicates what went wrong in the event of an error.
+ * 
+ * @returns A non-NULL pointer to the dynamic array on success
+ * @returns that can be successfully passed to DaDestroy().
+ * @returns Otherwise, a NULL pointer is returned and @p err is set appropriately.
+ */
+DaPtr *DaCreate(DaDesc *desc, int *err);
 
-/* void DaClose(DaPtr *desc, int *err) */
+/**
+ * @brief The function deletes a dynamic array.
+ *
+ * The function free's all allocated memory of the dynamic array \p da.
+ * 
+ * @param da The array that should be destroyed.
+ * @param err Indicates what went wrong in the event of an error.
+ *
+ * @returns Returns 0 on success.
+ * @returns Otherwise, the function returns -1 and @p err is set appropriately.
+ */
+int DaDestroy(DaPtr *da, int *err);
 
 /* static int DaRealloc(DaPtr *desc, int *err) */
 
