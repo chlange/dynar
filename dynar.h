@@ -1,6 +1,8 @@
 #ifndef __DYNAR_H__
 #define __DYNAR_H__
 
+#include <stddef.h>
+
 /** 
  * @file
  * @brief Header file for dynamic array.
