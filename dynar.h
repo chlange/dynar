@@ -96,7 +96,7 @@ typedef struct __str_da_ptr
  * It allocates memory for the initial settings given by @p desc and initializes all
  * values in the newly created ::DaStruct object before returning it to the user.
  *
- * @param[in]  desc Initial settings for the database.
+ * @param[in]  desc Initial settings for the array.
  * @param[out] err  Indicates what went wrong in the event of an error.
  * 
  * @returns A non-NULL pointer to the dynamic array on success that can be successfully passed to DaDestroy().
