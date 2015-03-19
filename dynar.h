@@ -25,7 +25,9 @@
 #define DA_PARAM_NULL  0x00000001
 
 /**
- * Group of not negligible errors.
+ * Group of serious errors.
+ * 
+ * The actual parameter error gets bitwise OR'ed with this value.
  */
 #define DA_FAIL        0x20000000
 /**
