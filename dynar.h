@@ -208,6 +208,9 @@ void *DaAppend(DaStruct *da, int *err, void *element);
 /* The function returns a non-NULL pointer to the first element. */
 /* void *DaGetFirst(DaStruct *da, int *err) */
 
+/* The function returns a non-NULL pointer to the last element. */
+/* void *DaGetLast(DaStruct *da, int *err) */
+
 /* The function replaces the element at pos with the newElement */
 /* The function returns a non-NULL pointer to the element at pos. */
 /* void *DaSet(DaStruct *da, int *err, void *newElement, size_t pos) */
