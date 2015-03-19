@@ -11,23 +11,37 @@
 /**
  * Indicates that the operation was successful.
  */
-#define DA_OK         0x00000000
+#define DA_OK          0x00000000
 
 /**
  * Group of parameter errors.
  * 
  * The actual parameter error gets bitwise OR'ed with this value.
  */
-#define DA_PARAM_ERR  0x10000000
+#define DA_PARAM_ERR   0x10000000
 /**
  * Indicates that a NULL-pointer was passed to a function.
  */
-#define DA_PARAM_NULL 0x00000001
+#define DA_PARAM_NULL  0x00000001
+
+/**
+ * Group of not negligible errors.
+ */
+#define DA_FAIL        0x20000000
+/**
+ * No space left on device.
+ */
+#define DA_FAIL_ENOMEM 0x00000001
 
 /**
  * Magic number to avoid use-after-free or similar errors.
  */
-#define DA_MAGIC      0x71238924
+#define DA_MAGIC       0x71238924
+
+/**
+ * Maximum number of elements in an array.
+ */
+#define DA_MAX_ELEMENTS    200000
 
 /**
  * The structure defines the initial setup for 
@@ -54,12 +68,12 @@ typedef struct __str_da_desc
 typedef struct __str_da_ptr
 {
     /**
-     * First address of array.
+     * First address of the array.
      */
 	void *firstAddr;
 
 	/**
-     * Last address of array.
+     * Last address of the array.
      */
     void *lastAddr;
 
@@ -72,8 +86,9 @@ typedef struct __str_da_ptr
      * Amount of elements currently used.
      */
 	size_t used;
+
     /**
-     * Amount of maximum elements in the array.
+     * Amount of maximum elements in the current array.
      */
 	size_t max;
 
@@ -84,6 +99,7 @@ typedef struct __str_da_ptr
 
     /**
      * Magic number to avoid use-after-free or similar errors.
+     * 
      * Gets set to ::DA_MAGIC when the array gets created and set to 0 when it gets destroyed.
      */
     int magic;
@@ -99,7 +115,7 @@ typedef struct __str_da_ptr
  * @param[in]  desc Initial settings for the array.
  * @param[out] err  Indicates what went wrong in the event of an error.
  * 
- * @returns A non-NULL pointer to the dynamic array on success that can be successfully passed to DaDestroy().
+ * @returns Returns a non-NULL pointer to the dynamic array on success that can be successfully passed to DaDestroy().
  * @returns Otherwise, a NULL pointer is returned.
  * 
  * @returns @p err gets set to ::DA_OK on success.
@@ -127,7 +143,7 @@ int DaDestroy(DaStruct *da, int *err);
 /* static int DaRealloc(DaStruct *desc, int *err) */
 
 /**
- * @brief The function returns the number of elements currently used.
+ * @brief The function returns the number of elements in the array.
  *
  * @param[in]  da  Return the number of elements of this array. 
  * @param[out] err Indicates what went wrong in the event of an error.
@@ -140,19 +156,38 @@ int DaDestroy(DaStruct *da, int *err);
  */
 size_t DaSize(DaStruct *da, int *err);
 
-/* 
- * The function returns the fill state.
+/**
+ * @brief The function returns the fill state of the array.
  *
- * Returns:
- *	The function returns  1 if da is empty. 
- *  The function returns  0 if da is not empty.
- *  The function returns -1 if da is null.
+ * @param[in]  da  Return the fill state of this array.
+ * @param[out] err Indicates what went wrong in the event of an error.
+ * 
+ * @returns The function returns 1 if the array is empty or 0 if it's not empty.
+ * @returns Keep in mind to check the value of @p err.
+ *
+ * @returns @p err gets set to ::DA_OK on success.
+ * @returns @p err gets set to (::DA_PARAM_ERR|::DA_PARAM_NULL) if @p da is a NULL-pointer.
  */
-/* int DaIsEmpty(DaStruct *da, int *err) */
+int DaIsEmpty(DaStruct *da, int *err);
 
-/* The function will append the element. */
-/* The functions returns a non-NULL pointer that points to the top of the area that contains the element. */
-/* void *DaAppend(DaStruct *da, int *err, void *element) */
+/**
+ * @brief The function appends the element to the array.
+ *
+ * The function appends the @p element to the array and increases the array if necessary.
+ * The array remains unchanged in the event of an error.
+ * 
+ * @param[in]  da      Append the element to this array.
+ * @param[out] err     Indicates what went wrong in the event of an error.
+ * @param[in]  element The element that shall be appended.
+ *
+ * @returns The functions returns a non-NULL pointer to the appended element on success.
+ * @returns Otherwise, the function returns a NULL pointer.
+ * 
+ * @returns @p err gets set to ::DA_OK on success.
+ * @returns @p err gets set to (::DA_PARAM_ERR|::DA_PARAM_NULL) if @p da is a NULL-pointer.
+ * @returns @p err gets set to (::DA_FAIL|::DA_FAIL_ENOMEM) if no space is left on device.
+ */
+void *DaAppend(DaStruct *da, int *err, void *element);
 
 /* The function will prepend the element. */
 /* The functions returns a non-NULL pointer that points to the top of the area that contains the element. */
@@ -167,6 +202,9 @@ size_t DaSize(DaStruct *da, int *err);
 
 /* The function returns a non-NULL pointer to the element at pos. */
 /* void *DaGet(DaStruct *da, int *err, size_t pos) */
+
+/* The function returns a non-NULL pointer to the first element. */
+/* void *DaGetFirst(DaStruct *da, int *err) */
 
 /* The function replaces the element at pos with the newElement */
 /* The function returns a non-NULL pointer to the element at pos. */
