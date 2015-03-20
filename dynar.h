@@ -25,15 +25,15 @@
 #define DA_PARAM_NULL  0x00000001
 
 /**
- * Group of serious errors.
+ * Group of fatal errors.
  * 
  * The actual parameter error gets bitwise OR'ed with this value.
  */
-#define DA_FAIL        0x20000000
+#define DA_FATAL        0x20000000
 /**
  * No space left on device.
  */
-#define DA_FAIL_ENOMEM 0x00000001
+#define DA_FATAL_ENOMEM 0x00000001
 
 /**
  * Magic number to avoid use-after-free or similar errors.
@@ -121,7 +121,7 @@ typedef struct __str_da_ptr
  * @returns Otherwise, a NULL pointer is returned.
  * 
  * @returns @p err gets set to ::DA_OK on success.
- * @returns @p err gets set to (::DA_PARAM_ERR|::DA_PARAM_NULL) if @p desc is a NULL-pointer.
+ * @returns @p err gets set to ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p desc is a NULL-pointer.
  */
 DaStruct *DaCreate(DaDesc *desc, int *err);
 
@@ -138,7 +138,7 @@ DaStruct *DaCreate(DaDesc *desc, int *err);
  * @returns Returns 0 on success, -1 otherwise.
  * 
  * @returns @p err gets set to ::DA_OK on success.
- * @returns @p err gets set to (::DA_PARAM_ERR|::DA_PARAM_NULL) if @p da is a NULL-pointer.
+ * @returns @p err gets set to ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer.
  */
 int DaDestroy(DaStruct *da, int *err);
 
@@ -154,7 +154,7 @@ int DaDestroy(DaStruct *da, int *err);
  * @returns Keep in mind to check the value of @p err.
  * 
  * @returns @p err gets set to ::DA_OK on success.
- * @returns @p err gets set to (::DA_PARAM_ERR|::DA_PARAM_NULL) if @p da is a NULL-pointer.
+ * @returns @p err gets set to ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer.
  */
 size_t DaSize(DaStruct *da, int *err);
 
@@ -168,7 +168,7 @@ size_t DaSize(DaStruct *da, int *err);
  * @returns Keep in mind to check the value of @p err.
  *
  * @returns @p err gets set to ::DA_OK on success.
- * @returns @p err gets set to (::DA_PARAM_ERR|::DA_PARAM_NULL) if @p da is a NULL-pointer.
+ * @returns @p err gets set to ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer.
  */
 int DaIsEmpty(DaStruct *da, int *err);
 
@@ -176,24 +176,39 @@ int DaIsEmpty(DaStruct *da, int *err);
  * @brief The function appends the element to the array.
  *
  * The function appends the @p element to the array and increases the array if necessary.
- * The array remains unchanged in the event of an error.
+ * It remains unchanged in the event of an error.
  * 
  * @param[in]  da      Append the element to this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
  * @param[in]  element The element that shall be appended.
  *
- * @returns The functions returns a non-NULL pointer to the appended element on success.
+ * @returns The function returns a non-NULL pointer to the appended element on success.
  * @returns Otherwise, the function returns a NULL pointer.
  * 
  * @returns @p err gets set to ::DA_OK on success.
- * @returns @p err gets set to (::DA_PARAM_ERR|::DA_PARAM_NULL) if @p da is a NULL-pointer.
- * @returns @p err gets set to (::DA_FAIL|::DA_FAIL_ENOMEM) if no space is left on device.
+ * @returns @p err gets set to ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer.
+ * @returns @p err gets set to ::DA_FATAL | ::DA_FATAL_ENOMEM if no space is left on device.
  */
 void *DaAppend(DaStruct *da, int *err, void *element);
 
-/* The function will prepend the element. */
-/* The functions returns a non-NULL pointer that points to the top of the area that contains the element. */
-/* void *DaPrepend(DaStruct *da, int *err, void *element) */
+/**
+ * @brief The function prepends the element to the array.
+ *
+ * The function prepends the @p element to the array and increases the array if necessary.
+ * It remains unchanged in the event of an error.
+ *
+ * @param[in]  da      Prepend the element to this array.
+ * @param[out] err     Indicates what went wrong in the event of an error.
+ * @param[in]  element The element that shall be prepended.
+ *
+ * @returns The function returns a non-NULL pointer to the prepended element on success.
+ * @returns Otherwise, the function returns a NULL pointer.
+ *
+ * @returns @p err gets set to ::DA_OK on success.
+ * @returns @p err gets set to ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer.
+ * @returns @p err gets set to ::DA_FATAL | ::DA_FATAL_ENOMEM if no space is left on device.
+ */
+void *DaPrepend(DaStruct *da, int *err, void *element);
 
 /* The function will insert the element at pos. */
 /* The functions returns a non-NULL pointer that points to the top of the area that contains the element. */
