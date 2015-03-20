@@ -163,7 +163,22 @@ DaStruct *DaCreate(DaDesc *desc, int *err);
  */
 int DaDestroy(DaStruct *da, int *err);
 
-/* static int DaRealloc(DaStruct *desc, int *err) */
+/**
+ * @brief The function reallocates the dynamic array to increase the space.
+ *
+ * The array remains unchanged in the event of an error.
+ * 
+ * @param[in]  da The array that should be destroyed.
+ * @param[out] err Indicates what went wrong in the event of an error.
+ * 
+ * @returns Returns 0 on success.
+ * @returns Otherwise, -1 is returned and @p err is set appropriately.
+ * 
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ */
+static int DaRealloc(DaStruct *da, int *err);
 
 /**
  * @brief The function returns the number of elements in the array.
@@ -243,6 +258,7 @@ void *DaPrepend(DaStruct *da, int *err, void *element);
  * @param[in]  da      Insert the element into to this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
  * @param[in]  element The element that shall be inserted.
+ * @param[in]  pos     Insert the @p element at this position in the array.
  *
  * @returns The function returns a pointer to the isnerted element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
@@ -257,6 +273,10 @@ void *DaInsertAt(DaStruct *da, int *err, void *element, size_t pos);
 /**
  * @brief The function deletes the element at @p pos.
  * 
+ * @param[in]  da      Delete the element from this array.
+ * @param[out] err     Indicates what went wrong in the event of an error.
+ * @param[in]  pos     Delete the @p element at this position from the array.
+ * 
  * @returns Returns 0 on success.
  * @returns Otherwise, -1 is returned and @p err is set appropriately.
  * 
@@ -269,6 +289,10 @@ int DaRemove(DaStruct *da, int *err, size_t pos);
 
 /**
  * @brief The function returns the element at @p pos.
+ * 
+ * @param[in]  da      Get the element from this array.
+ * @param[out] err     Indicates what went wrong in the event of an error.
+ * @param[in]  pos     Get the @p element at this position from the array.
  * 
  * @returns The function returns a pointer to the element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
