@@ -148,8 +148,8 @@ DaStruct *DaCreate(DaDesc *desc, int *err);
 /**
  * @brief The function deletes a dynamic array.
  *
- * The function frees all allocated memory of the dynamic array \p da.
- * \p da gets invalid after successful execution.
+ * The function frees all allocated memory of the dynamic array @p da.
+ * @p da gets invalid after successful execution.
  * 
  * @param[in]  da The array that should be destroyed.
  * @param[out] err Indicates what went wrong in the event of an error.
