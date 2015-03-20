@@ -235,12 +235,38 @@ void *DaAppend(DaStruct *da, int *err, void *element);
  */
 void *DaPrepend(DaStruct *da, int *err, void *element);
 
-/* The function will insert the element at pos. */
-/* The functions returns a non-NULL pointer that points to the top of the area that contains the element. */
-/* void *DaInsertAt(DaStruct *da, int *err, void *element, size_t pos) */
+/**
+ * @brief The function inserts the @p element at @p pos.
+ *
+ * The array remains unchanged in the event of an error.
+ * 
+ * @param[in]  da      Insert the element into to this array.
+ * @param[out] err     Indicates what went wrong in the event of an error.
+ * @param[in]  element The element that shall be inserted.
+ *
+ * @returns The function returns a pointer to the isnerted element on success.
+ * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
+ * 
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.
+ */
+void *DaInsertAt(DaStruct *da, int *err, void *element, size_t pos);
 
-/* The function will remove the element at pos. */
-/* int DaRemove(DaStruct *da, int *err, size_t pos) */
+/**
+ * @brief The function deletes the element at @p pos.
+ * 
+ * @returns The function returns 0 on success.
+ * @returns On error, -1 is returned.
+ * @returns Keep in mind to check the value of @p err.
+ * 
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds.
+ */
+int DaRemove(DaStruct *da, int *err, size_t pos);
 
 /**
  * @brief The function returns the element at @p pos.
@@ -255,11 +281,29 @@ void *DaPrepend(DaStruct *da, int *err, void *element);
  */
 void *DaGet(DaStruct *da, int *err, size_t pos);
 
-/* The function returns a non-NULL pointer to the first element. */
-/* void *DaGetFirst(DaStruct *da, int *err) */
+/**
+ * @brief The function returns the first element of the array
+ * 
+ * @returns The function returns a pointer to the first element on success.
+ * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
+ * 
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ */
+void *DaGetFirst(DaStruct *da, int *err);
 
-/* The function returns a non-NULL pointer to the last element. */
-/* void *DaGetLast(DaStruct *da, int *err) */
+/**
+ * @brief The function returns the last element of the array
+ * 
+ * @returns The function returns a pointer to the last element on success.
+ * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
+ * 
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ */
+void *DaGetLast(DaStruct *da, int *err);
 
 /**
  * @brief The function replaces the element at pos with the newElement.
