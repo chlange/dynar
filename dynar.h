@@ -257,9 +257,8 @@ void *DaInsertAt(DaStruct *da, int *err, void *element, size_t pos);
 /**
  * @brief The function deletes the element at @p pos.
  * 
- * @returns The function returns 0 on success.
- * @returns On error, -1 is returned.
- * @returns Keep in mind to check the value of @p err.
+ * @returns Returns 0 on success.
+ * @returns Otherwise, -1 is returned and @p err is set appropriately.
  * 
  * @b Errors @n
  * ::DA_OK on success. @n
