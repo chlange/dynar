@@ -371,8 +371,7 @@ void *DaUpdate(DaStruct *da, int *err, void *newElement, size_t pos);
  *   @p ::DA_HARD: Increase space for exactly @p n new elements no matter if enough space is available.@n
  *   @p ::DA_SOFT: Increase the array only if not enough space for @p n new elements is available.
  *   
- * @returns Returns 0 on success.
- * @returns Otherwise, -1 is returned and @p err is set appropriately.
+ * @returns Returns 0 on success, otherwise, -1 is returned and @p err is set appropriately.
  * 
  * @b Errors @n
  * ::DA_OK on success. @n
