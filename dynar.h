@@ -260,7 +260,7 @@ void *DaPrepend(DaStruct *da, int *err, void *element);
  * @param[in]  element The element that shall be inserted.
  * @param[in]  pos     Insert the @p element at this position in the array.
  *
- * @returns The function returns a pointer to the isnerted element on success.
+ * @returns The function returns a pointer to the inserted element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
  * 
  * @b Errors @n
@@ -277,8 +277,7 @@ void *DaInsertAt(DaStruct *da, int *err, void *element, size_t pos);
  * @param[out] err     Indicates what went wrong in the event of an error.
  * @param[in]  pos     Delete the @p element at this position from the array.
  * 
- * @returns Returns 0 on success.
- * @returns Otherwise, -1 is returned and @p err is set appropriately.
+ * @returns Returns 0 on success, otherwise -1 is returned and @p err is set appropriately.
  * 
  * @b Errors @n
  * ::DA_OK on success. @n
@@ -307,17 +306,24 @@ void *DaGet(DaStruct *da, int *err, size_t pos);
 /**
  * @brief The function returns the first element of the array
  * 
+ * @param[in]  da      Get the element from this array.
+ * @param[out] err     Indicates what went wrong in the event of an error.
+ * 
  * @returns The function returns a pointer to the first element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
  * 
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if the array is empty.
  */
 void *DaGetFirst(DaStruct *da, int *err);
 
 /**
  * @brief The function returns the last element of the array
+ * 
+ * @param[in]  da      Get the element from this array.
+ * @param[out] err     Indicates what went wrong in the event of an error.
  * 
  * @returns The function returns a pointer to the last element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
@@ -325,14 +331,22 @@ void *DaGetFirst(DaStruct *da, int *err);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if the array is empty.
  */
 void *DaGetLast(DaStruct *da, int *err);
 
 /**
- * @brief The function replaces the element at pos with the newElement.
+ * @brief The function updates the element at @p pos with the contents from the @p newElement.
  *
- * The array remains unchanged in the event of an error.
+ * The function copies the bytes from @p newElement to the element at @p pos.
  * 
+ * The array remains unchanged in the event of an error.
+ *
+ * @param[in]  da         Update the element of this array.
+ * @param[out] err        Indicates what went wrong in the event of an error.
+ * @param[in]  newElement Replace the current element with this element.
+ * @param[in]  pos        Update the element at this position.
+ *
  * @returns The function returns a pointer to the updated element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
  * 
