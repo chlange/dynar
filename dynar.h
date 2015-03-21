@@ -225,8 +225,8 @@ int DaIsEmpty(DaStruct *da, int *err);
  * 
  * @b Errors @n
  * ::DA_OK on success. @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.
+ * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. 
  */
 void *DaAppend(DaStruct *da, int *err, void *element);
 
@@ -245,8 +245,8 @@ void *DaAppend(DaStruct *da, int *err, void *element);
  *
  * @b Errors @n
  * ::DA_OK on success. @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.
+ * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. 
  */
 void *DaPrepend(DaStruct *da, int *err, void *element);
 
