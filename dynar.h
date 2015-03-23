@@ -273,7 +273,7 @@ void *DaPrepend(DaStruct *da, int *err, void *element);
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (pos >= DaSize()).
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= DaSize()).
  */
 void *DaInsertAt(DaStruct *da, int *err, void *element, size_t pos);
 
@@ -289,7 +289,7 @@ void *DaInsertAt(DaStruct *da, int *err, void *element, size_t pos);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (pos >= DaSize()).
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= DaSize()).
  */
 int DaRemove(DaStruct *da, int *err, size_t pos);
 
@@ -306,7 +306,7 @@ int DaRemove(DaStruct *da, int *err, size_t pos);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (pos >= DaSize()).
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= DaSize()).
  */
 void *DaGet(DaStruct *da, int *err, size_t pos);
 
@@ -360,7 +360,7 @@ void *DaGetLast(DaStruct *da, int *err);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (pos >= DaSize()).
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= DaSize()).
  */
 void *DaSet(DaStruct *da, int *err, void *element, size_t pos);
 
