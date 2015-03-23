@@ -253,6 +253,7 @@ void *DaPrepend(DaStruct *da, int *err, void *element);
 /**
  * @brief The function inserts the @p element at @p pos.
  *
+ * @p pos must be in between the array bounds.
  * The array remains unchanged in the event of an error.
  * 
  * @param[in]  da      Insert the element into to this array.
@@ -265,8 +266,9 @@ void *DaPrepend(DaStruct *da, int *err, void *element);
  * 
  * @b Errors @n
  * ::DA_OK on success. @n
+ * ::DA_FATAL | ::DA_ENOMEM if no space is left on device. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds.
  */
 void *DaInsertAt(DaStruct *da, int *err, void *element, size_t pos);
 
