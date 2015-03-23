@@ -46,6 +46,11 @@
 #define DA_ENOMEM        0x00000001
 
 /**
+ * Element not found in array.
+ */
+#define DA_NOT_FOUND     0x30000000
+
+/**
  * Magic number to avoid use-after-free or similar errors.
  */
 #define DA_MAGIC         0x71238924
@@ -400,8 +405,9 @@ int DaClear(DaStruct *da, int *err);
 /**
  * @brief Searches the array for the @p element.
  * 
- * @param[in]  da  Search this array.
- * @param[out] err Indicates what went wrong in the event of an error.
+ * @param[in]  da      Search this array.
+ * @param[out] err     Indicates what went wrong in the event of an error.
+ * @param[in]  element Search the array for this element.
  * 
  * @returns Returns 1 if the array contains the @p element, otherwise 0 is returned.
  * 
@@ -415,9 +421,9 @@ int DaContains(DaStruct *da, int *err, void *element);
 /**
  * @brief Returns the index of the first occurence of the @p element in the array.
  * 
- * @param  da      Search this array.
- * @param  err     Indicates what went wrong in the event of an error.
- * @param  element Search the array for this element.
+ * @param[in]  da      Search this array.
+ * @param[out] err     Indicates what went wrong in the event of an error.
+ * @param[in]  element Search the array for this element.
  *
  * @returns Returns the index of the first occurence on success.
  * @returns Keep in mind to check the value of @p err.
@@ -433,9 +439,9 @@ size_t DaIndexOf(DaStruct *da, int *err, void *element);
 /**
  * @brief Returns the index of the last occurence of the @p element in the array.
  * 
- * @param  da      Search this array.
- * @param  err     Indicates what went wrong in the event of an error.
- * @param  element Search the array for this element.
+ * @param[in]  da      Search this array.
+ * @param[out] err     Indicates what went wrong in the event of an error.
+ * @param[in]  element Search the array for this element.
  *
  * @returns Returns the index of the last occurence on success.
  * @returns Keep in mind to check the value of @p err.
@@ -451,8 +457,8 @@ size_t DaLastIndexOf(DaStruct *da, int *err, void *element);
 /**
  * @brief Returns a copy of the array.
  * 
- * @param  da  Clone this array.
- * @param  err Indicates what went wrong in the event of an error.
+ * @param[in]  da  Clone this array.
+ * @param[out] err Indicates what went wrong in the event of an error.
  *
  * @returns Returns a pointer to the cloned array on success, otherwise a NULL pointer is returned and @p is set appropriately.
  * 
