@@ -448,4 +448,19 @@ size_t DaIndexOf(DaStruct *da, int *err, void *element);
  */
 size_t DaLastIndexOf(DaStruct *da, int *err, void *element);
 
+/**
+ * @brief Returns a copy of the array.
+ * 
+ * @param  da  Clone this array.
+ * @param  err Indicates what went wrong in the event of an error.
+ *
+ * @returns Returns a pointer to the cloned array on success, otherwise a NULL pointer is returned and @p is set appropriately.
+ * 
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_FATAL | ::DA_ENOMEM if no space is left on device. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ */
+DaStruct *DaClone(DaStruct *da, int *err);
+
 #endif
