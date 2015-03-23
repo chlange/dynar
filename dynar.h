@@ -389,11 +389,63 @@ int DaIncrease(DaStruct *da, int *err, size_t n, int mode);
  * @param[out] err Indicates what went wrong in the event of an error.
  *
  * @returns Returns 0 on success, otherwise, -1 is returned and @p err is set appropriately.
+ * @returns In the case of an empty array 0 is returned.
  * 
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
 int DaClear(DaStruct *da, int *err);
+
+/**
+ * @brief Searches the array for the @p element.
+ * 
+ * @param[in]  da  Search this array.
+ * @param[out] err Indicates what went wrong in the event of an error.
+ * 
+ * @returns Returns 1 if the array contains the @p element, otherwise 0 is returned.
+ * 
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if the array is empty.
+ */
+int DaContains(DaStruct *da, int *err, void *element);
+
+/**
+ * @brief Returns the index of the first occurence of the @p element in the array.
+ * 
+ * @param  da      Search this array.
+ * @param  err     Indicates what went wrong in the event of an error.
+ * @param  element Search the array for this element.
+ *
+ * @returns Returns the index of the first occurence on success.
+ * @returns Keep in mind to check the value of @p err.
+ * 
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if the array is empty.
+ */
+size_t DaIndexOf(DaStruct *da, int *err, void *element);
+
+/**
+ * @brief Returns the index of the last occurence of the @p element in the array.
+ * 
+ * @param  da      Search this array.
+ * @param  err     Indicates what went wrong in the event of an error.
+ * @param  element Search the array for this element.
+ *
+ * @returns Returns the index of the last occurence on success.
+ * @returns Keep in mind to check the value of @p err.
+ * 
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if the array is empty.
+ */
+size_t DaLastIndexOf(DaStruct *da, int *err, void *element);
 
 #endif
