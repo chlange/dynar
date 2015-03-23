@@ -15,6 +15,7 @@
  */
 #define DA_OK            0x00000000
 
+
 /**
  * Group of parameter errors.
  * 
@@ -34,6 +35,7 @@
 */
 #define DA_OUT_OF_BOUNDS 0x00000003
 
+
 /**
  * Group of fatal errors.
  * 
@@ -49,6 +51,7 @@
  * Element not found in array.
  */
 #define DA_NOT_FOUND     0x30000000
+
 
 /**
  * Magic number to avoid use-after-free or similar errors.
@@ -218,6 +221,8 @@ int DaIsEmpty(DaStruct *da, int *err);
 /**
  * @brief The function appends the @p element to the array.
  *
+ * Shifts all elements in the array one position to the right before appending the new @p element.
+ *  
  * The array will be increased if necessary.
  * It remains unchanged in the event of an error.
  * 
@@ -258,6 +263,8 @@ void *DaPrepend(DaStruct *da, int *err, void *element);
 /**
  * @brief The function inserts the @p element at @p pos.
  *
+ * Shifts the element and any subsequent elements from @p pos one position to the right before inserting the new @p element.
+ * 
  * @p pos must be in between the array bounds.
  * The array remains unchanged in the event of an error.
  * 
@@ -279,6 +286,8 @@ void *DaInsertAt(DaStruct *da, int *err, void *element, size_t pos);
 
 /**
  * @brief The function deletes the element at @p pos.
+ *
+ * Shifts all subsequent elements from @p pos one position to the left.
  * 
  * @param[in]  da      Delete the element from this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
