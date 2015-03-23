@@ -382,4 +382,18 @@ void *DaSet(DaStruct *da, int *err, void *element, size_t pos);
  */
 int DaIncrease(DaStruct *da, int *err, size_t n, int mode);
 
+/**
+ * @brief Removes all elements from the array.
+ * 
+ * @param[in]  da  Clear this array.
+ * @param[out] err Indicates what went wrong in the event of an error.
+ *
+ * @returns Returns 0 on success, otherwise, -1 is returned and @p err is set appropriately.
+ * 
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ */
+int DaClear(DaStruct *da, int *err);
+
 #endif
