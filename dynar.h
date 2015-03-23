@@ -336,15 +336,15 @@ void *DaGetFirst(DaStruct *da, int *err);
 void *DaGetLast(DaStruct *da, int *err);
 
 /**
- * @brief The function updates the element at @p pos with the contents from the @p newElement.
+ * @brief The function replaces the element at @p pos with the contents from the specified @p element.
  *
- * The function copies the bytes from @p newElement to the element at @p pos.
+ * The function copies the bytes from the specified @p element to the element at @p pos.
  * 
  * The array remains unchanged in the event of an error.
  *
  * @param[in]  da         Update the element of this array.
  * @param[out] err        Indicates what went wrong in the event of an error.
- * @param[in]  newElement Replace the current element with this element.
+ * @param[in]  element    Replace the current element with this element.
  * @param[in]  pos        Update the element at this position.
  *
  * @returns The function returns a pointer to the updated element on success.
@@ -355,7 +355,7 @@ void *DaGetLast(DaStruct *da, int *err);
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds.
  */
-void *DaUpdate(DaStruct *da, int *err, void *newElement, size_t pos);
+void *DaSet(DaStruct *da, int *err, void *element, size_t pos);
 
 /**
  * @brief The function increases the array in a way that @p n free slots for new elements are available.
