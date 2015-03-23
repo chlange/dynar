@@ -131,7 +131,7 @@ typedef struct __str_da_ptr
  * @brief The function creates a new dynamic array.
  *
  * It allocates memory for the initial settings given by @p desc and initializes all
- * values in the newly created ::DaStruct object before returning it to the user.
+ * values in the newly created ::DaStruct object.
  *
  * @param[in]  desc Initial settings for the array.
  * @param[out] err  Indicates what went wrong in the event of an error.
@@ -268,7 +268,7 @@ void *DaPrepend(DaStruct *da, int *err, void *element);
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds.
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (pos >= DaSize()).
  */
 void *DaInsertAt(DaStruct *da, int *err, void *element, size_t pos);
 
@@ -284,7 +284,7 @@ void *DaInsertAt(DaStruct *da, int *err, void *element, size_t pos);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds.
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (pos >= DaSize()).
  */
 int DaRemove(DaStruct *da, int *err, size_t pos);
 
@@ -301,7 +301,7 @@ int DaRemove(DaStruct *da, int *err, size_t pos);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds.
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (pos >= DaSize()).
  */
 void *DaGet(DaStruct *da, int *err, size_t pos);
 
@@ -355,7 +355,7 @@ void *DaGetLast(DaStruct *da, int *err);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds.
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (pos >= DaSize()).
  */
 void *DaSet(DaStruct *da, int *err, void *element, size_t pos);
 
