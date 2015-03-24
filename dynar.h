@@ -268,7 +268,7 @@ void *DaPrepend(DaStruct *da, int *err, void *element);
  * @p pos must be in between the array bounds.
  * The array remains unchanged in the event of an error.
  * 
- * @param[in]  da      Insert the element into to this array.
+ * @param[in]  da      Insert the element into this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
  * @param[in]  element The element that shall be inserted.
  * @param[in]  pos     Insert the @p element at this position into the array.
