@@ -222,7 +222,7 @@ int DaIsEmpty(DaStruct *da, int *err);
  * @brief The function appends the @p element to the array.
  *
  * Shifts all elements in the array one position to the right before appending the new @p element.
- *  
+ * 
  * The array will be increased if necessary.
  * It remains unchanged in the event of an error.
  * 
@@ -271,7 +271,7 @@ void *DaPrepend(DaStruct *da, int *err, void *element);
  * @param[in]  da      Insert the element into to this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
  * @param[in]  element The element that shall be inserted.
- * @param[in]  pos     Insert the @p element at this position in the array.
+ * @param[in]  pos     Insert the @p element at this position into the array.
  *
  * @returns The function returns a pointer to the inserted element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
@@ -378,7 +378,7 @@ void *DaSet(DaStruct *da, int *err, void *element, size_t pos);
  * 
  * The array remains unchanged in the event of an error.
  *
- * @param[in]  da   Prepend the element to this array.
+ * @param[in]  da   Increase this array.
  * @param[out] err  Indicates what went wrong in the event of an error.
  * @param[in]  n    Increase array by this amount.
  * @param[in]  mode Specifies the operation mode of the function.
@@ -391,6 +391,7 @@ void *DaSet(DaStruct *da, int *err, void *element, size_t pos);
  * 
  * @b Errors @n
  * ::DA_OK on success. @n
+ * ::DA_FATAL | ::DA_ENOMEM if no space is left on device. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  * ::DA_PARAM_ERR | ::DA_MODE_UNKNOWN if @p mode is unknown.
  */
@@ -412,7 +413,7 @@ int DaIncrease(DaStruct *da, int *err, size_t n, int mode);
 int DaClear(DaStruct *da, int *err);
 
 /**
- * @brief Searches the array for the @p element.
+ * @brief Checks whether the array contains the @p element.
  * 
  * @param[in]  da      Search this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
@@ -422,8 +423,8 @@ int DaClear(DaStruct *da, int *err);
  * 
  * @b Errors @n
  * ::DA_OK on success. @n
+ * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element (e.g. the array is empty). @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if the array is empty.
  */
 int DaContains(DaStruct *da, int *err, void *element);
 
@@ -439,9 +440,8 @@ int DaContains(DaStruct *da, int *err, void *element);
  * 
  * @b Errors @n
  * ::DA_OK on success. @n
- * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element. @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if the array is empty.
+ * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element (e.g. the array is empty). @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer.
  */
 size_t DaIndexOf(DaStruct *da, int *err, void *element);
 
@@ -457,9 +457,8 @@ size_t DaIndexOf(DaStruct *da, int *err, void *element);
  * 
  * @b Errors @n
  * ::DA_OK on success. @n
- * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element. @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if the array is empty.
+ * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element (e.g. the array is empty). @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer.
  */
 size_t DaLastIndexOf(DaStruct *da, int *err, void *element);
 
@@ -469,7 +468,7 @@ size_t DaLastIndexOf(DaStruct *da, int *err, void *element);
  * @param[in]  da  Clone this array.
  * @param[out] err Indicates what went wrong in the event of an error.
  *
- * @returns Returns a pointer to the cloned array on success, otherwise a NULL pointer is returned and @p is set appropriately.
+ * @returns Returns a pointer to the cloned array on success, otherwise a NULL pointer is returned and @p err is set appropriately.
  * 
  * @b Errors @n
  * ::DA_OK on success. @n
