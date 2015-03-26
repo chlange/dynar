@@ -65,12 +65,12 @@
 
 
 /**
- * Operation mode for DaIncrease()
+ * Operation mode for daIncrease()
  */
 #define DA_HARD          0x00000001
 
 /**
- * Operation mode for DaIncrease()
+ * Operation mode for daIncrease()
  */
 #define DA_SOFT          0x00000002
 
@@ -151,7 +151,7 @@ typedef struct __str_da_ptr
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
-DaStruct *DaCreate(DaDesc *desc, int *err);
+DaStruct *daCreate(DaDesc *desc, int *err);
 
 /**
  * @brief The function deletes a dynamic array.
@@ -169,7 +169,7 @@ DaStruct *DaCreate(DaDesc *desc, int *err);
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
-int DaDestroy(DaStruct *da, int *err);
+int daDestroy(DaStruct *da, int *err);
 
 /**
  * @brief The function reallocates the dynamic array to increase the space.
@@ -186,7 +186,7 @@ int DaDestroy(DaStruct *da, int *err);
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
-static int DaRealloc(DaStruct *da, int *err);
+static int daRealloc(DaStruct *da, int *err);
 
 /**
  * @brief The function returns the number of elements in the array.
@@ -201,7 +201,7 @@ static int DaRealloc(DaStruct *da, int *err);
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
-size_t DaSize(DaStruct *da, int *err);
+size_t daSize(DaStruct *da, int *err);
 
 /**
  * @brief The function returns the fill state of the array.
@@ -216,7 +216,7 @@ size_t DaSize(DaStruct *da, int *err);
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
-int DaIsEmpty(DaStruct *da, int *err);
+int daIsEmpty(DaStruct *da, int *err);
 
 /**
  * @brief The function appends the @p element to the array.
@@ -238,7 +238,7 @@ int DaIsEmpty(DaStruct *da, int *err);
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. 
  */
-void *DaAppend(DaStruct *da, int *err, void *element);
+void *daAppend(DaStruct *da, int *err, void *element);
 
 /**
  * @brief The function prepends the @p element to the array.
@@ -258,7 +258,7 @@ void *DaAppend(DaStruct *da, int *err, void *element);
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. 
  */
-void *DaPrepend(DaStruct *da, int *err, void *element);
+void *daPrepend(DaStruct *da, int *err, void *element);
 
 /**
  * @brief The function inserts the @p element at @p pos.
@@ -280,9 +280,9 @@ void *DaPrepend(DaStruct *da, int *err, void *element);
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= DaSize()).
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= daSize()).
  */
-void *DaInsertAt(DaStruct *da, int *err, void *element, size_t pos);
+void *daInsertAt(DaStruct *da, int *err, void *element, size_t pos);
 
 /**
  * @brief The function deletes the element at @p pos.
@@ -298,9 +298,9 @@ void *DaInsertAt(DaStruct *da, int *err, void *element, size_t pos);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= DaSize()).
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= daSize()).
  */
-int DaRemove(DaStruct *da, int *err, size_t pos);
+int daRemove(DaStruct *da, int *err, size_t pos);
 
 /**
  * @brief The function returns the element at @p pos.
@@ -317,7 +317,7 @@ int DaRemove(DaStruct *da, int *err, size_t pos);
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= DaSize()).
  */
-void *DaGet(DaStruct *da, int *err, size_t pos);
+void *daGet(DaStruct *da, int *err, size_t pos);
 
 /**
  * @brief The function returns the first element of the array
@@ -333,7 +333,7 @@ void *DaGet(DaStruct *da, int *err, size_t pos);
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if the array is empty.
  */
-void *DaGetFirst(DaStruct *da, int *err);
+void *daGetFirst(DaStruct *da, int *err);
 
 /**
  * @brief The function returns the last element of the array
@@ -349,7 +349,7 @@ void *DaGetFirst(DaStruct *da, int *err);
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if the array is empty.
  */
-void *DaGetLast(DaStruct *da, int *err);
+void *daGetLast(DaStruct *da, int *err);
 
 /**
  * @brief The function replaces the element at @p pos with the contents from the specified @p element.
@@ -371,7 +371,7 @@ void *DaGetLast(DaStruct *da, int *err);
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= DaSize()).
  */
-void *DaSet(DaStruct *da, int *err, void *element, size_t pos);
+void *daSet(DaStruct *da, int *err, void *element, size_t pos);
 
 /**
  * @brief The function increases the array in a way that @p n free slots for new elements are available.
@@ -395,7 +395,7 @@ void *DaSet(DaStruct *da, int *err, void *element, size_t pos);
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  * ::DA_PARAM_ERR | ::DA_MODE_UNKNOWN if @p mode is unknown.
  */
-int DaIncrease(DaStruct *da, int *err, size_t n, int mode);
+int daIncrease(DaStruct *da, int *err, size_t n, int mode);
 
 /**
  * @brief Removes all elements from the array.
@@ -410,7 +410,7 @@ int DaIncrease(DaStruct *da, int *err, size_t n, int mode);
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
-int DaClear(DaStruct *da, int *err);
+int daClear(DaStruct *da, int *err);
 
 /**
  * @brief Checks whether the array contains the @p element.
@@ -426,7 +426,7 @@ int DaClear(DaStruct *da, int *err);
  * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element (e.g. the array is empty). @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
-int DaContains(DaStruct *da, int *err, void *element);
+int daContains(DaStruct *da, int *err, void *element);
 
 /**
  * @brief Returns the index of the first occurence of the @p element in the array.
@@ -443,7 +443,7 @@ int DaContains(DaStruct *da, int *err, void *element);
  * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element (e.g. the array is empty). @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer.
  */
-size_t DaIndexOf(DaStruct *da, int *err, void *element);
+size_t daIndexOf(DaStruct *da, int *err, void *element);
 
 /**
  * @brief Returns the index of the last occurence of the @p element in the array.
@@ -460,7 +460,7 @@ size_t DaIndexOf(DaStruct *da, int *err, void *element);
  * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element (e.g. the array is empty). @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer.
  */
-size_t DaLastIndexOf(DaStruct *da, int *err, void *element);
+size_t daLastIndexOf(DaStruct *da, int *err, void *element);
 
 /**
  * @brief Returns a copy of the array.
@@ -475,6 +475,6 @@ size_t DaLastIndexOf(DaStruct *da, int *err, void *element);
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
-DaStruct *DaClone(DaStruct *da, int *err);
+DaStruct *daClone(DaStruct *da, int *err);
 
 #endif
