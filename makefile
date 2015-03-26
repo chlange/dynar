@@ -14,8 +14,8 @@ $(OBJ):
 	$(CC) $(CFLAGS) -c $(HEADERS) $(SOURCES)
 
 
-TEST_OPEN=test_open
-TEST_OPEN_SRC=$(TESTDIR)/test_open.c
+TEST_OPEN=testOpen
+TEST_OPEN_SRC=$(TESTDIR)/testOpen.c
 $(TEST_OPEN):
 	$(CC) $(CFLAGS) $(TEST_OPEN_SRC) -o $(TESTDIR)/$(TEST_OPEN)
 
