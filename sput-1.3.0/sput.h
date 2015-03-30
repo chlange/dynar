@@ -222,13 +222,13 @@ extern "C" {
 
 #define sput_finish_testing()                                              \
     do {                                                                   \
-        float failp = 0.0f;                                                \
+        float failpt = 0.0f;                                                \
         _sput_die_unless_initialized();                                    \
         if (__sput.suite.name)                                             \
         {                                                                  \
             sput_leave_suite();                                            \
         }                                                                  \
-        failp = __sput.overall.checks ? (float)                            \
+        failpt = __sput.overall.checks ? (float)                            \
                 ((__sput.overall.nok * 100.0) / __sput.overall.checks) :   \
                 0.0f;                                                      \
         __sput.time.end = time(NULL);                                      \
@@ -239,7 +239,7 @@ extern "C" {
                 "\n[%s]\n",                                                \
                 __sput.overall.checks, __sput.overall.suites,              \
                 difftime(__sput.time.end, __sput.time.start),              \
-                __sput.overall.ok, __sput.overall.nok, failp,              \
+                __sput.overall.ok, __sput.overall.nok, failpt,              \
                 (sput_get_return_value() == EXIT_SUCCESS) ?                \
                 "SUCCESS" : "FAILURE");                                    \
     } while (0)
