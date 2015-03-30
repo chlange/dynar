@@ -44,6 +44,20 @@ static void testInit(void)
     sput_fail_if(da->max != desc.elements, "da->max != desc.elements");
     sput_fail_if(da->bytesPerElement != desc.bytesPerElement, "da->bytesPerElement != desc.bytesPerElement");
     sput_fail_if(da->magic != DA_MAGIC, "da->magic != DA_MAGIC");
+
+}
+
+static void testEnomem(void)
+{
+    int err;
+    DaDesc desc;
+    DaStruct *da;
+
+    desc.elements = ~0;
+    desc.bytesPerElement = 50000;
+    da = daCreate(&desc, &err);
+    sput_fail_if(da != NULL, "daCreate(&desc, &err) with too many elements succeeds.");
+    sput_fail_if(err != (DA_FATAL | DA_ENOMEM), "err != (DA_FATAL | DA_ENOMEM).");
 }
 
 int main(void)
@@ -55,6 +69,9 @@ int main(void)
 
     sput_enter_suite("daCreate should succeed with valid values");
     sput_run_test(testInit);
+
+    sput_enter_suite("daCreate should return ENOMEM if not enough space is available");
+    sput_run_test(testEnomem);
 
     sput_finish_testing();
 
