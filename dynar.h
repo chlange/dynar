@@ -2,6 +2,7 @@
 #define __DYNAR_H__
 
 #include <stddef.h>
+#include <stdlib.h>
 
 /** 
  * @file
@@ -149,6 +150,7 @@ typedef struct __str_da_ptr
  * 
  * @b Errors @n
  * ::DA_OK on success. @n
+ * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
 DaStruct *daCreate(DaDesc *desc, int *err);
@@ -170,23 +172,6 @@ DaStruct *daCreate(DaDesc *desc, int *err);
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
 int daDestroy(DaStruct *da, int *err);
-
-/**
- * @brief The function reallocates the dynamic array to increase the space.
- *
- * The array remains unchanged in the event of an error.
- * 
- * @param[in]  da The array that should be destroyed.
- * @param[out] err Indicates what went wrong in the event of an error.
- * 
- * @returns Returns 0 on success.
- * @returns Otherwise, -1 is returned and @p err is set appropriately.
- * 
- * @b Errors @n
- * ::DA_OK on success. @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- */
-static int daRealloc(DaStruct *da, int *err);
 
 /**
  * @brief The function returns the number of elements in the array.
