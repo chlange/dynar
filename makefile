@@ -3,7 +3,7 @@ RANLIB=  /usr/bin/ar ts
 IPATH=   -I. -Isput-1.3.0
 CC=cc
 
-override CFLAGS += $(IPATH) -ansi -g -Wall -Wformat -pedantic -O1 -Wshadow -Wpointer-arith -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes
+override CFLAGS += $(IPATH) -Werror -ansi -g -Wall -Wformat -pedantic -O1 -Wshadow -Wpointer-arith -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes
 
 OBJ=dynar.o
 SOURCES=dynar.c
@@ -16,14 +16,14 @@ $(OBJ):
 
 TEST_OPEN=testOpen
 TEST_OPEN_SRC=$(TESTDIR)/testOpen.c
-$(TEST_OPEN):
-	$(CC) $(CFLAGS) $(TEST_OPEN_SRC) -o $(TESTDIR)/$(TEST_OPEN)
+$(TEST_OPEN): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(TEST_OPEN_SRC) -o $(TESTDIR)/$(TEST_OPEN)
 
 all: clean obj
 
-test: $(TEST_OPEN)
+test: clean $(TEST_OPEN)
 
 obj: $(OBJ)
 
 clean:
-	rm -f $(OBJ) $(LIB) $(HEADERS).gch
+	rm -f $(OBJ) $(LIB) $(HEADERS).gch $(TESTDIR)/$(TEST_OPEN)
