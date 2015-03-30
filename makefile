@@ -14,16 +14,16 @@ $(OBJ):
 	$(CC) $(CFLAGS) -c $(HEADERS) $(SOURCES)
 
 
-TEST_OPEN=testOpen
-TEST_OPEN_SRC=$(TESTDIR)/testOpen.c
-$(TEST_OPEN): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(TEST_OPEN_SRC) -o $(TESTDIR)/$(TEST_OPEN)
+TEST_CREATE=testCreate
+TEST_CREATE_SRC=$(TESTDIR)/testCreate.c
+$(TEST_CREATE): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(TEST_CREATE_SRC) -o $(TESTDIR)/$(TEST_CREATE)
 
 all: clean obj
 
-test: clean $(TEST_OPEN)
+test: clean $(TEST_CREATE)
 
 obj: $(OBJ)
 
 clean:
-	rm -f $(OBJ) $(LIB) $(HEADERS).gch $(TESTDIR)/$(TEST_OPEN)
+	rm -f $(OBJ) $(LIB) $(HEADERS).gch $(TESTDIR)/$(TEST_CREATE)
