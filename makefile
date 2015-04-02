@@ -9,21 +9,20 @@ OBJ=dynar.o
 SOURCES=dynar.c
 HEADERS=dynar.h
 TESTDIR=test
+TESTSRCS=$(wildcard $(TESTDIR)/*.c)
+TESTBINARIES=$(patsubst %.c,%,$(wildcard $(TESTDIR)/*.c))
 
 $(OBJ):
 	$(CC) $(CFLAGS) -c $(HEADERS) $(SOURCES)
 
+$(TESTBINARIES): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $@.c -o $@
 
-TEST_CREATE=testCreate
-TEST_CREATE_SRC=$(TESTDIR)/testCreate.c
-$(TEST_CREATE): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(TEST_CREATE_SRC) -o $(TESTDIR)/$(TEST_CREATE)
+tests: $(TESTBINARIES)
 
-all: clean obj
-
-test: clean $(TEST_CREATE)
+all: obj tests
 
 obj: $(OBJ)
 
 clean:
-	rm -f $(OBJ) $(LIB) $(HEADERS).gch $(TESTDIR)/$(TEST_CREATE)
+	rm -f $(OBJ) $(LIB) $(HEADERS).gch $(TESTBINARIES)
