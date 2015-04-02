@@ -161,6 +161,8 @@ DaStruct *daCreate(DaDesc *desc, int *err);
  * The function frees all allocated memory of the dynamic array @p da.
  * @p da gets invalid after successful execution.
  * 
+ * The array remains unchanged in the event of an error.
+ * 
  * @param[in]  da The array that should be destroyed.
  * @param[out] err Indicates what went wrong in the event of an error.
  *
@@ -273,6 +275,9 @@ void *daInsertAt(DaStruct *da, int *err, void *element, size_t pos);
  * @brief The function deletes the element at @p pos.
  *
  * Shifts all subsequent elements from @p pos one position to the left.
+ * 
+ * @p pos must be in between the array bounds.
+ * The array remains unchanged in the event of an error.
  * 
  * @param[in]  da      Delete the element from this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
