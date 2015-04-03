@@ -209,7 +209,7 @@ int daSize(DaStruct *da, int *err, size_t *size);
  * @param[out] err Indicates what went wrong in the event of an error.
  *
  * @returns The function returns 1 if the array is empty or 0 if it's not empty.
- * @returns Otherwise, the function returns -1 and @p err is set appropriately.
+ * @returns In the event of an error the function returns -1 and @p err is set appropriately.
  *
  * @b Errors @n
  * ::DA_OK on success. @n
