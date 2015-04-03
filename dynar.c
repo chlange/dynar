@@ -4,13 +4,13 @@
  * @brief The function reallocates the dynamic array to increase the space.
  *
  * The array remains unchanged in the event of an error.
- * 
+ *
  * @param[in]  da The array that should be destroyed.
  * @param[out] err Indicates what went wrong in the event of an error.
- * 
+ *
  * @returns Returns 0 on success.
  * @returns Otherwise, -1 is returned and @p err is set appropriately.
- * 
+ *
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
@@ -24,24 +24,25 @@ DaStruct *daCreate(DaDesc *desc, int *err)
     DaStruct *da;
     da = NULL;
 
-    if(!err) 
+    if (!err)
     {
         return NULL;
     }
-    else if(!desc)
+    else if (!desc)
     {
         *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return NULL;
     }
 
-    if(desc->elements == 0 || desc->bytesPerElement == 0)
+    if (desc->elements == 0 || desc->bytesPerElement == 0)
     {
         *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return NULL;
     }
 
     da = calloc(1, sizeof(DaStruct) + (desc->elements * desc->bytesPerElement));
-    if(!da) 
+
+    if (!da)
     {
         goto err;
     }
@@ -58,7 +59,8 @@ DaStruct *daCreate(DaDesc *desc, int *err)
     return da;
 
 err:
-    if(da) 
+
+    if (da)
     {
         da->magic = 0;
         free(da);
@@ -66,4 +68,23 @@ err:
 
     *err = DA_FATAL | DA_ENOMEM;
     return NULL;
+}
+
+int daDestroy(DaStruct *da, int *err)
+{
+    if (!err)
+    {
+        return -1;
+    }
+    else if (!da)
+    {
+        *err = DA_PARAM_ERR | DA_PARAM_NULL;
+        return -1;
+    }
+
+    memset(da, '0', sizeof(DaStruct) + (da->max * da->bytesPerElement));
+    free(da);
+
+    *err = DA_OK;
+    return 0;
 }
