@@ -198,7 +198,7 @@ int daDestroy(DaStruct *da, int *err);
  *
  * @b Errors @n
  * ::DA_OK on success. @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p size is a NULL-pointer. @n
  */
 int daSize(DaStruct *da, int *err, size_t *size);
 
@@ -235,7 +235,7 @@ int daIsEmpty(DaStruct *da, int *err);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer.
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer.
  */
 void *daAppend(DaStruct *da, int *err, void *element);
 
@@ -255,7 +255,7 @@ void *daAppend(DaStruct *da, int *err, void *element);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer.
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer.
  */
 void *daPrepend(DaStruct *da, int *err, void *element);
 
@@ -278,7 +278,7 @@ void *daPrepend(DaStruct *da, int *err, void *element);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device. @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer. @n
  * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= daSize()).
  */
 void *daInsertAt(DaStruct *da, int *err, void *element, size_t pos);
@@ -370,7 +370,7 @@ void *daGetLast(DaStruct *da, int *err);
  *
  * @b Errors @n
  * ::DA_OK on success. @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer. @n
  * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= DaSize()).
  */
 void *daSet(DaStruct *da, int *err, void *element, size_t pos);
@@ -432,7 +432,7 @@ int daClear(DaStruct *da, int *err, int mode);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element (e.g. the array is empty). @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer. @n
  */
 int daContains(DaStruct *da, int *err, void *element);
 
@@ -451,7 +451,7 @@ int daContains(DaStruct *da, int *err, void *element);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element (e.g. the array is empty). @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer.
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da, @p element or @p index is a NULL-pointer.
  */
 int daIndexOf(DaStruct *da, int *err, void *element, size_t *index);
 
@@ -470,7 +470,7 @@ int daIndexOf(DaStruct *da, int *err, void *element, size_t *index);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element (e.g. the array is empty). @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer.
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da, @p element or @p index is a NULL-pointer.
  */
 int daLastIndexOf(DaStruct *da, int *err, void *element, size_t *index);
 
