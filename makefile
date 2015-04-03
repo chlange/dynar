@@ -18,11 +18,11 @@ $(OBJ):
 $(TESTBINARIES): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $@.c -o $@
 
+obj: $(OBJ)
+
 tests: $(TESTBINARIES)
 
 all: obj tests
-
-obj: $(OBJ)
 
 clean:
 	rm -f $(OBJ) $(LIB) $(HEADERS).gch $(TESTBINARIES)
