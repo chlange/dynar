@@ -125,3 +125,40 @@ int daIsEmpty(DaStruct *da, int *err)
     *err = DA_OK;
     return (da->used > 0) ? 0 : 1;
 }
+
+/**
+ * @brief The function returns the element at @p pos.
+ *
+ * @param[in]  da      Get the element from this array.
+ * @param[out] err     Indicates what went wrong in the event of an error.
+ * @param[in]  pos     Get the @p element at this position from the array.
+ *
+ * @returns The function returns a pointer to the element on success.
+ * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
+ *
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= DaSize()).
+ */
+void *daGet(DaStruct *da, int *err, size_t pos)
+{
+    if (!err)
+    {
+        return NULL;
+    }
+    else if (!da || da->magic != DA_MAGIC)
+    {
+        *err = DA_PARAM_ERR | DA_PARAM_NULL;
+        return NULL;
+    }
+
+    if (pos >= da->used)
+    {
+        *err = DA_PARAM_ERR | DA_OUT_OF_BOUNDS;
+        return NULL;
+    }
+
+    *err = DA_OK;
+    return ((char *)da->firstAddr + (pos * da->bytesPerElement));
+}
