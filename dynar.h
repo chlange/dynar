@@ -363,7 +363,7 @@ void *daGetLast(DaStruct *da, int *err);
  * @param[in]  da         Update the element of this array.
  * @param[out] err        Indicates what went wrong in the event of an error.
  * @param[in]  element    Replace the current element with this element.
- * @param[in]  pos        Update the element at this position.
+ * @param[in]  pos        Update the element at this position (0 based).
  *
  * @returns The function returns a pointer to the updated element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
@@ -442,7 +442,7 @@ int daContains(DaStruct *da, int *err, void *element);
  * @param[in]  da      Search this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
  * @param[in]  element Search the array for this element.
- * @param[out] index   Index of the @p element if the array contains it
+ * @param[out] index   Index of the @p element if the array contains it (0 based).
  *
  * @returns Returns  1 if the array contains the @p element and the index is returned via @p index.
  * @returns Returns  0 if the array doesn't contain the @p element.
@@ -461,7 +461,7 @@ int daIndexOf(DaStruct *da, int *err, void *element, size_t *index);
  * @param[in]  da      Search this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
  * @param[in]  element Search the array for this element.
- * @param[out] index   Index of the @p element if the array contains it.
+ * @param[out] index   Index of the @p element if the array contains it (0 based).
  *
  * @returns Returns 1  if the array contains the @p element and the index is returned via @p index.
  * @returns Returns 0  if the array doesn't contain the @p element.
