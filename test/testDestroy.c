@@ -27,8 +27,7 @@ static void testCleanup(void)
 
     /* Fake an array with 0 elements to avoid SIGSEGV */
     /* because daDestroy will memset the header + whole array to 0 */
-    ((size_t *)((char *)da + offsetOf(DaStruct, max)))[0] = 15;
-
+    da->max = 0;
     sput_fail_if(daDestroy(da, &err) != 0, "daDestroy(da, &err) != 0");
     sput_fail_if(err != DA_OK, "err != DA_OK.");
 }
