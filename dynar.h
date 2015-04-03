@@ -75,6 +75,17 @@
  */
 #define DA_SOFT          0x00000002
 
+
+/**
+ * Operation mode for daClear()
+ */
+#define DA_FAST          0x00000001
+
+/**
+ * Operation mode for daClear()
+ */
+#define DA_SECURE        0x00000002
+
 /**
  * @brief The structure defines the initial setup for an array.
  */
@@ -178,17 +189,18 @@ int daDestroy(DaStruct *da, int *err);
 /**
  * @brief The function returns the number of elements in the array.
  *
- * @param[in]  da  Return the number of elements of this array.
- * @param[out] err Indicates what went wrong in the event of an error.
+ * @param[in]  da   Return the number of elements of this array.
+ * @param[out] err  Indicates what went wrong in the event of an error.
+ * @param[out] size Number of elements in @p da.
  *
- * @returns The function returns the number of elements of the array on success.
- * @returns Otherwise, the function returns 0 and @p err is set appropriately.
+ * @returns The function returns 0 and @p size gets set to the number of elements in the array on success.
+ * @returns Otherwise, the function returns -1 and @p err is set appropriately.
  *
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
-size_t daSize(DaStruct *da, int *err);
+int daSize(DaStruct *da, int *err, size_t *size);
 
 /**
  * @brief The function returns the fill state of the array.
@@ -197,7 +209,7 @@ size_t daSize(DaStruct *da, int *err);
  * @param[out] err Indicates what went wrong in the event of an error.
  *
  * @returns The function returns 1 if the array is empty or 0 if it's not empty.
- * @returns Otherwise, the function returns -10 and @p err is set appropriately.
+ * @returns Otherwise, the function returns -1 and @p err is set appropriately.
  *
  * @b Errors @n
  * ::DA_OK on success. @n
@@ -390,8 +402,13 @@ int daIncrease(DaStruct *da, int *err, size_t n, int mode);
 /**
  * @brief Removes all elements from the array.
  *
- * @param[in]  da  Clear this array.
- * @param[out] err Indicates what went wrong in the event of an error.
+ * @param[in]  da   Clear this array.
+ * @param[out] err  Indicates what went wrong in the event of an error.
+ * @param[in]  mode Specifies the operation mode of the function.
+ *
+ * @b Modes @n
+ *   @p ::DA_FAST:   The fast mode will free all slots in the array but won't erase the content of the elements.@n
+ *   @p ::DA_SECURE: The secure mode erases the content of the array before clearing it.
  *
  * @returns Returns 0 on success, otherwise, -1 is returned and @p err is set appropriately.
  * @returns In the case of an already empty array 0 is returned.
@@ -400,7 +417,7 @@ int daIncrease(DaStruct *da, int *err, size_t n, int mode);
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
-int daClear(DaStruct *da, int *err);
+int daClear(DaStruct *da, int *err, int mode);
 
 /**
  * @brief Checks whether the array contains the @p element.
@@ -459,6 +476,8 @@ int daLastIndexOf(DaStruct *da, int *err, void *element, size_t *index);
 
 /**
  * @brief Returns a copy of the array.
+ *
+ * The initial array @p da remains in any case unchanged.
  *
  * @param[in]  da  Clone this array.
  * @param[out] err Indicates what went wrong in the event of an error.
