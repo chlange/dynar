@@ -88,3 +88,21 @@ int daDestroy(DaStruct *da, int *err)
     *err = DA_OK;
     return 0;
 }
+
+int daSize(DaStruct *da, int *err, size_t *size)
+{
+    if (!err)
+    {
+        return -1;
+    }
+    else if (!da || !size)
+    {
+        *err = DA_PARAM_ERR | DA_PARAM_NULL;
+        return -1;
+    }
+
+    *size = da->used;
+
+    *err = DA_OK;
+    return 0;
+}
