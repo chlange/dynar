@@ -70,13 +70,14 @@ err:
     return NULL;
 }
 
+
 int daDestroy(DaStruct *da, int *err)
 {
     if (!err)
     {
         return -1;
     }
-    else if (!da)
+    else if (!da || da->magic != DA_MAGIC)
     {
         *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return -1;
@@ -89,13 +90,14 @@ int daDestroy(DaStruct *da, int *err)
     return 0;
 }
 
+
 int daSize(DaStruct *da, int *err, size_t *size)
 {
     if (!err)
     {
         return -1;
     }
-    else if (!da || !size)
+    else if (!da || da->magic != DA_MAGIC || !size)
     {
         *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return -1;
@@ -107,26 +109,14 @@ int daSize(DaStruct *da, int *err, size_t *size)
     return 0;
 }
 
-/**
- * @brief The function returns the fill state of the array.
- *
- * @param[in]  da  Return the fill state of this array.
- * @param[out] err Indicates what went wrong in the event of an error.
- *
- * @returns The function returns 1 if the array is empty or 0 if it's not empty.
- * @returns In the event of an error the function returns -1 and @p err is set appropriately.
- *
- * @b Errors @n
- * ::DA_OK on success. @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- */
+
 int daIsEmpty(DaStruct *da, int *err)
 {
     if (!err)
     {
         return -1;
     }
-    else if (!da)
+    else if (!da || da->magic != DA_MAGIC)
     {
         *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return -1;
