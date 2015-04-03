@@ -26,7 +26,7 @@ static void testCleanup(void)
     sput_fail_if(da == NULL, "Out of memory! Unable to execute test!");
 
     /* Fake an array with 0 elements to avoid SIGSEGV */
-    /* because daDestroy will memset the header + whole array to 0 */
+    /* because daDestroy will memset the header and the elements to 0 */
     da->max = 0;
     sput_fail_if(daDestroy(da, &err) != 0, "daDestroy(da, &err) != 0");
     sput_fail_if(err != DA_OK, "err != DA_OK.");
