@@ -27,7 +27,9 @@ static void testValid(void)
     da->firstAddr = (char *)da + sizeof(DaStruct);
 
     sput_fail_if(daGet(da, &err, 0) != da->firstAddr, "daGet(da, &err, 0) should point to da->firstAddr");
+    sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(daGet(da, &err, 1) != (char *)da->firstAddr + da->bytesPerElement, "daGet(da, &err, 1) should point to second element");
+    sput_fail_if(err != DA_OK, "err != DA_OK");
 }
 
 static void testOutOfBounds(void)
