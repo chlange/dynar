@@ -18,6 +18,7 @@
 /*static int daRealloc(DaStruct *da, int *err) {
     return 0;
 }*/
+static int paramNotValid(DaStruct *da, int *err);
 
 DaStruct *daCreate(DaDesc *desc, int *err)
 {
@@ -73,13 +74,8 @@ err:
 
 int daDestroy(DaStruct *da, int *err)
 {
-    if (!err)
+    if (paramNotValid(da, err))
     {
-        return -1;
-    }
-    else if (!da || da->magic != DA_MAGIC)
-    {
-        *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return -1;
     }
 
@@ -93,11 +89,11 @@ int daDestroy(DaStruct *da, int *err)
 
 int daSize(DaStruct *da, int *err, size_t *size)
 {
-    if (!err)
+    if (paramNotValid(da, err))
     {
         return -1;
     }
-    else if (!da || da->magic != DA_MAGIC || !size)
+    else if (!size)
     {
         *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return -1;
@@ -112,13 +108,8 @@ int daSize(DaStruct *da, int *err, size_t *size)
 
 int daIsEmpty(DaStruct *da, int *err)
 {
-    if (!err)
+    if (paramNotValid(da, err))
     {
-        return -1;
-    }
-    else if (!da || da->magic != DA_MAGIC)
-    {
-        *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return -1;
     }
 
@@ -128,13 +119,8 @@ int daIsEmpty(DaStruct *da, int *err)
 
 void *daGet(DaStruct *da, int *err, size_t pos)
 {
-    if (!err)
+    if (paramNotValid(da, err))
     {
-        return NULL;
-    }
-    else if (!da || da->magic != DA_MAGIC)
-    {
-        *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return NULL;
     }
 
@@ -150,13 +136,8 @@ void *daGet(DaStruct *da, int *err, size_t pos)
 
 void *daGetFirst(DaStruct *da, int *err)
 {
-    if (!err)
+    if (paramNotValid(da, err))
     {
-        return NULL;
-    }
-    else if (!da || da->magic != DA_MAGIC)
-    {
-        *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return NULL;
     }
 
@@ -172,13 +153,8 @@ void *daGetFirst(DaStruct *da, int *err)
 
 void *daGetLast(DaStruct *da, int *err)
 {
-    if (!err)
+    if (paramNotValid(da, err))
     {
-        return NULL;
-    }
-    else if (!da || da->magic != DA_MAGIC)
-    {
-        *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return NULL;
     }
 
@@ -190,4 +166,19 @@ void *daGetLast(DaStruct *da, int *err)
 
     *err = DA_OK;
     return ((char *)da->firstAddr + ((da->used - 1) * da->bytesPerElement));
+}
+
+static int paramNotValid(DaStruct *da, int *err)
+{
+    if (!err)
+    {
+        return -1;
+    }
+    else if (!da || da->magic != DA_MAGIC)
+    {
+        *err = DA_PARAM_ERR | DA_PARAM_NULL;
+        return -1;
+    }
+
+    return 0;
 }
