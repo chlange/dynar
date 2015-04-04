@@ -147,3 +147,47 @@ void *daGet(DaStruct *da, int *err, size_t pos)
     *err = DA_OK;
     return ((char *)da->firstAddr + (pos * da->bytesPerElement));
 }
+
+void *daGetFirst(DaStruct *da, int *err)
+{
+    if (!err)
+    {
+        return NULL;
+    }
+    else if (!da || da->magic != DA_MAGIC)
+    {
+        *err = DA_PARAM_ERR | DA_PARAM_NULL;
+        return NULL;
+    }
+
+    if (da->used == 0)
+    {
+        *err = DA_PARAM_ERR | DA_OUT_OF_BOUNDS;
+        return NULL;
+    }
+
+    *err = DA_OK;
+    return da->firstAddr;
+}
+
+void *daGetLast(DaStruct *da, int *err)
+{
+    if (!err)
+    {
+        return NULL;
+    }
+    else if (!da || da->magic != DA_MAGIC)
+    {
+        *err = DA_PARAM_ERR | DA_PARAM_NULL;
+        return NULL;
+    }
+
+    if (da->used == 0)
+    {
+        *err = DA_PARAM_ERR | DA_OUT_OF_BOUNDS;
+        return NULL;
+    }
+
+    *err = DA_OK;
+    return ((char *)da->firstAddr + ((da->used - 1) * da->bytesPerElement));
+}
