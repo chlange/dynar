@@ -33,13 +33,28 @@ static void testValid(void)
 static void testOutOfBounds(void)
 {
     int err;
-    DaStruct da;
+    DaStruct *da;
 
-    da.magic = DA_MAGIC;
-    da.used = 0;
-    sput_fail_if(daGet(&da, &err, 0) != NULL, "daGet(&da, &err, 0) should return NULL if array is empty");
+    /* Create an mock array with two elements each five bytes */
+    da = malloc(sizeof(DaStruct) + (2 * 5));
+    sput_fail_if(da == NULL, "No space left on device. Unable to test!");
+
+    da->magic = DA_MAGIC;
+    da->bytesPerElement = 5;
+    da->firstAddr = (char *)da + sizeof(DaStruct);
+
+    da->used = 0;
+    sput_fail_if(daGet(da, &err, 0) != NULL, "daGet(da, &err, 0) should return NULL if array is empty");
     sput_fail_if(err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS), "err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS)");
-    sput_fail_if(daGet(&da, &err, 1) != NULL, "daGet(&da, &err, 1) should return NULL if array is empty");
+    sput_fail_if(daGet(da, &err, 1) != NULL, "daGet(da, &err, 1) should return NULL if array is empty");
+    sput_fail_if(err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS), "err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS)");
+
+    da->used = 1;
+    sput_fail_if(daGet(da, &err, 0) == NULL, "daGet(da, &err, 0) should return the first element if the array has one element");
+    sput_fail_if(err != DA_OK, "err != DA_OK");
+    sput_fail_if(daGet(da, &err, 1) != NULL, "daGet(da, &err, 1) should return NULL if pos is out of bounds");
+    sput_fail_if(err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS), "err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS)");
+    sput_fail_if(daGet(da, &err, 2) != NULL, "daGet(da, &err, 2) should return NULL if pos is out of bounds");
     sput_fail_if(err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS), "err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS)");
 }
 
