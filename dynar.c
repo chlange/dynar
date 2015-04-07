@@ -232,6 +232,52 @@ void *daGetLast(DaStruct *da, int *err)
 }
 
 /**
+ * @brief Removes all elements from the array.
+ *
+ * @param[in]  da   Clear this array.
+ * @param[out] err  Indicates what went wrong in the event of an error.
+ * @param[in]  mode Specifies the operation mode of the function.
+ *
+ * @b Modes @n
+ *   @p ::DA_FAST:   The fast mode will free all slots in the array but won't erase the content of the elements.@n
+ *   @p ::DA_SECURE: The secure mode erases the content of the array before clearing it.
+ *
+ * @returns Returns 0 on success, otherwise, -1 is returned and @p err is set appropriately.
+ * @returns In the case of an already empty array 0 is returned.
+ *
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ */
+int daClear(DaStruct *da, int *err, int mode)
+{
+    if (paramNotValid(da, err))
+    {
+        return -1;
+    }
+
+    switch (mode)
+    {
+        case DA_FAST:
+            break;
+
+        case DA_SECURE:
+            memset(da->firstAddr, '0', da->used * da->bytesPerElement);
+            break;
+
+        default:
+            *err = (DA_PARAM_ERR | DA_UNKNOWN_MODE);
+            return -1;
+            break;
+    }
+
+    da->used = 0;
+
+    *err = DA_OK;
+    return 0;
+}
+
+/**
  * @brief The function checks wheter the parameters are valid.
  *
  * The parameter @p da is valid if it's non-NULL and the magic number equals the defined .
