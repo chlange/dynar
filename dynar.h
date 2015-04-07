@@ -30,7 +30,7 @@
 /**
  * Parameter error: Operation mode unknown.
  */
-#define DA_MODE_UNKNOWN       0x00000002
+#define DA_UNKNOWN_MODE       0x00000002
 /**
  * Parameter error: Position out of array bounds.
  */
@@ -72,7 +72,6 @@
  * Operation mode for daIncrease()
  */
 #define DA_HARD          0x00000001
-
 /**
  * Operation mode for daIncrease()
  */
@@ -83,7 +82,6 @@
  * Operation mode for daClear()
  */
 #define DA_FAST          0x00000001
-
 /**
  * Operation mode for daClear()
  */
@@ -399,7 +397,7 @@ void *daSet(DaStruct *da, int *err, void *element, size_t pos);
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_MODE_UNKNOWN if @p mode is unknown.
+ * ::DA_PARAM_ERR | ::DA_UNKNOWN_MODE if @p mode is unknown.
  */
 int daIncrease(DaStruct *da, int *err, size_t n, int mode);
 
@@ -420,6 +418,7 @@ int daIncrease(DaStruct *da, int *err, size_t n, int mode);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_UNKNOWN_MODE if @p mode is unknown.
  */
 int daClear(DaStruct *da, int *err, int mode);
 
