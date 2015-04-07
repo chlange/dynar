@@ -36,7 +36,7 @@
  */
 #define DA_OUT_OF_BOUNDS      0x00000004
 /**
- * Parameter error:Element size exceeds bytes limit.
+ * Parameter error: Element size exceeds bytes limit.
  */
 #define DA_EXCEEDS_SIZE_LIMIT 0x00000008
 
