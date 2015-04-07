@@ -231,24 +231,6 @@ void *daGetLast(DaStruct *da, int *err)
     return ((char *)da->firstAddr + ((da->used - 1) * da->bytesPerElement));
 }
 
-/**
- * @brief Removes all elements from the array.
- *
- * @param[in]  da   Clear this array.
- * @param[out] err  Indicates what went wrong in the event of an error.
- * @param[in]  mode Specifies the operation mode of the function.
- *
- * @b Modes @n
- *   @p ::DA_FAST:   The fast mode will free all slots in the array but won't erase the content of the elements.@n
- *   @p ::DA_SECURE: The secure mode erases the content of the array before clearing it.
- *
- * @returns Returns 0 on success, otherwise, -1 is returned and @p err is set appropriately.
- * @returns In the case of an already empty array 0 is returned.
- *
- * @b Errors @n
- * ::DA_OK on success. @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- */
 int daClear(DaStruct *da, int *err, int mode)
 {
     if (paramNotValid(da, err))
