@@ -260,6 +260,52 @@ int daClear(DaStruct *da, int *err, int mode)
 }
 
 /**
+ * @brief Checks whether the array contains the @p element.
+ *
+ * @param[in]  da      Search this array.
+ * @param[out] err     Indicates what went wrong in the event of an error.
+ * @param[in]  element Search the array for this element.
+ *
+ * @returns Returns 1 if the array contains the @p element and 0 if not.
+ * @returns The function returns -1 in the event of an error and @p err is set appropriately.
+ *
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element (e.g. the array is empty). @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer. @n
+ */
+int daContains(DaStruct *da, int *err, const void *element)
+{
+    int i;
+    int found;
+
+    if (paramNotValid(da, err))
+    {
+        return -1;
+    }
+    else if (!element)
+    {
+        *err = DA_PARAM_ERR | DA_PARAM_NULL;
+        return -1;
+    }
+
+    *err = DA_NOT_FOUND;
+    found = 0;
+
+    for (i = 0; i < da->used; i++)
+    {
+        if (memcmp((char *)da->firstAddr + (i * da->bytesPerElement), element, da->bytesPerElement) == 0)
+        {
+            *err = DA_OK;
+            found = 1;
+            break;
+        }
+    }
+
+    return found;
+}
+
+/**
  * @brief The function checks wheter the parameters are valid.
  *
  * The parameter @p da is valid if it's non-NULL and the magic number equals the defined .
