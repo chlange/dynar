@@ -22,20 +22,23 @@
  *
  * The actual parameter error gets bitwise OR'ed with this value.
  */
-#define DA_PARAM_ERR     0x10000000
+#define DA_PARAM_ERR          0x10000000
 /**
  * Parameter error: Indicates that a NULL-pointer was passed to a function.
  */
-#define DA_PARAM_NULL    0x00000001
+#define DA_PARAM_NULL         0x00000001
 /**
  * Parameter error: Operation mode unknown.
  */
-#define DA_MODE_UNKNOWN  0x00000002
+#define DA_MODE_UNKNOWN       0x00000002
 /**
-* Parameter error: Position out of array bounds.
-*/
-#define DA_OUT_OF_BOUNDS 0x00000003
-
+ * Parameter error: Position out of array bounds.
+ */
+#define DA_OUT_OF_BOUNDS      0x00000004
+/**
+ * Parameter error:Element size exceeds bytes limit.
+ */
+#define DA_EXCEEDS_SIZE_LIMIT 0x00000008
 
 /**
  * Group of fatal errors.
@@ -60,9 +63,9 @@
 #define DA_MAGIC         0x71238924
 
 /**
- * Maximum number of elements in an array.
+ * Maximum number of bytes all elements of an array can have.
  */
-#define DA_MAX_ELEMENTS      200000
+#define DA_MAX_BYTES      100000000
 
 
 /**
@@ -164,6 +167,7 @@ typedef struct __str_da_ptr
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
+ * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the settings given by @p desc exceeds the bytes limit ::DA_MAX_BYTES. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p desc is a NULL-pointer. @n
  */
 DaStruct *daCreate(DaDesc *desc, int *err);

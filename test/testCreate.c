@@ -25,6 +25,18 @@ static void testNull(void)
     sput_fail_if(err != (DA_PARAM_ERR | DA_PARAM_NULL), "err != (DA_PARAM_ERR | DA_PARAM_NULL)");
 }
 
+static void testBytesLimit(void)
+{
+    int err;
+    DaDesc desc;
+
+    desc.elements = 1;
+    desc.bytesPerElement = DA_MAX_BYTES + 1;
+
+    sput_fail_if(daCreate(&desc, &err)  != NULL, "daCreate(...) should return NULL if the byte limit gets exceeded.");
+    sput_fail_if(err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT), "err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT)");
+}
+
 static void testInit(void)
 {
     int err;
@@ -37,27 +49,14 @@ static void testInit(void)
     da = daCreate(&desc, &err);
     sput_fail_if(da == NULL, "daCreate(&desc, &err) with valid values: fails.");
     sput_fail_if(err != DA_OK, "err != DA_OK.");
-    sput_fail_if(da->firstAddr != (da + sizeof(DaStruct)), "da->firstAddr != (da + sizeof(DaStruct))");
-    sput_fail_if(da->lastAddr != (da + sizeof(DaStruct) + (desc.elements * desc.bytesPerElement) - 1), "da->lastAddr != (da + sizeof(DaStruct) + (desc.elements * desc.bytesPerElement) - 1)");
+    sput_fail_if(da->firstAddr == NULL, "da->firstAddr == NULL");
+    sput_fail_if(da->lastAddr != ((char *)da->firstAddr + (desc.elements * desc.bytesPerElement) - 1), "da->lastAddr != ((char *)da->firstAddr + (desc.elements * desc.bytesPerElement) - 1)");
     sput_fail_if(da->freeAddr != da->firstAddr, "da->freeAddr != da->firstAddr");
     sput_fail_if(da->used != 0, "da->used != 0");
     sput_fail_if(da->max != desc.elements, "da->max != desc.elements");
     sput_fail_if(da->bytesPerElement != desc.bytesPerElement, "da->bytesPerElement != desc.bytesPerElement");
     sput_fail_if(da->magic != DA_MAGIC, "da->magic != DA_MAGIC");
 
-}
-
-static void testEnomem(void)
-{
-    int err;
-    DaDesc desc;
-    DaStruct *da;
-
-    desc.elements = ~0;
-    desc.bytesPerElement = 50000;
-    da = daCreate(&desc, &err);
-    sput_fail_if(da != NULL, "daCreate(&desc, &err) with too many elements succeeds.");
-    sput_fail_if(err != (DA_FATAL | DA_ENOMEM), "err != (DA_FATAL | DA_ENOMEM).");
 }
 
 int main(void)
@@ -67,11 +66,11 @@ int main(void)
     sput_enter_suite("daCreate should fail if any paramter is NULL");
     sput_run_test(testNull);
 
+    sput_enter_suite("daCreate should fail the bytes limit get exceeded");
+    sput_run_test(testBytesLimit);
+
     sput_enter_suite("daCreate should succeed with valid values");
     sput_run_test(testInit);
-
-    sput_enter_suite("daCreate should return ENOMEM if not enough space is available");
-    sput_run_test(testEnomem);
 
     sput_finish_testing();
 

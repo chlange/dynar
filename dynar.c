@@ -91,8 +91,13 @@ DaStruct *daCreate(DaDesc *desc, int *err)
         *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return NULL;
     }
+    else if (desc->elements * desc->bytesPerElement > DA_MAX_BYTES)
+    {
+        *err = DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT;
+        return NULL;
+    }
 
-    da = calloc(1, sizeof(DaStruct) + (desc->elements * desc->bytesPerElement));
+    da = calloc(1, sizeof(DaStruct));
 
     if (!da)
     {
@@ -100,8 +105,14 @@ DaStruct *daCreate(DaDesc *desc, int *err)
     }
 
     da->magic = DA_MAGIC;
-    da->firstAddr = da + sizeof(DaStruct);
-    da->lastAddr = da + sizeof(DaStruct) + (desc->elements * desc->bytesPerElement) - 1;
+    da->firstAddr = calloc(1, desc->elements * desc->bytesPerElement);
+
+    if (!da->firstAddr)
+    {
+        goto err;
+    }
+
+    da->lastAddr = (char *)da->firstAddr + (desc->elements * desc->bytesPerElement) - 1;
     da->freeAddr = da->firstAddr;
     da->used = 0;
     da->max = desc->elements;
@@ -115,13 +126,13 @@ err:
     if (da)
     {
         da->magic = 0;
+        free(da->firstAddr);
         free(da);
     }
 
     *err = DA_FATAL | DA_ENOMEM;
     return NULL;
 }
-
 
 int daDestroy(DaStruct *da, int *err)
 {
@@ -130,7 +141,8 @@ int daDestroy(DaStruct *da, int *err)
         return -1;
     }
 
-    memset(da, '0', sizeof(DaStruct) + (da->max * da->bytesPerElement));
+    memset(da->firstAddr, '0', da->max * da->bytesPerElement);
+    free(da->firstAddr);
     free(da);
 
     *err = DA_OK;
