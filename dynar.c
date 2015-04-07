@@ -219,6 +219,17 @@ void *daGetLast(DaStruct *da, int *err)
     return ((char *)da->firstAddr + ((da->used - 1) * da->bytesPerElement));
 }
 
+/**
+ * @brief The function checks wheter the parameters are valid.
+ *
+ * The parameter @p da is valid if it's non-NULL and the magic number equals the defined .
+ * @p err is valid if it's non-NULL.
+ *
+ * @param[in] da  Check this dynamic array
+ * @param[in] err Check this pointer
+ *
+ * @returns The function returns 0 if the parameters are valid and -1 otherwise.
+ */
 static int paramNotValid(DaStruct *da, int *err)
 {
     if (!err)
