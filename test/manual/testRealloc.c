@@ -31,6 +31,8 @@ static void testExceedsSizeLimit(void)
 static void testValid(void)
 {
     int err;
+    void *ptr;
+    const char *src;
     DaDesc desc;
     DaStruct *da;
 
@@ -55,6 +57,7 @@ static void testValid(void)
     desc.elements = DA_MAX_BYTES / 2;
     desc.bytesPerElement = 1;
     da = daCreate(&desc, &err);
+    sput_fail_if(da == NULL, "Unable to create dynamic array.");
     sput_fail_if(daRealloc(da, &err) != 0, "daRealloc should succeed if it would be near limit");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->max != DA_MAX_BYTES, "daRealloc should set the element space to max is doubling isn't possible anymore");
@@ -62,6 +65,23 @@ static void testValid(void)
     sput_fail_if(daRealloc(da, &err) != -1, "daRealloc should fail if we can't increase the array anymore");
     sput_fail_if(da->max != DA_MAX_BYTES, "daRealloc shouldn't alter the maximum possible values if it's not possible to increase the space");
     sput_fail_if(err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT), "err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT)");
+
+
+
+
+    desc.elements = 10;
+    desc.bytesPerElement = 1;
+    da = daCreate(&desc, &err);
+    sput_fail_if(da == NULL, "Unable to create dynamic array.");
+    ptr = da->firstAddr;
+    src = "5555555555";
+    memcpy(da->firstAddr, src, 10);
+    da->used = 10;
+
+    sput_fail_if(daRealloc(da, &err) != 0, "daRealloc should succeed if enough space is available");
+    sput_fail_if(da->firstAddr == ptr, "daRealloc should update firstAddr pointer");
+    sput_fail_if(memcmp(da->firstAddr, src, 10) != 0, "daRealloc should copy the bytes to the new array");
+    sput_fail_if(da->max != desc.elements * 2, "daRealloc should update the max number of elements");
 }
 
 static void testMagic(void)
