@@ -220,14 +220,14 @@ int daSize(DaStruct *da, int *err, size_t *size);
 int daIsEmpty(DaStruct *da, int *err);
 
 /**
- * @brief The function appends the @p element to the array.
+ * @brief The function prepends the @p element to the array.
  *
- * Shifts all elements in the array one position to the right before appending the new @p element.
+ * Shifts all elements in the array one position to the right before prepending the new @p element.
  *
  * The array will be increased if necessary.
  * It remains unchanged in the event of an error.
  *
- * @param[in]  da      Append the element to this array.
+ * @param[in]  da      Prepend the element to this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
  * @param[in]  element The element that shall be appended.
  *
@@ -239,15 +239,15 @@ int daIsEmpty(DaStruct *da, int *err);
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer.
  */
-void *daAppend(DaStruct *da, int *err, void *element);
+void *daPrepend(DaStruct *da, int *err, const void *element);
 
 /**
- * @brief The function prepends the @p element to the array.
+ * @brief The function appends the @p element to the array.
  *
  * The array will be increased if necessary.
  * It remains unchanged in the event of an error.
  *
- * @param[in]  da      Prepend the element to this array.
+ * @param[in]  da      Append the element to this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
  * @param[in]  element The element that shall be prepended.
  *
