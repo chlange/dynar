@@ -87,6 +87,10 @@ static void testNotFound(void)
     src = "4";
     sput_fail_if(daLastIndexOf(da, &err, src, &index) != 0, "daLastIndexOf shouldn't find an element that doesn't exist");
     sput_fail_if(err != DA_NOT_FOUND, "err != DA_NOT_FOUND");
+
+    da->used = 0;
+    sput_fail_if(daLastIndexOf(da, &err, src, &index) != 0, "daLastIndexOf shouldn't find an element if the array is empty");
+    sput_fail_if(err != DA_NOT_FOUND, "err != DA_NOT_FOUND");
 }
 
 static void testMagic(void)

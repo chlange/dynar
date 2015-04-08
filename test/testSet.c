@@ -60,6 +60,10 @@ static void testOutOfBounds(void)
     int ignore;
     DaStruct da;
 
+    da.used = 0;
+    sput_fail_if(daSet(&da, &err, &ignore, 1) != NULL, "daSet should fail if out of bounds");
+    sput_fail_if(daSet(&da, &err, &ignore, 10) != NULL, "daSet should fail if out of bounds");
+
     da.used = 1;
     sput_fail_if(daSet(&da, &err, &ignore, 1) != NULL, "daSet should fail if out of bounds");
     sput_fail_if(daSet(&da, &err, &ignore, 10) != NULL, "daSet should fail if out of bounds");
