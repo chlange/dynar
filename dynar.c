@@ -40,7 +40,7 @@ static int daRealloc(DaStruct *da, int *err)
     }
     else
     {
-        /* Calculate maximum possible nummber of elements for this array */
+        /* Calculate maximum possible number of elements for this array */
         nrElements = DA_MAX_BYTES / da->bytesPerElement;
     }
 
