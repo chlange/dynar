@@ -40,6 +40,11 @@
  */
 
 /**
+ * Add SIZE_MAX definition because it's not defined in C89 aka ANSI.
+ */
+#define SIZE_MAX ((size_t)-1)
+
+/**
  * Indicates that the operation was successful.
  */
 #define DA_OK            0x00000000
@@ -93,8 +98,11 @@
 /**
  * Maximum number of bytes all elements of an array can have.
  */
-#define DA_MAX_BYTES      100000000
-
+#if (SIZE_MAX > 0 && SIZE_MAX < 100000000)
+    #define DA_MAX_BYTES SIZE_MAX
+#else
+    #define DA_MAX_BYTES 100000000
+#endif
 
 /**
  * Operation mode for daIncrease()
