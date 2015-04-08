@@ -343,6 +343,43 @@ int daIndexOf(DaStruct *da, int *err, const void *element, size_t *index)
     return found;
 }
 
+int daLastIndexOf(DaStruct *da, int *err, const void *element, size_t *index)
+{
+    size_t i;
+    int found;
+
+    if (paramNotValid(da, err))
+    {
+        return -1;
+    }
+    else if (!element || !index)
+    {
+        *err = DA_PARAM_ERR | DA_PARAM_NULL;
+        return -1;
+    }
+
+    *err = DA_NOT_FOUND;
+    found = 0;
+
+    i = da->used;
+
+    if (da->used > 0)
+    {
+        while (i--)
+        {
+            if (memcmp((char *)da->firstAddr + (i * da->bytesPerElement), element, da->bytesPerElement) == 0)
+            {
+                *index = i;
+                *err = DA_OK;
+                found = 1;
+                break;
+            }
+        }
+    }
+
+    return found;
+}
+
 /**
  * @brief The function checks wheter the parameters are valid.
  *
