@@ -259,21 +259,6 @@ int daClear(DaStruct *da, int *err, int mode)
     return 0;
 }
 
-/**
- * @brief Checks whether the array contains the @p element.
- *
- * @param[in]  da      Search this array.
- * @param[out] err     Indicates what went wrong in the event of an error.
- * @param[in]  element Search the array for this element.
- *
- * @returns Returns 1 if the array contains the @p element and 0 if not.
- * @returns The function returns -1 in the event of an error and @p err is set appropriately.
- *
- * @b Errors @n
- * ::DA_OK on success. @n
- * ::DA_NOT_FOUND if the array doesn't contain an element equal to the specified @p element (e.g. the array is empty). @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer. @n
- */
 int daContains(DaStruct *da, int *err, const void *element)
 {
     int i;
