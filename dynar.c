@@ -290,6 +290,27 @@ int daContains(DaStruct *da, int *err, const void *element)
     return found;
 }
 
+void *daSet(DaStruct *da, int *err, const void *element, size_t pos)
+{
+    if (paramNotValid(da, err))
+    {
+        return NULL;
+    }
+    else if (!element)
+    {
+        *err = DA_PARAM_ERR | DA_PARAM_NULL;
+        return NULL;
+    }
+
+    if (pos >= da->used)
+    {
+        *err = DA_PARAM_ERR | DA_OUT_OF_BOUNDS;
+        return NULL;
+    }
+
+    return memcpy((char *)da->firstAddr + (pos * da->bytesPerElement), element, da->bytesPerElement);
+}
+
 /**
  * @brief The function checks wheter the parameters are valid.
  *
