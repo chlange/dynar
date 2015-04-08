@@ -480,7 +480,7 @@ int daLastIndexOf(DaStruct *da, int *err, const void *element, size_t *index);
 /**
  * @brief Returns a copy of the array.
  *
- * The initial array @p da remains in any case unchanged.
+ * The initial array @p da remains unchanged.
  *
  * @param[in]  da  Clone this array.
  * @param[out] err Indicates what went wrong in the event of an error.
@@ -492,6 +492,6 @@ int daLastIndexOf(DaStruct *da, int *err, const void *element, size_t *index);
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
-DaStruct *daClone(DaStruct *da, int *err);
+DaStruct *daClone(const DaStruct *da, int *err);
 
 #endif
