@@ -9,12 +9,16 @@ static void testNull(void)
 
     sput_fail_if(daSize(NULL, NULL, &n)   != -1, "daSize(NULL, NULL, &n)   != -1");
     sput_fail_if(daSize(NULL, NULL, NULL) != -1, "daSize(NULL, NULL, NULL) != -1");
-    sput_fail_if(daSize(NULL, &err, &n)   != -1, "daSize(NULL, &err, &n)   != -1");
-    sput_fail_if(daSize(NULL, &err, NULL) != -1, "daSize(NULL, &err, NULL) != -1");
     sput_fail_if(daSize(&da,  NULL, &n)   != -1, "daSize(da,   NULL, &n)   != -1");
     sput_fail_if(daSize(&da,  NULL, NULL) != -1, "daSize(da,   NULL, NULL) != -1");
-    sput_fail_if(daSize(&da,  &err, NULL) != -1, "daSize(da,   &err, NULL) != -1");
 
+    sput_fail_if(daSize(NULL, &err, &n)   != -1, "daSize(NULL, &err, &n)   != -1");
+    sput_fail_if(err != (DA_PARAM_ERR | DA_PARAM_NULL), "err != (DA_PARAM_ERR | DA_PARAM_NULL)");
+
+    sput_fail_if(daSize(NULL, &err, NULL) != -1, "daSize(NULL, &err, NULL) != -1");
+    sput_fail_if(err != (DA_PARAM_ERR | DA_PARAM_NULL), "err != (DA_PARAM_ERR | DA_PARAM_NULL)");
+
+    sput_fail_if(daSize(&da,  &err, NULL) != -1, "daSize(da,   &err, NULL) != -1");
     sput_fail_if(err != (DA_PARAM_ERR | DA_PARAM_NULL), "err != (DA_PARAM_ERR | DA_PARAM_NULL)");
 }
 
