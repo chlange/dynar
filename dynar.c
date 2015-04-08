@@ -253,6 +253,7 @@ int daClear(DaStruct *da, int *err, int mode)
             break;
     }
 
+    da->freeAddr = da->firstAddr;
     da->used = 0;
 
     *err = DA_OK;
