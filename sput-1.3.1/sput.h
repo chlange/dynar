@@ -1,10 +1,10 @@
 /*
- *  sput - Simple, Portable Unit Testing Framework for C/C++ v1.3.0
+ *  sput - Simple, Portable Unit Testing Framework for C/C++ v1.3.1
  *
  *              http://www.lingua-systems.com/unit-testing/
  *
  *
- *  Copyright (c) 2011-2014 Lingua-Systems Software GmbH
+ *  Copyright (c) 2011-2015 Lingua-Systems Software GmbH
  *
  *  All rights reserved.
  *
@@ -54,8 +54,8 @@ extern "C" {
 
 #define SPUT_VERSION_MAJOR      1
 #define SPUT_VERSION_MINOR      3
-#define SPUT_VERSION_PATCH      0
-#define SPUT_VERSION_STRING     "1.3.0"
+#define SPUT_VERSION_PATCH      1
+#define SPUT_VERSION_STRING     "1.3.1"
 
 #define SPUT_DEFAULT_SUITE_NAME "Unlabeled Suite"
 #define SPUT_DEFAULT_CHECK_NAME "Unlabeled Check"
@@ -184,16 +184,16 @@ extern "C" {
 
 #define sput_leave_suite()                                                 \
     do {                                                                   \
-        float failp = 0.0f;                                                \
+        float failpls = 0.0f;                                              \
         _sput_die_unless_initialized();                                    \
         _sput_die_unless_suite_set();                                      \
-        failp = __sput.suite.checks ? (float)                              \
-                ((__sput.suite.nok * 100.0) / __sput.suite.checks) :       \
-                0.0f;                                                      \
+        failpls = __sput.suite.checks ? (float)                            \
+                  ((__sput.suite.nok * 100.0) / __sput.suite.checks) :     \
+                  0.0f;                                                    \
         fprintf(__sput.out,                                                \
                 "\n--> %lu check(s), %lu ok, %lu failed (%.2f%%)\n",       \
                 __sput.suite.checks, __sput.suite.ok, __sput.suite.nok,    \
-                failp);                                                    \
+                failpls);                                                  \
         __sput.overall.checks += __sput.suite.checks;                      \
         __sput.overall.ok     += __sput.suite.ok;                          \
         __sput.overall.nok    += __sput.suite.nok;                         \
@@ -222,15 +222,15 @@ extern "C" {
 
 #define sput_finish_testing()                                              \
     do {                                                                   \
-        float failpt = 0.0f;                                                \
+        float failpft = 0.0f;                                              \
         _sput_die_unless_initialized();                                    \
         if (__sput.suite.name)                                             \
         {                                                                  \
             sput_leave_suite();                                            \
         }                                                                  \
-        failpt = __sput.overall.checks ? (float)                            \
-                ((__sput.overall.nok * 100.0) / __sput.overall.checks) :   \
-                0.0f;                                                      \
+        failpft = __sput.overall.checks ? (float)                          \
+                  ((__sput.overall.nok * 100.0) / __sput.overall.checks) : \
+                  0.0f;                                                    \
         __sput.time.end = time(NULL);                                      \
         fprintf(__sput.out,                                                \
                 "\n==> %lu check(s) in %lu suite(s) finished after %.2f "  \
@@ -239,7 +239,7 @@ extern "C" {
                 "\n[%s]\n",                                                \
                 __sput.overall.checks, __sput.overall.suites,              \
                 difftime(__sput.time.end, __sput.time.start),              \
-                __sput.overall.ok, __sput.overall.nok, failpt,              \
+                __sput.overall.ok, __sput.overall.nok, failpft,            \
                 (sput_get_return_value() == EXIT_SUCCESS) ?                \
                 "SUCCESS" : "FAILURE");                                    \
     } while (0)
@@ -315,4 +315,4 @@ extern "C" {
 #endif /* HAVE_SPUT_H */
 
 
-/* vim: set sts=4 sw=4 ts=4 ai et ft=c: */
+/* vim: set ft=c sts=4 sw=4 ts=4 ai et: */
