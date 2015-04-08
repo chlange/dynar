@@ -466,8 +466,8 @@ int daIndexOf(DaStruct *da, int *err, const void *element, size_t *index);
  * @param[in]  element Search the array for this element.
  * @param[out] index   Index of the @p element if the array contains it (0 based).
  *
- * @returns Returns 1  if the array contains the @p element and the index is returned via @p index.
- * @returns Returns 0  if the array doesn't contain the @p element.
+ * @returns Returns  1 if the array contains the @p element and the index is returned via @p index.
+ * @returns Returns  0 if the array doesn't contain the @p element.
  * @returns Returns -1 in the event of an error and @p err is set appropriately.
  *
  * @b Errors @n
