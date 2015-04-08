@@ -1,6 +1,6 @@
 #include "dynar.h"
 
-static int paramNotValid(DaStruct *da, int *err);
+static int paramNotValid(const DaStruct *da, int *err);
 
 /**
  * @brief The function reallocates the dynamic array to increase the space.
@@ -386,13 +386,8 @@ DaStruct *daClone(const DaStruct *da, int *err)
     DaDesc desc;
     DaStruct *clone;
 
-    if (!err)
+    if (paramNotValid(da, err))
     {
-        return NULL;
-    }
-    else if (!da || da->magic != DA_MAGIC)
-    {
-        *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return NULL;
     }
 
@@ -422,7 +417,7 @@ DaStruct *daClone(const DaStruct *da, int *err)
  *
  * @returns The function returns 0 if the parameters are valid and -1 otherwise.
  */
-static int paramNotValid(DaStruct *da, int *err)
+static int paramNotValid(const DaStruct *da, int *err)
 {
     if (!err)
     {
