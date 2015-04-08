@@ -381,6 +381,36 @@ int daLastIndexOf(DaStruct *da, int *err, const void *element, size_t *index)
     return found;
 }
 
+DaStruct *daClone(const DaStruct *da, int *err)
+{
+    DaDesc desc;
+    DaStruct *clone;
+
+    if (!err)
+    {
+        return NULL;
+    }
+    else if (!da || da->magic != DA_MAGIC)
+    {
+        *err = DA_PARAM_ERR | DA_PARAM_NULL;
+        return NULL;
+    }
+
+    desc.elements = da->max;
+    desc.bytesPerElement = da->bytesPerElement;
+
+    clone = daCreate(&desc, err);
+
+    if (clone)
+    {
+        clone->used = da->used;
+        clone->freeAddr = (char *)clone->firstAddr + (clone->used * clone->bytesPerElement);
+        memcpy(clone->firstAddr, da->firstAddr, clone->used * clone->bytesPerElement);
+    }
+
+    return clone;
+}
+
 /**
  * @brief The function checks wheter the parameters are valid.
  *
