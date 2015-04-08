@@ -361,10 +361,10 @@ int daLastIndexOf(DaStruct *da, int *err, const void *element, size_t *index)
     *err = DA_NOT_FOUND;
     found = 0;
 
-    i = da->used;
-
     if (da->used > 0)
     {
+        i = da->used;
+
         while (i--)
         {
             if (memcmp((char *)da->firstAddr + (i * da->bytesPerElement), element, da->bytesPerElement) == 0)
