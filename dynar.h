@@ -40,7 +40,7 @@
  */
 
 /**
- * Add SIZE_MAX definition because it's not defined in C89 aka ANSI.
+ * Add SIZE_MAX definition because it's not defined in C89 aka ANSI C.
  */
 #define SIZE_MAX ((size_t)-1)
 
