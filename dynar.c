@@ -434,6 +434,40 @@ DaStruct *daClone(const DaStruct *da, int *err)
     return clone;
 }
 
+int daRemove(DaStruct *da, int *err, size_t pos)
+{
+    void *dst;
+    void *src;
+    size_t bytes;
+
+    if (paramNotValid(da, err))
+    {
+        return -1;
+    }
+
+    if (pos >= da->used)
+    {
+        *err = DA_PARAM_ERR | DA_OUT_OF_BOUNDS;
+        return -1;
+    }
+
+    /* Move memory if it's not the last remaining or endmost element */
+    if (da->used > 1 && pos < da->used - 1)
+    {
+        dst = (char *)da->firstAddr + (pos * da->bytesPerElement);
+        src = (char *)dst + da->bytesPerElement;
+        bytes = ((da->used - 1) - pos) * da->bytesPerElement;
+
+        memmove(dst, src, bytes);
+    }
+
+    da->used--;
+    da->freeAddr = (char *)da->freeAddr - da->bytesPerElement;
+
+    *err = DA_OK;
+    return 0;
+}
+
 /**
  * @brief The function checks wheter the parameters are valid.
  *
