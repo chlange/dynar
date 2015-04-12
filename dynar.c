@@ -274,17 +274,17 @@ int daClear(DaStruct *da, int *err, int mode)
 
     switch (mode)
     {
-        case DA_FAST:
-            break;
+    case DA_FAST:
+        break;
 
-        case DA_SECURE:
-            memset(da->firstAddr, '0', da->used * da->bytesPerElement);
-            break;
+    case DA_SECURE:
+        memset(da->firstAddr, '0', da->used * da->bytesPerElement);
+        break;
 
-        default:
-            *err = (DA_PARAM_ERR | DA_UNKNOWN_MODE);
-            return -1;
-            break;
+    default:
+        *err = (DA_PARAM_ERR | DA_UNKNOWN_MODE);
+        return -1;
+        break;
     }
 
     da->freeAddr = da->firstAddr;
