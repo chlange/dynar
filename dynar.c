@@ -534,6 +534,48 @@ void *daPrepend(DaStruct *da, int *err, const void *element)
     return da->firstAddr;
 }
 
+void *daInsertAt(DaStruct *da, int *err, const void *element, size_t pos)
+{
+    void *dst;
+    void *src;
+    size_t bytes;
+
+    if (paramNotValid(da, err))
+    {
+        return NULL;
+    }
+    else if (!element)
+    {
+        *err = DA_PARAM_ERR | DA_PARAM_NULL;
+        return NULL;
+    }
+
+    if (pos > 0 && pos >= da->used)
+    {
+        *err = DA_PARAM_ERR | DA_OUT_OF_BOUNDS;
+        return NULL;
+    }
+
+    if (da->used == da->max)
+    {
+        if (daRealloc(da, err) != 0)
+        {
+            return NULL;
+        }
+    }
+
+    src = (char *)da->firstAddr + (pos * da->bytesPerElement);
+    dst = (char *)src + da->bytesPerElement;
+    bytes = (da->used - pos) * da->bytesPerElement;
+    memmove(dst, src, bytes);
+    memcpy(src, element, da->bytesPerElement);
+    da->used++;
+    da->freeAddr = (char *)da->freeAddr + da->bytesPerElement;
+
+    *err = DA_OK;
+    return src;
+}
+
 /**
  * @brief The function checks wheter the parameters are valid.
  *

@@ -304,6 +304,8 @@ void *daAppend(DaStruct *da, int *err, const void *element);
  *
  * Shifts the element and any subsequent elements from @p pos one position to the right before inserting the new @p element.
  *
+ * It's allowed to use 0 for @p pos if the array is empty to append the element.
+ *
  * @p pos must be in between the array bounds.
  * The array remains unchanged in the event of an error.
  *
