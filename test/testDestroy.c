@@ -27,6 +27,7 @@ static void testCleanup(void)
     da->magic = DA_MAGIC;
     sput_fail_if(daDestroy(da, &err) != 0, "daDestroy(da, &err) should return 0 after successful cleanup");
     sput_fail_if(err != DA_OK, "err != DA_OK");
+    sput_fail_if(da->magic == DA_MAGIC, "da->magic == DA_MAGIC");
 }
 
 static void testMagic(void)

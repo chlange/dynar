@@ -169,6 +169,7 @@ int daDestroy(DaStruct *da, int *err)
         return -1;
     }
 
+    da->magic = 0;
     memset(da->firstAddr, '0', da->max * da->bytesPerElement);
     free(da->firstAddr);
     free(da);
