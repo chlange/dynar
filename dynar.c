@@ -469,6 +469,36 @@ int daRemove(DaStruct *da, int *err, size_t pos)
     return 0;
 }
 
+void *daAppend(DaStruct *da, int *err, const void *element)
+{
+    void *ret;
+
+    if (paramNotValid(da, err))
+    {
+        return NULL;
+    }
+    else if (!element)
+    {
+        *err = DA_PARAM_ERR | DA_PARAM_NULL;
+        return NULL;
+    }
+
+    if (da->used == da->max)
+    {
+        if (daRealloc(da, err) != 0)
+        {
+            return NULL;
+        }
+    }
+
+    ret = da->freeAddr;
+    memcpy(da->freeAddr, element, da->bytesPerElement);
+    da->used++;
+    da->freeAddr = (char *)da->freeAddr + da->bytesPerElement;
+
+    *err = DA_OK;
+    return ret;
+}
 /**
  * @brief The function checks wheter the parameters are valid.
  *
