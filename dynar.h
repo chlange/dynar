@@ -273,7 +273,8 @@ int daIsEmpty(DaStruct *da, int *err);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer.
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the reallocation whould exceed the bytes limit ::DA_MAX_BYTES.
  */
 void *daPrepend(DaStruct *da, int *err, const void *element);
 
@@ -293,7 +294,8 @@ void *daPrepend(DaStruct *da, int *err, const void *element);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer.
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the reallocation whould exceed the bytes limit ::DA_MAX_BYTES.
  */
 void *daAppend(DaStruct *da, int *err, const void *element);
 
@@ -432,7 +434,8 @@ void *daSet(DaStruct *da, int *err, const void *element, size_t pos);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device. @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n@n
+ * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the a reallocation whould exceed the bytes limit ::DA_MAX_BYTES.
  * ::DA_PARAM_ERR | ::DA_UNKNOWN_MODE if @p mode is unknown.
  */
 int daIncrease(DaStruct *da, int *err, size_t n, int mode);
