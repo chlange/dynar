@@ -504,6 +504,36 @@ void *daAppend(DaStruct *da, int *err, const void *element)
     *err = DA_OK;
     return ret;
 }
+
+void *daPrepend(DaStruct *da, int *err, const void *element)
+{
+    if (paramNotValid(da, err))
+    {
+        return NULL;
+    }
+    else if (!element)
+    {
+        *err = DA_PARAM_ERR | DA_PARAM_NULL;
+        return NULL;
+    }
+
+    if (da->used == da->max)
+    {
+        if (daRealloc(da, err) != 0)
+        {
+            return NULL;
+        }
+    }
+
+    memmove((char*)da->firstAddr + da->bytesPerElement, da->firstAddr, da->used * da->bytesPerElement);
+    memcpy(da->firstAddr, element, da->bytesPerElement);
+    da->used++;
+    da->freeAddr = (char *)da->freeAddr + da->bytesPerElement;
+
+    *err = DA_OK;
+    return da->firstAddr;
+}
+
 /**
  * @brief The function checks wheter the parameters are valid.
  *
