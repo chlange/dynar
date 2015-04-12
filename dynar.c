@@ -682,6 +682,110 @@ const char *daErrToString(int err)
     return errString;
 }
 
+#ifdef INCLUDE_DUMP
+int daDump(DaStruct *da, int *err)
+{
+    int i;
+    int j;
+    int ret;
+    void *current;
+    char buf[50];
+    unsigned int addrLen;
+
+    /* Number of digits to represent the index */
+    static const unsigned int idxLen = 6;
+    static const unsigned int addrMinWidth = 8;
+    static const unsigned int hexMinWidth = 31;
+    static const unsigned int asciiMinWidth = 5;
+    static unsigned int hexLen;
+    static unsigned int asciiLen;
+
+    if (paramNotValid(da, err))
+    {
+        return -1;
+    }
+
+    addrLen = sprintf(buf, "%p", da->firstAddr);
+    if (addrLen < 0)
+    {
+        return -1;
+    }
+
+    ret = 0;
+
+    /* Each byte will be represented as a two digit hex number followed by one space to seperate bytes */
+    hexLen = da->bytesPerElement * 3;
+    asciiLen = da->bytesPerElement;
+
+    addrLen  = (addrLen < addrMinWidth)   ? addrMinWidth  : addrLen;
+    hexLen   = (hexLen < hexMinWidth)     ? hexMinWidth   : hexLen;
+    asciiLen = (asciiLen < asciiMinWidth) ? asciiMinWidth : asciiLen;
+
+    printf("[ %*s ][ Index][%*s ][ %*s ]\n",  addrLen, "Address", hexLen, "Hexdump", asciiLen, "Ascii");
+
+    for (i = 0; i < da->used; i++)
+    {
+        current = (char *)da->firstAddr + (i * da->bytesPerElement);
+
+        /* Address and index */
+        printf("[-%*p-][%*d]", addrLen , current, idxLen, i);
+
+        /* Hexdump */
+        printf("[ ");
+        for (j = 0; j < da->bytesPerElement; j++)
+        {
+            ret = printf("%02x ", *((unsigned char *)current + j));
+        }
+        for (j = 0; j < hexLen - (ret * da->bytesPerElement); j++)
+        {
+            /* Padding */
+            printf(" ");
+        }
+        printf("]");
+
+        /* Ascii */
+        printf("[ ");
+        for (j = 0; j < da->bytesPerElement; j++)
+        {
+            if (isprint(*((char *)current + j)))
+            {
+                printf("%c", *((char *)current + j));
+            }
+            else
+            {
+                printf(".");
+            }
+        }
+        for (j = 0; j < asciiLen - da->bytesPerElement; j++)
+        {
+            /* Padding */
+            printf(" ");
+        }
+        printf(" ]");
+        printf("\n");
+    }
+
+    if (da->used < da->max)
+    {
+        printf("(Skipped next %lu empty and unused elements)\n", (unsigned long)da->max - (unsigned long)da->used);
+    }
+
+    printf("\nDynamic array header\n");
+    printf("--------------------\n");
+    printf("da->firstAddr:   %10p\n", da->firstAddr);
+    printf("da->lastAddr:    %10p\n", da->lastAddr);
+    printf("da->freeAddr:    %10p\n", da->freeAddr);
+    printf("da->used:        %10lu\n", (unsigned long)da->used);
+    printf("da->max:         %10lu\n", (unsigned long)da->max);
+    printf("da->bytesPerElement: %6lu\n", (unsigned long)da->bytesPerElement);
+
+    printf("\n");
+
+    *err = DA_OK;
+    return 0;
+}
+#endif
+
 /**
 * @brief The function checks wheter the parameters are valid.
 *

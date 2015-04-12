@@ -31,6 +31,10 @@
 
 #include <stdlib.h>
 #include <string.h>
+#ifdef INCLUDE_DUMP
+#include <stdio.h>
+#include <ctype.h>
+#endif
 
 /**
  * @file
@@ -543,5 +547,20 @@ DaStruct *daClone(const DaStruct *da, int *err);
  * @returns Returns a human-readable error string as seen in the function descriptions Errors section.
  */
 const char *daErrToString(int err);
+
+#ifdef INCLUDE_DUMP
+/**
+ * @brief The function prints the header and array of the dynamic array pointed to by @p da to stdout.
+ *
+ * @param da Print this dynamic array.
+ *
+ * @returns The function returns 0 on success, otherwise -1 is returned and @p err is set appropriately.
+ *
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ */
+int daDump(DaStruct *da, int *err);
+#endif
 
 #endif
