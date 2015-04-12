@@ -3,7 +3,7 @@ RANLIB=  /usr/bin/ar ts
 IPATH=   -I. -Isput-1.3.1
 CC=cc
 
-override CFLAGS += $(IPATH) -Werror -ansi -g -Wall -Wformat -pedantic -O1 -Wshadow -Wpointer-arith -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes
+override CFLAGS += $(IPATH) -Werror -ansi -Wall -Wformat -pedantic -O1 -Wshadow -Wpointer-arith -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes
 
 OBJ=dynar.o
 SOURCES=dynar.c
