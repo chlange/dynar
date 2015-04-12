@@ -638,17 +638,61 @@ int daIncrease(DaStruct *da, int *err, size_t n, int mode)
     return 0;
 }
 
+const char *daErrToString(int err)
+{
+    const char *errString;
+
+    errString = "UNKNOWN ERROR";
+
+    if (err == DA_OK)
+    {
+        errString = "DA_OK";
+    }
+    else if (err & DA_PARAM_ERR)
+    {
+        if (err & DA_PARAM_NULL)
+        {
+            errString = "DA_PARAM_ERR | DA_PARAM_NULL";
+        }
+        else if (err & DA_UNKNOWN_MODE)
+        {
+            errString = "DA_PARAM_ERR | DA_UNKNOWN_MODE";
+        }
+        else if (err & DA_OUT_OF_BOUNDS)
+        {
+            errString = "DA_PARAM_ERR | DA_OUT_OF_BOUNDS";
+        }
+        else if (err & DA_EXCEEDS_SIZE_LIMIT)
+        {
+            errString = "DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT";
+        }
+    }
+    else if (err & DA_FATAL)
+    {
+        if (err & DA_ENOMEM)
+        {
+            errString = "DA_FATAL | DA_ENOMEM";
+        }
+    }
+    else if (err == DA_NOT_FOUND)
+    {
+        errString = "DA_NOT_FOUND";
+    }
+
+    return errString;
+}
+
 /**
- * @brief The function checks wheter the parameters are valid.
- *
- * The parameter @p da is valid if it's non-NULL and the magic number equals the defined .
- * @p err is valid if it's non-NULL.
- *
- * @param[in] da  Check this dynamic array
- * @param[in] err Check this pointer
- *
- * @returns The function returns 0 if the parameters are valid and -1 otherwise.
- */
+* @brief The function checks wheter the parameters are valid.
+*
+* The parameter @p da is valid if it's non-NULL and the magic number equals the defined .
+* @p err is valid if it's non-NULL.
+*
+* @param[in] da  Check this dynamic array
+* @param[in] err Check this pointer
+*
+* @returns The function returns 0 if the parameters are valid and -1 otherwise.
+*/
 static int paramNotValid(const DaStruct *da, int *err)
 {
     if (!err)

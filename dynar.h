@@ -535,4 +535,13 @@ int daLastIndexOf(DaStruct *da, int *err, const void *element, size_t *index);
  */
 DaStruct *daClone(const DaStruct *da, int *err);
 
+/**
+ * @brief Returns the number encoded error code as a string.
+ *
+ * @param[in] err Translate this error code into the appriopriate string.
+ *
+ * @returns Returns a human-readable error string as seen in the function descriptions Errors section.
+ */
+const char *daErrToString(int err);
+
 #endif
