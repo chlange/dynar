@@ -16,7 +16,7 @@ static void testRemove(void)
 {
     int err;
     const char *src;
-    const char *expct;
+    const char *expect;
     DaDesc desc;
     DaStruct *da;
 
@@ -33,16 +33,16 @@ static void testRemove(void)
     sput_fail_if(daRemove(da, &err, 0) != 0, "daRemove should remove the first element and succeed");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->used != 2, "daRemove should decrease the used counter");
-    expct = "23";
-    sput_fail_if(memcmp(da->firstAddr, expct, 2), "daRemove should shift all other elements to the left");
+    expect = "23";
+    sput_fail_if(memcmp(da->firstAddr, expect, 2), "daRemove should shift all other elements to the left");
     sput_fail_if(da->freeAddr != (char *)da->firstAddr + 2, "daRemove should update the freeAddr pointer");
 
 
     sput_fail_if(daRemove(da, &err, 1) != 0, "daRemove should remove the second (endmost) element and succeed");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->used != 1, "daRemove should decrease the used counter");
-    expct = "2";
-    sput_fail_if(memcmp(da->firstAddr, expct, 1), "daRemove should remain the last remaining (not touched) element at the position");
+    expect = "2";
+    sput_fail_if(memcmp(da->firstAddr, expect, 1), "daRemove should remain the last remaining (not touched) element at the position");
     sput_fail_if(da->freeAddr != (char *)da->firstAddr + 1, "daRemove should update the freeAddr pointer");
 
 
@@ -61,8 +61,8 @@ static void testRemove(void)
     sput_fail_if(daRemove(da, &err, 2) != 0, "daRemove should remove the third (endmost) element and succeed");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->used != 2, "daRemove should decrease the used counter");
-    expct = "12";
-    sput_fail_if(memcmp(da->firstAddr, expct, 1), "daRemove should remain the last remaining (not touched) elements at the positions");
+    expect = "12";
+    sput_fail_if(memcmp(da->firstAddr, expect, 1), "daRemove should remain the last remaining (not touched) elements at the positions");
     sput_fail_if(da->freeAddr != (char *)da->firstAddr + 2, "daRemove should update the freeAddr pointer");
 }
 
