@@ -87,7 +87,7 @@
 /**
  * Element not found in array.
  */
-#define DA_NOT_FOUND     0x30000000
+#define DA_NOT_FOUND     0x40000000
 
 
 /**
