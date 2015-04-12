@@ -99,9 +99,9 @@
  * Maximum number of bytes all elements of an array can have.
  */
 #if (SIZE_MAX > 0 && SIZE_MAX < 100000000)
-    #define DA_MAX_BYTES SIZE_MAX
+#define DA_MAX_BYTES SIZE_MAX
 #else
-    #define DA_MAX_BYTES 100000000
+#define DA_MAX_BYTES 100000000
 #endif
 
 /**
