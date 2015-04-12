@@ -32,6 +32,8 @@ static void testValid(void)
     da->used = 2;
     sput_fail_if(daGetLast(da, &err) != (char *)da->firstAddr + da->bytesPerElement, "daGetLast(...) should point to second element");
     sput_fail_if(err != DA_OK, "err != DA_OK");
+
+    free(da);
 }
 
 static void testOutOfBounds(void)

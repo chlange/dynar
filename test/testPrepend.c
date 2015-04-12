@@ -60,6 +60,8 @@ static void testPrepend(void)
     sput_fail_if(memcmp(da->firstAddr, expect, 3) != 0, "daPrepend should copy the element to the first position");
     sput_fail_if(da->freeAddr != (char *)da->firstAddr + 3, "daPrepend should update the freeAddr pointer");
     sput_fail_if(da->used != 3, "daPrepend should increase the used counter");
+
+    daDestroy(da, &err);
 }
 
 static void testRealloc(void)
@@ -119,6 +121,8 @@ static void testRealloc(void)
     sput_fail_if(da->lastAddr == LastAddrCmp, "daPrepend should update the lastAddr pointer");
     sput_fail_if(da->freeAddr == freeAddrCmp, "daPrepend should update the freeAddr pointer");
     sput_fail_if(da->max != 4, "daPrepend should double the maximum amount of elements");
+
+    daDestroy(da, &err);
 }
 
 static void testBytesLimit(void)
@@ -146,7 +150,7 @@ static void testBytesLimit(void)
     sput_fail_if(daPrepend(da, &err, src) != NULL, "daPrepend should fail if the bytes limit is reached");
     sput_fail_if(err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT), "err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT)");
 
-
+    daDestroy(da, &err);
 
 
     desc.elements = DA_MAX_BYTES;
@@ -157,6 +161,9 @@ static void testBytesLimit(void)
 
     sput_fail_if(daPrepend(da, &err, src) != NULL, "daPrepend should fail if the bytes limit is reached");
     sput_fail_if(err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT), "err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT)");
+
+    daDestroy(da, &err);
+    free(src);
 }
 
 static void testMagic(void)

@@ -80,6 +80,8 @@ static void testInsert(void)
     sput_fail_if(da->freeAddr != (char*)freeAddrCmp + 1, "daInsertAt should update the freeAddr pointer");
     sput_fail_if(da->used != 3, "daInsertAt should increase the used counter");
     sput_fail_if(err != DA_OK, "err != DA_OK");
+
+    daDestroy(da, &err);
 }
 
 static void testRealloc(void)
@@ -120,6 +122,7 @@ static void testRealloc(void)
     sput_fail_if(da->freeAddr == freeAddrCmp, "daInsertAt should update the freeAddr pointer");
     sput_fail_if(da->max != 6, "daInsertAt should double the maximum amount of elements");
 
+    daDestroy(da, &err);
 
 
 
@@ -146,6 +149,8 @@ static void testRealloc(void)
     sput_fail_if(da->lastAddr == LastAddrCmp, "daInsertAt should update the lastAddr pointer");
     sput_fail_if(da->freeAddr == freeAddrCmp, "daInsertAt should update the freeAddr pointer");
     sput_fail_if(da->max != 6, "daInsertAt should double the maximum amount of elements");
+
+    daDestroy(da, &err);
 }
 
 static void testBytesLimit(void)
@@ -173,6 +178,7 @@ static void testBytesLimit(void)
     sput_fail_if(daInsertAt(da, &err, src, 0) != NULL, "daInsertAt should fail if the bytes limit is reached");
     sput_fail_if(err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT), "err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT)");
 
+    daDestroy(da, &err);
 
 
 
@@ -184,6 +190,9 @@ static void testBytesLimit(void)
 
     sput_fail_if(daInsertAt(da, &err, src, 0) != NULL, "daInsertAt should fail if the bytes limit is reached");
     sput_fail_if(err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT), "err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT)");
+
+    daDestroy(da, &err);
+    free(src);
 }
 
 static void testMagic(void)

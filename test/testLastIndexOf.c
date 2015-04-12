@@ -61,6 +61,8 @@ static void testFound(void)
     sput_fail_if(daLastIndexOf(da, &err, src, &index) != 1, "daLastIndexOf should find the existing third element");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(index != 2, "daLastIndexOf should return the index of the third element");
+
+    daDestroy(da, &err);
 }
 
 static void testNotFound(void)
@@ -91,6 +93,8 @@ static void testNotFound(void)
     da->used = 0;
     sput_fail_if(daLastIndexOf(da, &err, src, &index) != 0, "daLastIndexOf shouldn't find an element if the array is empty");
     sput_fail_if(err != DA_NOT_FOUND, "err != DA_NOT_FOUND");
+
+    daDestroy(da, &err);
 }
 
 static void testMagic(void)

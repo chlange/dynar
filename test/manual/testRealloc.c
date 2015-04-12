@@ -52,6 +52,7 @@ static void testValid(void)
     sput_fail_if(da->max != DA_MAX_BYTES, "daRealloc shouldn't alter the maximum possible values if it's not possible to increase the space");
     sput_fail_if(err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT), "err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT)");
 
+    daDestroy(da, &err);
 
 
     desc.elements = DA_MAX_BYTES / 2;
@@ -67,6 +68,7 @@ static void testValid(void)
     sput_fail_if(err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT), "err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT)");
 
 
+    daDestroy(da, &err);
 
 
     desc.elements = 10;
@@ -82,6 +84,8 @@ static void testValid(void)
     sput_fail_if(da->firstAddr == ptr, "daRealloc should update firstAddr pointer");
     sput_fail_if(memcmp(da->firstAddr, src, 10) != 0, "daRealloc should copy the bytes to the new array");
     sput_fail_if(da->max != desc.elements * 2, "daRealloc should update the max number of elements");
+
+    daDestroy(da, &err);
 }
 
 static void testMagic(void)

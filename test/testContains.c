@@ -51,6 +51,8 @@ static void testFound(void)
     src = "3";
     sput_fail_if(daContains(da, &err, src) != 1, "daContains should find an existing element");
     sput_fail_if(err != DA_OK, "err != DA_OK");
+
+    daDestroy(da, &err);
 }
 
 static void testNotFound(void)
@@ -81,6 +83,8 @@ static void testNotFound(void)
     da->used = 0;
     sput_fail_if(daContains(da, &err, src) != 0, "daContains shouldn't find an element if the array ie empty");
     sput_fail_if(err != DA_NOT_FOUND, "err != DA_NOT_FOUND");
+
+    daDestroy(da, &err);
 }
 
 static void testMagic(void)

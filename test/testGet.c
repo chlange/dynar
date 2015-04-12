@@ -30,6 +30,8 @@ static void testValid(void)
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(daGet(da, &err, 1) != (char *)da->firstAddr + da->bytesPerElement, "daGet(da, &err, 1) should point to second element");
     sput_fail_if(err != DA_OK, "err != DA_OK");
+
+    free(da);
 }
 
 static void testOutOfBounds(void)
@@ -58,6 +60,8 @@ static void testOutOfBounds(void)
     sput_fail_if(err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS), "err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS)");
     sput_fail_if(daGet(da, &err, 2) != NULL, "daGet(da, &err, 2) should return NULL if pos is out of bounds");
     sput_fail_if(err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS), "err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS)");
+
+    free(da);
 }
 
 static void testMagic(void)

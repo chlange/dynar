@@ -57,6 +57,7 @@ static void testInit(void)
     sput_fail_if(da->bytesPerElement != desc.bytesPerElement, "da->bytesPerElement != desc.bytesPerElement");
     sput_fail_if(da->magic != DA_MAGIC, "da->magic != DA_MAGIC");
 
+    daDestroy(da, &err);
 }
 
 int main(void)

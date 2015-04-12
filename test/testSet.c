@@ -52,6 +52,8 @@ static void testValid(void)
     sput_fail_if(daSet(da, &err, src, 2) != (char *)da->firstAddr + 2, "daSet should replace the existing element and return a pointer to the element");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(memcmp(da->firstAddr, src, 3) != 0, "daSet didn't update the element at position 2");
+
+    daDestroy(da, &err);
 }
 
 static void testOutOfBounds(void)

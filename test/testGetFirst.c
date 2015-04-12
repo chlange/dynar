@@ -32,6 +32,8 @@ static void testValid(void)
     da->used = 2;
     sput_fail_if(daGetFirst(da, &err) != da->firstAddr, "daGetFirst(...) should point to da->firstAddr");
     sput_fail_if(err != DA_OK, "err != DA_OK");
+
+    free(da);
 }
 
 static void testOutOfBounds(void)

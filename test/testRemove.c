@@ -64,6 +64,8 @@ static void testRemove(void)
     expect = "12";
     sput_fail_if(memcmp(da->firstAddr, expect, 1), "daRemove should remain the last remaining (not touched) elements at the positions");
     sput_fail_if(da->freeAddr != (char *)da->firstAddr + 2, "daRemove should update the freeAddr pointer");
+
+    daDestroy(da, &err);
 }
 
 static void testOutOfBounds(void)

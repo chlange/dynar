@@ -44,6 +44,8 @@ static void testValid(void)
     sput_fail_if(da->freeAddr != da->firstAddr, "daClear should reset the freeAddr pointer");
     src = "0000000000";
     sput_fail_if(memcmp(da->firstAddr, src, 10) != 0, "daClear in secure mode doesn't erase the array content");
+
+    daDestroy(da, &err);
 }
 
 static void testUnknownMode(void)
