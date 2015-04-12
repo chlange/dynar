@@ -576,6 +576,68 @@ void *daInsertAt(DaStruct *da, int *err, const void *element, size_t pos)
     return src;
 }
 
+int daIncrease(DaStruct *da, int *err, size_t n, int mode)
+{
+    void *newArray;
+    size_t freeSlots;
+    size_t overflow;
+
+    if (paramNotValid(da, err))
+    {
+        return -1;
+    }
+
+    freeSlots = da->max - da->used;
+    overflow = 0;
+
+    switch (mode)
+    {
+    case DA_SOFT:
+        if (n > freeSlots)
+        {
+            overflow = n - freeSlots;
+        }
+        break;
+
+    case DA_HARD:
+        overflow = n;
+        break;
+
+    default:
+        *err = DA_PARAM_ERR | DA_UNKNOWN_MODE;
+        return -1;
+        break;
+    }
+
+    if ((da->max + overflow) * da->bytesPerElement > DA_MAX_BYTES)
+    {
+        *err = DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT;
+        return -1;
+    }
+
+    if (overflow > 0)
+    {
+        newArray = calloc(1, (da->max + overflow) * da->bytesPerElement);
+        if (!newArray)
+        {
+            *err = DA_FATAL | DA_ENOMEM;
+            return -1;
+        }
+
+        memcpy(newArray, da->firstAddr, da->used * da->bytesPerElement);
+
+        free(da->firstAddr);
+
+        da->firstAddr = newArray;
+        da->lastAddr = (char *)da->firstAddr + ((da->max + overflow) * da->bytesPerElement) - 1;
+        da->freeAddr = (char *)da->firstAddr + (da->used * da->bytesPerElement);
+        da->max = da->max + overflow;
+    }
+
+    *err = DA_OK;
+    return 0;
+}
+
 /**
  * @brief The function checks wheter the parameters are valid.
  *
