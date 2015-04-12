@@ -61,7 +61,12 @@ static int daRealloc(DaStruct *da, int *err)
     newArray = NULL;
     bytes = da->max * da->bytesPerElement;
 
-    if (bytes <= (DA_MAX_BYTES / 2))
+    if (bytes == DA_MAX_BYTES)
+    {
+        *err = DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT;
+        return -1;
+    }
+    else if (bytes <= (DA_MAX_BYTES / 2))
     {
         /* Enough room to double the array space */
         nrElements = da->max * 2;
