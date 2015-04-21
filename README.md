@@ -4,6 +4,7 @@
 * Compiler independent
 * CPU Cache friendly
 * 32-/64-bit compatible
+* Fully documented with [Doxygen](http://www.doxygen.org)
 * Unit tested with [sput](http://www.lingua-systems.com/unit-testing/) framework
 * Valgrind memory leak checked
 
