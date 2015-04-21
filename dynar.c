@@ -467,8 +467,8 @@ int daRemove(DaStruct *da, int *err, size_t pos)
         memmove(dst, src, bytes);
     }
 
-    da->used--;
     da->freeAddr = (char *)da->freeAddr - da->bytesPerElement;
+    da->used--;
 
     *err = DA_OK;
     return 0;
@@ -498,8 +498,8 @@ void *daAppend(DaStruct *da, int *err, const void *element)
 
     ret = da->freeAddr;
     memcpy(da->freeAddr, element, da->bytesPerElement);
-    da->used++;
     da->freeAddr = (char *)da->freeAddr + da->bytesPerElement;
+    da->used++;
 
     *err = DA_OK;
     return ret;
@@ -527,8 +527,8 @@ void *daPrepend(DaStruct *da, int *err, const void *element)
 
     memmove((char*)da->firstAddr + da->bytesPerElement, da->firstAddr, da->used * da->bytesPerElement);
     memcpy(da->firstAddr, element, da->bytesPerElement);
-    da->used++;
     da->freeAddr = (char *)da->freeAddr + da->bytesPerElement;
+    da->used++;
 
     *err = DA_OK;
     return da->firstAddr;
@@ -569,8 +569,9 @@ void *daInsertAt(DaStruct *da, int *err, const void *element, size_t pos)
     bytes = (da->used - pos) * da->bytesPerElement;
     memmove(dst, src, bytes);
     memcpy(src, element, da->bytesPerElement);
-    da->used++;
+
     da->freeAddr = (char *)da->freeAddr + da->bytesPerElement;
+    da->used++;
 
     *err = DA_OK;
     return src;
