@@ -727,8 +727,8 @@ int daDump(DaStruct *da, int *err)
     hexLen = da->bytesPerElement * 3;
     asciiLen = da->bytesPerElement;
 
-    addrLen  = (addrLen < addrMinWidth)   ? addrMinWidth  : addrLen;
-    hexLen   = (hexLen < hexMinWidth)     ? hexMinWidth   : hexLen;
+    addrLen  = (addrLen  < addrMinWidth ) ? addrMinWidth  : addrLen;
+    hexLen   = (hexLen   < hexMinWidth  ) ? hexMinWidth   : hexLen;
     asciiLen = (asciiLen < asciiMinWidth) ? asciiMinWidth : asciiLen;
 
     printf("[ %*s ][ Index][%*s ][ %*s ]\n",  addrLen, "Address", hexLen, "Hexdump", asciiLen, "Ascii");
