@@ -685,11 +685,18 @@ const char *daErrToString(int err)
 #ifdef INCLUDE_DUMP
 int daDump(DaStruct *da, int *err)
 {
+    /*
+    This function calls printf very often instead of using a fixed stack
+    buffer but guessing a buffer size is error prone and I assume this
+    function will not be called often in productive environments if ever.
+    It's meant for testing purposes were you want to see if your first
+    ten elements or so were inserted correctly and performance doesn't matter.
+    */
+
     int i;
     int j;
     int ret;
     void *current;
-    char buf[50];
     unsigned int addrLen;
 
     /* Number of digits to represent the index */
@@ -699,6 +706,7 @@ int daDump(DaStruct *da, int *err)
     static const unsigned int asciiMinWidth = 5;
     static unsigned int hexLen;
     static unsigned int asciiLen;
+    static char buf[50];
 
     if (paramNotValid(da, err))
     {
