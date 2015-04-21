@@ -26,6 +26,8 @@ static void testExceedsSizeLimit(void)
 
     sput_fail_if(daRealloc(da, &err) != -1, "daRealloc should fail if it would exceed the size limit");
     sput_fail_if(err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT), "err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT)");
+
+    daDestroy(da, &err);
 }
 
 static void testValid(void)
