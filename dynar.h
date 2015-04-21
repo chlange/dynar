@@ -558,6 +558,7 @@ const char *daErrToString(int err);
  *
  * @b Errors @n
  * ::DA_OK on success. @n
+ * ::DA_FATAL if a fatal error occurs during dump. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
 int daDump(DaStruct *da, int *err);

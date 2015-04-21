@@ -716,6 +716,7 @@ int daDump(DaStruct *da, int *err)
     addrLen = sprintf(buf, "%p", da->firstAddr);
     if (addrLen < 0)
     {
+        *err = DA_FATAL;
         return -1;
     }
 
