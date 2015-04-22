@@ -49,6 +49,12 @@ static void testSystem(void)
         sput_fail_if(index != i, "daLastIndexOf should return the correct index");
 
         sput_fail_if(daContains(da, &err, buf) != 1, "daContains should return 1 because the element exists");
+
+        sprintf(buf, "%050d", 999999);
+        sput_fail_if(daIndexOf(da, &err, buf, &index) != 0, "daIndexOf should return 0 because the element doesn't exists");
+
+        sprintf(buf, "%050d", 999999);
+        sput_fail_if(daLastIndexOf(da, &err, buf, &index) != 0, "daLastIndexOf should return 0 because the element doesn't exists");
     }
     for (i = 0; i < 10000; i++)
     {
@@ -98,6 +104,23 @@ static void testSystem(void)
         sput_fail_if(index != i, "daLastIndexOf should return the correct index");
 
         sput_fail_if(daContains(da, &err, buf) != 1, "daContains should return 1 because the element exists");
+
+        sprintf(buf, "%050d", 999999);
+        sput_fail_if(daIndexOf(da, &err, buf, &index) != 0, "daIndexOf should return 0 because the element doesn't exists");
+
+        sprintf(buf, "%050d", 999999);
+        sput_fail_if(daLastIndexOf(da, &err, buf, &index) != 0, "daLastIndexOf should return 0 because the element doesn't exists");
+    }
+
+    i = 10000;
+    while (i--)
+    {
+        sprintf(buf, "%050d", i);
+        sput_fail_if(daIndexOf(da, &err, buf, &index) != 1, "daIndexOf should return 1 because the element exists");
+        sput_fail_if(index != i, "daIndexOf should return the correct index");
+
+        sput_fail_if(daLastIndexOf(da, &err, buf, &index) != 1, "daLastIndexOf should return 1 because the element exists");
+        sput_fail_if(index != i, "daLastIndexOf should return the correct index");
     }
 
     for (i = 0; i < 10000; i++)
