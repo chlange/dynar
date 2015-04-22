@@ -39,16 +39,16 @@ static void testSystem(void)
         sprintf(buf, "%050d", i);
         sput_fail_if(memcmp(daGet(da, &err, i), buf, desc.bytesPerElement) != 0, "daGet should return the same as the daAppend input");
 
-        sput_fail_if(daIndexOf(da, &err, buf, &index) != 1, "daIndexOf should return 0 because the element exists");
+        sput_fail_if(daIndexOf(da, &err, buf, &index) != 1, "daIndexOf should return 1 because the element exists");
         sput_fail_if(index != i, "daIndexOf should return the correct index");
 
         retPtr = daGet(da, &err, i);
         sput_fail_if(daSet(da, &err, buf, i) != retPtr, "daSet should return the same pointer as daGet for same index");
 
-        sput_fail_if(daLastIndexOf(da, &err, buf, &index) != 1, "daLastIndexOf should return 0 because the element exists");
+        sput_fail_if(daLastIndexOf(da, &err, buf, &index) != 1, "daLastIndexOf should return 1 because the element exists");
         sput_fail_if(index != i, "daLastIndexOf should return the correct index");
 
-        sput_fail_if(daContains(da, &err, buf) != 1, "daContains should return 0 because the element exists");
+        sput_fail_if(daContains(da, &err, buf) != 1, "daContains should return 1 because the element exists");
     }
     for (i = 0; i < 10000; i++)
     {
@@ -88,16 +88,16 @@ static void testSystem(void)
         sprintf(buf, "%050d", i);
         sput_fail_if(memcmp(daGet(da, &err, i), buf, desc.bytesPerElement) != 0, "daGet should return the same as the daPrepend input");
 
-        sput_fail_if(daIndexOf(da, &err, buf, &index) != 1, "daIndexOf should return 0 because the element exists");
+        sput_fail_if(daIndexOf(da, &err, buf, &index) != 1, "daIndexOf should return 1 because the element exists");
         sput_fail_if(index != i, "daIndexOf should return the correct index");
 
         retPtr = daGet(da, &err, i);
         sput_fail_if(daSet(da, &err, buf, i) != retPtr, "daSet should return the same pointer as daGet for same index");
 
-        sput_fail_if(daLastIndexOf(da, &err, buf, &index) != 1, "daLastIndexOf should return 0 because the element exists");
+        sput_fail_if(daLastIndexOf(da, &err, buf, &index) != 1, "daLastIndexOf should return 1 because the element exists");
         sput_fail_if(index != i, "daLastIndexOf should return the correct index");
 
-        sput_fail_if(daContains(da, &err, buf) != 1, "daContains should return 0 because the element exists");
+        sput_fail_if(daContains(da, &err, buf) != 1, "daContains should return 1 because the element exists");
     }
 
     for (i = 0; i < 10000; i++)
