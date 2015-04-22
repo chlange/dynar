@@ -298,6 +298,7 @@ int daContains(DaStruct *da, int *err, const void *element)
 {
     int i;
     int found;
+    char *elementInArray;
 
     if (paramNotValid(da, err))
     {
@@ -312,14 +313,18 @@ int daContains(DaStruct *da, int *err, const void *element)
     *err = DA_NOT_FOUND;
     found = 0;
 
+    elementInArray = (char *)da->firstAddr;
+
     for (i = 0; i < da->used; i++)
     {
-        if (memcmp((char *)da->firstAddr + (i * da->bytesPerElement), element, da->bytesPerElement) == 0)
+        if (memcmp(elementInArray, element, da->bytesPerElement) == 0)
         {
             *err = DA_OK;
             found = 1;
             break;
         }
+
+        elementInArray += da->bytesPerElement;
     }
 
     return found;
@@ -350,6 +355,7 @@ int daIndexOf(DaStruct *da, int *err, const void *element, size_t *index)
 {
     size_t i;
     int found;
+    char *elementInArray;
 
     if (paramNotValid(da, err))
     {
@@ -364,15 +370,19 @@ int daIndexOf(DaStruct *da, int *err, const void *element, size_t *index)
     *err = DA_NOT_FOUND;
     found = 0;
 
+    elementInArray = (char *)da->firstAddr;
+
     for (i = 0; i < da->used; i++)
     {
-        if (memcmp((char *)da->firstAddr + (i * da->bytesPerElement), element, da->bytesPerElement) == 0)
+        if (memcmp(elementInArray, element, da->bytesPerElement) == 0)
         {
             *index = i;
             *err = DA_OK;
             found = 1;
             break;
         }
+
+        elementInArray += da->bytesPerElement;
     }
 
     return found;
@@ -382,6 +392,7 @@ int daLastIndexOf(DaStruct *da, int *err, const void *element, size_t *index)
 {
     size_t i;
     int found;
+    char *elementInArray;
 
     if (paramNotValid(da, err))
     {
@@ -396,19 +407,24 @@ int daLastIndexOf(DaStruct *da, int *err, const void *element, size_t *index)
     *err = DA_NOT_FOUND;
     found = 0;
 
+    /* Pointer to last element */
+    elementInArray = (char *)da->firstAddr + ((da->used - 1) * da->bytesPerElement);
+
     if (da->used > 0)
     {
         i = da->used;
 
         while (i--)
         {
-            if (memcmp((char *)da->firstAddr + (i * da->bytesPerElement), element, da->bytesPerElement) == 0)
+            if (memcmp(elementInArray, element, da->bytesPerElement) == 0)
             {
                 *index = i;
                 *err = DA_OK;
                 found = 1;
                 break;
             }
+
+            elementInArray -= da->bytesPerElement;
         }
     }
 
