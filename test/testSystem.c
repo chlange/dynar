@@ -7,11 +7,11 @@ static void testSystem(void)
     int err;
     char buf[150];
     void *retPtr;
-    void *cmpPtr;
     size_t size;
     size_t index;
     DaDesc desc;
     DaStruct *da;
+    DaStruct *originalDa;
 
     desc.elements = 1;
     desc.bytesPerElement = 50;
@@ -61,10 +61,11 @@ static void testSystem(void)
     sput_fail_if(daIsEmpty(da, &err) != 1, "daIsEmpty should return 1 if the array is empty");
 
 
-    cmpPtr = da;
+    originalDa = da;
     da = daClone(da, &err);
     sput_fail_if(da == NULL, "daClone should clone the array");
-    sput_fail_if(da == cmpPtr, "daClone should create a new array");
+    sput_fail_if(da == originalDa, "daClone should create a new array");
+    sput_fail_if(daDestroy(originalDa, &err) != 0, "daDestroy should destroy the original array");
 
     i = 10000;
     while (i--)
@@ -109,7 +110,7 @@ static void testSystem(void)
 
     sput_fail_if(daIsEmpty(da, &err) != 1, "daIsEmpty should return 1 if the array is empty");
 
-    sput_fail_if(daDestroy(da, &err) != 0, "daDestroy should destroy the element");
+    sput_fail_if(daDestroy(da, &err) != 0, "daDestroy should destroy the array");
 }
 
 int main(void)
