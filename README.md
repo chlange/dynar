@@ -8,6 +8,7 @@
 * [Valgrind](http://www.valgrind.org) memory leak checked
 * Unit tested and system tested with [sput](http://www.lingua-systems.com/unit-testing/) framework
 * Fully documented with [Doxygen](http://www.doxygen.org)
+* MIT license
 
 ##### Documentation
 Generate the HTML documentation with doxygen.
