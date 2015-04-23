@@ -16,7 +16,6 @@ static void testIncreaseSoft(void)
 {
     int err;
     void *firstAddrCmp;
-    void *LastAddrCmp;
     void *freeAddrCmp;
     DaDesc desc;
     DaStruct *da;
@@ -28,23 +27,19 @@ static void testIncreaseSoft(void)
 
 
     firstAddrCmp = da->firstAddr;
-    LastAddrCmp = da->lastAddr;
     freeAddrCmp = da->freeAddr;
     sput_fail_if(daIncrease(da, &err, 0, DA_SOFT) != 0, "daIncrease should succeed but do nothing if the size parameter is 0 (DA_SOFT mode)");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->firstAddr != firstAddrCmp, "daInsertAt shouldn't alter the firstAddr pointer if the size parameter is 0 (DA_SOFT mode)");
-    sput_fail_if(da->lastAddr != LastAddrCmp, "daInsertAt shouldn't alter the lastAddr pointer if the size parameter is 0 (DA_SOFT mode)");
     sput_fail_if(da->freeAddr != freeAddrCmp, "daInsertAt shouldn't alter the freeAddr pointer if the size parameter is 0 (DA_SOFT mode)");
     sput_fail_if(da->max != 1, "daInsertAt shouldn't alter the max counter if the size parameter is 0 (DA_SOFT mode)");
     sput_fail_if(da->used != 0, "daInsertAt shouldn't alter the used counter if the size parameter is 0 (DA_SOFT mode)");
 
 
     firstAddrCmp = da->firstAddr;
-    LastAddrCmp = da->lastAddr;
     freeAddrCmp = da->freeAddr;
     sput_fail_if(daIncrease(da, &err, 1, DA_SOFT) != 0, "daIncrease shouldn't increase the array if enough space is available (DA_SOFT mode)");
     sput_fail_if(da->firstAddr != firstAddrCmp, "daInsertAt shouldn't update the firstAddr pointer if enough space is available (DA_SOFT mode)");
-    sput_fail_if(da->lastAddr != LastAddrCmp, "daInsertAt shouldn't update the lastAddr pointer if enough space is available (DA_SOFT mode)");
     sput_fail_if(da->freeAddr != freeAddrCmp, "daInsertAt shouldn't update the freeAddr pointer if enough space is available (DA_SOFT mode)");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->max != 1, "daInsertAt shouldn't update the max counter if enough space is available (DA_SOFT mode)");
@@ -52,11 +47,9 @@ static void testIncreaseSoft(void)
 
 
     firstAddrCmp = da->firstAddr;
-    LastAddrCmp = da->lastAddr;
     freeAddrCmp = da->freeAddr;
     sput_fail_if(daIncrease(da, &err, 2, DA_SOFT) != 0, "daIncrease should increase the array if not enough space is available (DA_SOFT mode)");
     sput_fail_if(da->firstAddr == firstAddrCmp, "daInsertAt should update the firstAddr pointer if not enough space is available (DA_SOFT mode)");
-    sput_fail_if(da->lastAddr == LastAddrCmp, "daInsertAt should update the lastAddr pointer if not enough space is available (DA_SOFT mode)");
     sput_fail_if(da->freeAddr == freeAddrCmp, "daInsertAt should update the freeAddr pointer if not enough space is available (DA_SOFT mode)");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->max != 2, "daInsertAt should update the max counter if not enough space is available (DA_SOFT mode)");
@@ -64,11 +57,9 @@ static void testIncreaseSoft(void)
 
 
     firstAddrCmp = da->firstAddr;
-    LastAddrCmp = da->lastAddr;
     freeAddrCmp = da->freeAddr;
     sput_fail_if(daIncrease(da, &err, 10, DA_SOFT) != 0, "daIncrease should increase the array if not enough space is available (DA_SOFT mode)");
     sput_fail_if(da->firstAddr == firstAddrCmp, "daInsertAt should update the firstAddr pointer if not enough space is available (DA_SOFT mode)");
-    sput_fail_if(da->lastAddr == LastAddrCmp, "daInsertAt should update the lastAddr pointer if not enough space is available (DA_SOFT mode)");
     sput_fail_if(da->freeAddr == freeAddrCmp, "daInsertAt should update the freeAddr pointer if not enough space is available (DA_SOFT mode)");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->max != 10, "daInsertAt should update the max counter if not enough space is available (DA_SOFT mode)");
@@ -80,7 +71,6 @@ static void testIncreaseHard(void)
 {
     int err;
     void *firstAddrCmp;
-    void *LastAddrCmp;
     void *freeAddrCmp;
     DaDesc desc;
     DaStruct *da;
@@ -92,23 +82,19 @@ static void testIncreaseHard(void)
 
 
     firstAddrCmp = da->firstAddr;
-    LastAddrCmp = da->lastAddr;
     freeAddrCmp = da->freeAddr;
     sput_fail_if(daIncrease(da, &err, 0, DA_HARD) != 0, "daIncrease should succeed but do nothing if the size parameter is 0 (DA_HARD mode)");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->firstAddr != firstAddrCmp, "daInsertAt shouldn't alter the firstAddr pointer if the size parameter is 0 (DA_HARD mode)");
-    sput_fail_if(da->lastAddr != LastAddrCmp, "daInsertAt shouldn't alter the lastAddr pointer if the size parameter is 0 (DA_HARD mode)");
     sput_fail_if(da->freeAddr != freeAddrCmp, "daInsertAt shouldn't alter the freeAddr pointer if the size parameter is 0 (DA_HARD mode)");
     sput_fail_if(da->max != 1, "daInsertAt shouldn't alter the max counter if the size parameter is 0 (DA_HARD mode)");
     sput_fail_if(da->used != 0, "daInsertAt shouldn't alter the used counter if the size parameter is 0 (DA_HARD mode)");
 
 
     firstAddrCmp = da->firstAddr;
-    LastAddrCmp = da->lastAddr;
     freeAddrCmp = da->freeAddr;
     sput_fail_if(daIncrease(da, &err, 1, DA_HARD) != 0, "daIncrease should increase the array (DA_HARD mode)");
     sput_fail_if(da->firstAddr == firstAddrCmp, "daInsertAt should update the firstAddr pointer (DA_HARD mode)");
-    sput_fail_if(da->lastAddr == LastAddrCmp, "daInsertAt should update the lastAddr pointer (DA_HARD mode)");
     sput_fail_if(da->freeAddr == freeAddrCmp, "daInsertAt should update the freeAddr pointer (DA_HARD mode)");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->max != 2, "daInsertAt should update the max counter (DA_HARD mode)");
@@ -116,11 +102,9 @@ static void testIncreaseHard(void)
 
 
     firstAddrCmp = da->firstAddr;
-    LastAddrCmp = da->lastAddr;
     freeAddrCmp = da->freeAddr;
     sput_fail_if(daIncrease(da, &err, 2, DA_HARD) != 0, "daIncrease should increase the array (DA_HARD mode)");
     sput_fail_if(da->firstAddr == firstAddrCmp, "daInsertAt should update the firstAddr pointer (DA_HARD mode)");
-    sput_fail_if(da->lastAddr == LastAddrCmp, "daInsertAt should update the lastAddr pointer (DA_HARD mode)");
     sput_fail_if(da->freeAddr == freeAddrCmp, "daInsertAt should update the freeAddr pointer (DA_HARD mode)");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->max != 4, "daInsertAt should update the max counter (DA_HARD mode)");
@@ -128,11 +112,9 @@ static void testIncreaseHard(void)
 
 
     firstAddrCmp = da->firstAddr;
-    LastAddrCmp = da->lastAddr;
     freeAddrCmp = da->freeAddr;
     sput_fail_if(daIncrease(da, &err, 10, DA_HARD) != 0, "daIncrease should increase the array (DA_HARD mode)");
     sput_fail_if(da->firstAddr == firstAddrCmp, "daInsertAt should update the firstAddr pointer (DA_HARD mode)");
-    sput_fail_if(da->lastAddr == LastAddrCmp, "daInsertAt should update the lastAddr pointer (DA_HARD mode)");
     sput_fail_if(da->freeAddr == freeAddrCmp, "daInsertAt should update the freeAddr pointer (DA_HARD mode)");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->max != 14, "daInsertAt should update the max counter (DA_HARD mode)");

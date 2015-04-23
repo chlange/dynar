@@ -50,7 +50,6 @@ static void testInit(void)
     sput_fail_if(da == NULL, "daCreate(&desc, &err) with valid values: fails.");
     sput_fail_if(err != DA_OK, "err != DA_OK.");
     sput_fail_if(da->firstAddr == NULL, "da->firstAddr == NULL");
-    sput_fail_if(da->lastAddr != ((char *)da->firstAddr + (desc.elements * desc.bytesPerElement) - 1), "da->lastAddr != ((char *)da->firstAddr + (desc.elements * desc.bytesPerElement) - 1)");
     sput_fail_if(da->freeAddr != da->firstAddr, "da->freeAddr != da->firstAddr");
     sput_fail_if(da->used != 0, "da->used != 0");
     sput_fail_if(da->max != desc.elements, "da->max != desc.elements");

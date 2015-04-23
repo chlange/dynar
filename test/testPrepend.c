@@ -68,7 +68,6 @@ static void testRealloc(void)
 {
     int err;
     void *firstAddrCmp;
-    void *LastAddrCmp;
     void *freeAddrCmp;
     const char *src;
     const char *expect;
@@ -90,7 +89,6 @@ static void testRealloc(void)
 
 
     firstAddrCmp = da->firstAddr;
-    LastAddrCmp = da->lastAddr;
     freeAddrCmp = da->freeAddr;
     src = "1";
     expect = "10";
@@ -100,7 +98,6 @@ static void testRealloc(void)
     sput_fail_if(da->freeAddr != (char *)da->firstAddr + 2, "daPrepend should update the freeAddr pointer");
     sput_fail_if(da->used != 2, "daPrepend should increase the used counter");
     sput_fail_if(da->firstAddr == firstAddrCmp, "daPrepend should update the firstAddr pointer");
-    sput_fail_if(da->lastAddr == LastAddrCmp, "daPrepend should update the lastAddr pointer");
     sput_fail_if(da->freeAddr == freeAddrCmp, "daPrepend should update the freeAddr pointer");
     sput_fail_if(da->max != 2, "daPrepend should double the maximum amount of elements");
 
@@ -108,7 +105,6 @@ static void testRealloc(void)
 
 
     firstAddrCmp = da->firstAddr;
-    LastAddrCmp = da->lastAddr;
     freeAddrCmp = da->freeAddr;
     src = "2";
     expect = "210";
@@ -118,7 +114,6 @@ static void testRealloc(void)
     sput_fail_if(da->freeAddr != (char *)da->firstAddr + 3, "daPrepend should update the freeAddr pointer");
     sput_fail_if(da->used != 3, "daPrepend should increase the used counter");
     sput_fail_if(da->firstAddr == firstAddrCmp, "daPrepend should update the firstAddr pointer");
-    sput_fail_if(da->lastAddr == LastAddrCmp, "daPrepend should update the lastAddr pointer");
     sput_fail_if(da->freeAddr == freeAddrCmp, "daPrepend should update the freeAddr pointer");
     sput_fail_if(da->max != 4, "daPrepend should double the maximum amount of elements");
 
