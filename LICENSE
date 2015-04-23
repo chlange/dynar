@@ -1,6 +1,10 @@
 The MIT License (MIT)
 
+<<<<<<< HEAD
 Copyright (c) 2015 Christian Lange <Christian_Lange@hotmail.com>
+=======
+Copyright (c) 2015 Christian Lange
+>>>>>>> 8b02c4b3f78c868edb9e02c060e6b4a91e38a495
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +23,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8b02c4b3f78c868edb9e02c060e6b4a91e38a495
