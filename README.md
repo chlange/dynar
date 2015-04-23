@@ -9,6 +9,12 @@
 * Unit tested and system tested with [sput](http://www.lingua-systems.com/unit-testing/) framework
 * Fully documented with [Doxygen](http://www.doxygen.org)
 
+##### Documentation
+Generate the HTML documentation with doxygen.
+```
+doxygen Doxyfile
+```
+
 ##### Build
 Build the object code with the obj target of the makefile.
 ```
