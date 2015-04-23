@@ -92,7 +92,6 @@ static int daRealloc(DaStruct *da, int *err)
     free(da->firstAddr);
 
     da->firstAddr = newArray;
-    da->lastAddr = (char *)da->firstAddr + (nrElements * da->bytesPerElement) - 1;
     da->freeAddr = (char *)da->firstAddr + (da->used * da->bytesPerElement);
     da->max = nrElements;
 
@@ -141,7 +140,6 @@ DaStruct *daCreate(DaDesc *desc, int *err)
         goto err;
     }
 
-    da->lastAddr = (char *)da->firstAddr + (desc->elements * desc->bytesPerElement) - 1;
     da->freeAddr = da->firstAddr;
     da->used = 0;
     da->max = desc->elements;
@@ -642,7 +640,6 @@ int daIncrease(DaStruct *da, int *err, size_t n, int mode)
         free(da->firstAddr);
 
         da->firstAddr = newArray;
-        da->lastAddr = (char *)da->firstAddr + ((da->max + overflow) * da->bytesPerElement) - 1;
         da->freeAddr = (char *)da->firstAddr + (da->used * da->bytesPerElement);
         da->max = da->max + overflow;
     }
@@ -795,7 +792,6 @@ int daDump(DaStruct *da, int *err)
     printf("\nDynamic array header\n");
     printf("--------------------\n");
     printf("da->firstAddr:   %10p\n", da->firstAddr);
-    printf("da->lastAddr:    %10p\n", da->lastAddr);
     printf("da->freeAddr:    %10p\n", da->freeAddr);
     printf("da->used:        %10lu\n", (unsigned long)da->used);
     printf("da->max:         %10lu\n", (unsigned long)da->max);

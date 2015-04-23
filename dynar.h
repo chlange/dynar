@@ -153,11 +153,6 @@ typedef struct __str_da_ptr
     void *firstAddr;
 
     /**
-     * Last address of the array.
-     */
-    void *lastAddr;
-
-    /**
      * Next free address in the array.
      */
     void *freeAddr;
