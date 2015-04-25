@@ -131,6 +131,17 @@ static void testSystem(void)
     sput_fail_if(daClear(da, &err, DA_HARD) != 0, "daClear should return 0");
     sput_fail_if(da->used != 0, "daClear should set da->used to 0");
 
+    for (i = 0; i < 1000; i++)
+    {
+        sprintf(buf, "%050d", i);
+        sput_fail_if(daAppend(da, &err, buf) == NULL, "Unable to append an element to the dynamic array");
+    }
+
+    for (i = 0; i < 1000; i++)
+    {
+        sput_fail_if(daRemove(da, &err, 0) != 0, "daRemove should remove an existing element");
+    }
+
     sput_fail_if(daIsEmpty(da, &err) != 1, "daIsEmpty should return 1 if the array is empty");
 
     sput_fail_if(daDestroy(da, &err) != 0, "daDestroy should destroy the array");
