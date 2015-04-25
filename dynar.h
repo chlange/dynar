@@ -342,6 +342,25 @@ void *daInsertAt(DaStruct *da, int *err, const void *element, size_t pos);
 int daRemove(DaStruct *da, int *err, size_t pos);
 
 /**
+ * @brief The function removes a range of elements.
+ *
+ * It will remove all elements between (inclusive) @p from and @p (inclusive) to.
+ *
+ * @param[in]  da   Delete the elements from this array.
+ * @param[out] err  Indicates what went wrong in the event of an error.
+ * @param[in]  from Start to remove elements starting at this index (0 based).
+ * @param[in]  to   Last index of element that should be deleted (0 based).
+ *
+ * @return Returns 0 on success, otherwise -1 is returned and @p err is set appropriately.
+ *
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if any index is out of bounds (@p to > daSize() or @p from > @p to).
+ */
+int daRemoveRange(DaStruct *da, int *err, size_t from, size_t to);
+
+/**
  * @brief The function returns the element at @p pos.
  *
  * @param[in]  da      Get the element from this array.

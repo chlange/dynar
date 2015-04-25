@@ -484,6 +484,57 @@ int daRemove(DaStruct *da, int *err, size_t pos)
     return 0;
 }
 
+/**
+ * @brief The function removes a range of elements.
+ *
+ * It will remove all elements between (inclusive) @p from and @p (inclusive) to.
+ *
+ * @param[in]  da   Delete the elements from this array.
+ * @param[out] err  Indicates what went wrong in the event of an error.
+ * @param[in]  from Start to remove elements starting at this index (0 based).
+ * @param[in]  to   Last index of element that should be deleted (0 based).
+ *
+ * @return Returns 0 on success, otherwise -1 is returned and @p err is set appropriately.
+ *
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if any index is out of bounds (@p to >= daSize() or @p from > @p to).
+ */
+int daRemoveRange(DaStruct *da, int *err, size_t from, size_t to)
+{
+    void *dst;
+    void *src;
+    size_t bytes;
+    size_t elements;
+
+    if (paramNotValid(da, err))
+    {
+        return -1;
+    }
+
+    if (to >= da->used || from >= da->used)
+    {
+        *err = DA_PARAM_ERR | DA_OUT_OF_BOUNDS;
+        return -1;
+    }
+
+    elements = to - from;
+    elements++;
+
+    dst = (char *)da->firstAddr + (from * da->bytesPerElement);
+    src = (char *)dst + (elements * da->bytesPerElement);
+    bytes = (da->used - 1) - to;
+
+    memmove(dst, src, bytes);
+
+    da->used -= elements;
+
+    * err = DA_OK;
+    return 0;
+
+}
+
 void *daAppend(DaStruct *da, int *err, const void *element)
 {
     void *ret;
