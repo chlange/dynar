@@ -472,7 +472,7 @@ int daRemove(DaStruct *da, int *err, size_t pos)
     {
         dst = (char *)da->firstAddr + (pos * da->bytesPerElement);
         src = (char *)dst + da->bytesPerElement;
-        bytes = ((da->used - 1) - pos) * da->bytesPerElement;
+        bytes = (da->used - 1 - pos) * da->bytesPerElement;
 
         memmove(dst, src, bytes);
     }
