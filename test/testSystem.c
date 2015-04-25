@@ -19,7 +19,7 @@ static void testSystem(void)
     da = daCreate(&desc, &err);
     sput_fail_if(da == NULL, "Unable to create dynamic array");
 
-    for (i = 0; i < 10000; i++)
+    for (i = 0; i < 1000; i++)
     {
         sprintf(buf, "%050d", i);
         sput_fail_if(daAppend(da, &err, buf) == NULL, "Unable to append an element to the dynamic array");
@@ -34,7 +34,7 @@ static void testSystem(void)
     retPtr = daGet(da, &err, size - 1);
     sput_fail_if(daGetLast(da, &err) != retPtr, "daGetLast should return the same as daGet with the last index");
 
-    for (i = 0; i < 10000; i++)
+    for (i = 0; i < 1000; i++)
     {
         sprintf(buf, "%050d", i);
         sput_fail_if(memcmp(daGet(da, &err, i), buf, desc.bytesPerElement) != 0, "daGet should return the same as the daAppend input");
@@ -56,7 +56,7 @@ static void testSystem(void)
         sprintf(buf, "%050d", 999999);
         sput_fail_if(daLastIndexOf(da, &err, buf, &index) != 0, "daLastIndexOf should return 0 because the element doesn't exists");
     }
-    for (i = 0; i < 10000; i++)
+    for (i = 0; i < 1000; i++)
     {
         sput_fail_if(daRemove(da, &err, da->used - 1) != 0, "daRemove should remove existing element");
     }
@@ -73,7 +73,7 @@ static void testSystem(void)
     sput_fail_if(da == originalDa, "daClone should create a new array");
     sput_fail_if(daDestroy(originalDa, &err) != 0, "daDestroy should destroy the original array");
 
-    i = 10000;
+    i = 1000;
     while (i--)
     {
         sprintf(buf, "%050d", i);
@@ -89,7 +89,7 @@ static void testSystem(void)
     retPtr = daGet(da, &err, size - 1);
     sput_fail_if(daGetLast(da, &err) != retPtr, "daGetLast should return the same as daGet with the last index");
 
-    for (i = 0; i < 10000; i++)
+    for (i = 0; i < 1000; i++)
     {
         sprintf(buf, "%050d", i);
         sput_fail_if(memcmp(daGet(da, &err, i), buf, desc.bytesPerElement) != 0, "daGet should return the same as the daPrepend input");
@@ -112,7 +112,7 @@ static void testSystem(void)
         sput_fail_if(daLastIndexOf(da, &err, buf, &index) != 0, "daLastIndexOf should return 0 because the element doesn't exists");
     }
 
-    i = 10000;
+    i = 1000;
     while (i--)
     {
         sprintf(buf, "%050d", i);
@@ -123,7 +123,7 @@ static void testSystem(void)
         sput_fail_if(index != i, "daLastIndexOf should return the correct index");
     }
 
-    for (i = 0; i < 10000; i++)
+    for (i = 0; i < 1000; i++)
     {
         sput_fail_if(daRemove(da, &err, da->used - 1) != 0, "daRemove should remove an existing element");
     }
