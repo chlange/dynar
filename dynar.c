@@ -484,6 +484,38 @@ int daRemove(DaStruct *da, int *err, size_t pos)
     return 0;
 }
 
+int daRemoveDirty(DaStruct *da, int *err, size_t pos)
+{
+    void *dst;
+    void *src;
+
+    if (paramNotValid(da, err))
+    {
+        return -1;
+    }
+
+    if (pos >= da->used)
+    {
+        *err = DA_PARAM_ERR | DA_OUT_OF_BOUNDS;
+        return -1;
+    }
+
+    /* Move memory if it's not the last remaining or endmost element */
+    if (da->used > 1 && pos < da->used - 1)
+    {
+        dst = (char *)da->firstAddr + (pos * da->bytesPerElement);
+        src = (char *)da->firstAddr + ((da->used - 1) * da->bytesPerElement);
+
+        memmove(dst, src, da->bytesPerElement);
+    }
+
+    da->freeAddr = (char *)da->freeAddr - da->bytesPerElement;
+    da->used--;
+
+    *err = DA_OK;
+    return 0;
+}
+
 int daRemoveRange(DaStruct *da, int *err, size_t from, size_t to)
 {
     void *dst;
