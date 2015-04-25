@@ -507,7 +507,7 @@ int daRemoveRange(DaStruct *da, int *err, size_t from, size_t to)
 
     dst = (char *)da->firstAddr + (from * da->bytesPerElement);
     src = (char *)dst + (elements * da->bytesPerElement);
-    bytes = (da->used - 1) - to;
+    bytes = (da->used - 1 - to) * da->bytesPerElement;
 
     memmove(dst, src, bytes);
 
