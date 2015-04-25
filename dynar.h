@@ -342,6 +342,28 @@ void *daInsertAt(DaStruct *da, int *err, const void *element, size_t pos);
 int daRemove(DaStruct *da, int *err, size_t pos);
 
 /**
+ * @brief The function deletes the element at @p pos in a quick way.
+ *
+ * It will copy the last element to pos and is therefore faster than daRemove().
+ * But the array order doens't remain the same.
+ *
+ * @p pos must be in between the array bounds.
+ * The array remains unchanged in the event of an error.
+ *
+ * @param[in]  da      Delete the element from this array.
+ * @param[out] err     Indicates what went wrong in the event of an error.
+ * @param[in]  pos     Delete the @p element at this position from the array.
+ *
+ * @returns Returns 0 on success, otherwise -1 is returned and @p err is set appropriately.
+ *
+ * @b Errors @n
+ * ::DA_OK on success. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if @p pos is out of the array bounds (@p pos >= daSize()).
+ */
+int daRemoveDirty(DaStruct *da, int *err, size_t pos);
+
+/**
  * @brief The function removes a range of elements.
  *
  * It will remove all elements between (inclusive) @p from and @p (inclusive) to.
