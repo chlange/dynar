@@ -5,6 +5,7 @@ static void testNull(void)
 {
     int err;
     DaStruct da;
+    memset(&da, '1', sizeof(da));
 
     sput_fail_if(daIncrease(NULL, NULL, 0, 0) != -1, "daIncrease(NULL, NULL, 0, 0) != -1");
     sput_fail_if(daIncrease(&da,  NULL, 0, 0) != -1, "daIncrease(&da,  NULL, 0, 0) != -1");
@@ -126,6 +127,8 @@ static void testNullSize(void)
 {
     int err;
     DaStruct da;
+
+    memset(&da, '0', sizeof(DaStruct));
     da.magic = DA_MAGIC;
 
     sput_fail_if(daIncrease(&da, &err, 0, DA_SOFT) != 0, "daIncrease should succeed if the size parameter is 0 (DA_SOFT mode)");

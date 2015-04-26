@@ -6,6 +6,7 @@ static void testNull(void)
     int err;
     int ignore;
     DaStruct da;
+    memset(&da, '1', sizeof(da));
 
     sput_fail_if(daSet(NULL, NULL, &ignore, 0) != NULL, "daSet(NULL, NULL, &ignore, 0) != NULL");
     sput_fail_if(daSet(NULL, NULL, NULL, 0)    != NULL, "daSet(NULL, NULL, NULL, 0)    != NULL");
@@ -61,6 +62,7 @@ static void testOutOfBounds(void)
     int err;
     int ignore;
     DaStruct da;
+    memset(&da, '0', sizeof(DaStruct));
 
     da.used = 0;
     sput_fail_if(daSet(&da, &err, &ignore, 1) != NULL, "daSet should fail if out of bounds");
@@ -76,6 +78,7 @@ static void testMagic(void)
     int err;
     int ignore;
     DaStruct da;
+    memset(&da, '0', sizeof(DaStruct));
 
     da.magic = DA_MAGIC + 1;
 

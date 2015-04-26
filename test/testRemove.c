@@ -5,6 +5,7 @@ static void testNull(void)
 {
     int err;
     DaStruct da;
+    memset(&da, '1', sizeof(da));
 
     sput_fail_if(daRemove(NULL, NULL, 0) != -1, "daRemove(NULL, NULL, 0) != -1");
     sput_fail_if(daRemove(&da,  NULL, 0) != -1, "daRemove(&da,  NULL, 0) != -1");

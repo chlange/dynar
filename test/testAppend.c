@@ -6,6 +6,7 @@ static void testNull(void)
     int err;
     int ignore;
     DaStruct da;
+    memset(&da, '1', sizeof(da));
 
     sput_fail_if(daAppend(NULL, NULL, &ignore) != NULL, "daAppend(NULL, NULL, &ignore) != NULL");
     sput_fail_if(daAppend(NULL, NULL, NULL)    != NULL, "daAppend(NULL, NULL, NULL)    != NULL");

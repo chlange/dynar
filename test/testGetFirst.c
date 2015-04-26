@@ -5,6 +5,7 @@ static void testNull(void)
 {
     int err;
     DaStruct da;
+    memset(&da, '1', sizeof(da));
 
     sput_fail_if(daGetFirst(NULL, NULL)  != NULL, "daGetFirst(NULL, NULL) != NULL");
     sput_fail_if(daGetFirst(&da, NULL)   != NULL, "daGetFirst(&da,  NULL) != NULL");

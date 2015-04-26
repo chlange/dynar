@@ -5,6 +5,7 @@ static void testNull(void)
 {
     int err;
     DaStruct da;
+    memset(&da, '1', sizeof(da));
 
     sput_fail_if(daRemoveRange(NULL, NULL, 0, 0) != -1, "daRemoveRange(NULL, NULL, 0, 0) != -1");
     sput_fail_if(daRemoveRange(&da,  NULL, 0, 0) != -1, "daRemoveRange(&da,  NULL, 0, 0) != -1");
@@ -69,6 +70,8 @@ static void testRemoveRange(void)
     sput_fail_if(err != DA_OK, "err != DA_OK");
 
     sput_fail_if(da->used != 0, "daRemoveRange should update used counter (0,4)");
+
+    daDestroy(da, &err);
 }
 
 static void testOutOfBounds(void)
@@ -76,6 +79,7 @@ static void testOutOfBounds(void)
     int err;
     DaStruct da;
 
+    memset(&da, '0', sizeof(DaStruct));
     da.used = 3;
 
     sput_fail_if(daRemoveRange(&da, &err, 1, 0) != -1, "daRemoveRange should fail if from > to");

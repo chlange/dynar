@@ -5,6 +5,7 @@ static void testNull(void)
 {
     int err;
     DaStruct da;
+    memset(&da, '1', sizeof(da));
 
     sput_fail_if(daDestroy(NULL, NULL) != -1, "daDestroy(NULL, NULL) != -1");
     sput_fail_if(daDestroy(NULL, &err) != -1, "daDestroy(NULL, &err) != -1");
@@ -17,7 +18,7 @@ static void testCleanup(void)
     int err;
     DaStruct *da;
 
-    da = malloc(sizeof(DaStruct));
+    da = calloc(1, sizeof(DaStruct));
     sput_fail_if(da == NULL, "No space left on device. Unable to test!");
 
     /* Fake an array with 0 elements to avoid SIGSEGV
@@ -27,6 +28,7 @@ static void testCleanup(void)
     da->magic = DA_MAGIC;
     sput_fail_if(daDestroy(da, &err) != 0, "daDestroy(da, &err) should return 0 after successful cleanup");
     sput_fail_if(err != DA_OK, "err != DA_OK");
+    /* This use-after-free test is a bit risky but let's do it anyway */
     sput_fail_if(da->magic == DA_MAGIC, "da->magic == DA_MAGIC");
 }
 

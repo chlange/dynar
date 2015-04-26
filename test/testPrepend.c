@@ -7,6 +7,8 @@ static void testNull(void)
     int ignore;
     DaStruct da;
 
+    memset(&da, '1', sizeof(da));
+
     sput_fail_if(daPrepend(NULL, NULL, &ignore) != NULL, "daPrepend(NULL, NULL, &ignore) != NULL");
     sput_fail_if(daPrepend(NULL, NULL, NULL)    != NULL, "daPrepend(NULL, NULL, NULL)    != NULL");
     sput_fail_if(daPrepend(&da,  NULL, &ignore) != NULL, "daPrepend(da,   NULL, &ignore) != NULL");

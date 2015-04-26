@@ -7,6 +7,8 @@ static void testNull(void)
     DaStruct da;
     size_t idx;
 
+    memset(&da, '1', sizeof(da));
+
     sput_fail_if(daLastIndexOf(&da, &err, &da, NULL)   != -1, "daLastIndexOf(&da, &err, &da, NULL)   != -1");
     sput_fail_if(daLastIndexOf(&da, &err, NULL, &idx)  != -1, "daLastIndexOf(&da, &err, NULL, &idx)  != -1");
     sput_fail_if(daLastIndexOf(&da, &err, NULL, NULL)  != -1, "daLastIndexOf(&da, &err, NULL, NULL)  != -1");
