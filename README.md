@@ -57,7 +57,7 @@
 * daDump(DaStruct *da, int *err)
 
 ##### Documentation
-Generate the HTML documentation with doxygen.
+Generate the HTML documentation with doxygen or refer to the plain text documentation in the header file.
 ```
 doxygen Doxyfile
 ```
