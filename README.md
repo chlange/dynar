@@ -12,49 +12,49 @@
 
 ##### Function overview
 
-daCreate(DaDesc *desc, int *err)
+* daCreate(DaDesc *desc, int *err)
 
-daDestroy(DaStruct *da, int *err)
+* daDestroy(DaStruct *da, int *err)
 
-daSize(DaStruct *da, int *err, size_t *size)
+* daSize(DaStruct *da, int *err, size_t *size)
 
-daIsEmpty(DaStruct *da, int *err)
+* daIsEmpty(DaStruct *da, int *err)
 
-daPrepend(DaStruct *da, int *err, const void *element)
+* daPrepend(DaStruct *da, int *err, const void *element)
 
-daAppend(DaStruct *da, int *err, const void *element)
+* daAppend(DaStruct *da, int *err, const void *element)
 
-daInsertAt(DaStruct *da, int *err, const void *element, size_t pos)
+* daInsertAt(DaStruct *da, int *err, const void *element, size_t pos)
 
-daRemove(DaStruct *da, int *err, size_t pos)
+* daRemove(DaStruct *da, int *err, size_t pos)
 
-daRemoveDirty(DaStruct *da, int *err, size_t pos)
+* daRemoveDirty(DaStruct *da, int *err, size_t pos)
 
-daRemoveRange(DaStruct *da, int *err, size_t from, size_t to)
+* daRemoveRange(DaStruct *da, int *err, size_t from, size_t to)
 
-daGet(DaStruct *da, int *err, size_t pos)
+* daGet(DaStruct *da, int *err, size_t pos)
 
-daGetFirst(DaStruct *da, int *err)
+* daGetFirst(DaStruct *da, int *err)
 
-daGetLast(DaStruct *da, int *err)
+* daGetLast(DaStruct *da, int *err)
 
-daSet(DaStruct *da, int *err, const void *element, size_t pos)
+* daSet(DaStruct *da, int *err, const void *element, size_t pos)
 
-daIncrease(DaStruct *da, int *err, size_t n, int mode)
+* daIncrease(DaStruct *da, int *err, size_t n, int mode)
 
-daClear(DaStruct *da, int *err, int mode)
+* daClear(DaStruct *da, int *err, int mode)
 
-daContains(DaStruct *da, int *err, const void *element)
+* daContains(DaStruct *da, int *err, const void *element)
 
-daIndexOf(DaStruct *da, int *err, const void *element, size_t *index)
+* daIndexOf(DaStruct *da, int *err, const void *element, size_t *index)
 
-daLastIndexOf(DaStruct *da, int *err, const void *element, size_t *index)
+* daLastIndexOf(DaStruct *da, int *err, const void *element, size_t *index)
 
-daClone(const DaStruct *da, int *err)
+* daClone(const DaStruct *da, int *err)
 
-daErrToString(int err)
+* daErrToString(int err)
 
-daDump(DaStruct *da, int *err)
+* daDump(DaStruct *da, int *err)
 
 ##### Documentation
 Generate the HTML documentation with doxygen.
