@@ -12,28 +12,28 @@
 
 ##### Functions 
 
+* daAppend
+* daClear
+* daClone
+* daContains
 * daCreate
 * daDestroy
-* daSize
-* daIsEmpty
-* daPrepend
-* daAppend
-* daInsertAt
-* daRemove
-* daRemoveDirty
-* daRemoveRange
+* daDump
+* daErrToString
 * daGet
 * daGetFirst
 * daGetLast
-* daSet
 * daIncrease
-* daClear
-* daContains
 * daIndexOf
+* daInsertAt
+* daIsEmpty
 * daLastIndexOf
-* daClone
-* daErrToString
-* daDump
+* daPrepend
+* daRemove
+* daRemoveDirty
+* daRemoveRange
+* daSet
+* daSize
 
 ##### Documentation
 Generate the HTML documentation with doxygen or refer to the plain text documentation in the header file.
