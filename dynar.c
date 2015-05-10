@@ -506,7 +506,7 @@ int daRemoveDirty(DaStruct *da, int *err, size_t pos)
         dst = (char *)da->firstAddr + (pos * da->bytesPerElement);
         src = (char *)da->firstAddr + ((da->used - 1) * da->bytesPerElement);
 
-        memmove(dst, src, da->bytesPerElement);
+        memcpy(dst, src, da->bytesPerElement);
     }
 
     da->freeAddr = (char *)da->freeAddr - da->bytesPerElement;
