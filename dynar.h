@@ -378,7 +378,7 @@ int daRemoveDirty(DaStruct *da, int *err, size_t pos);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if any index is out of bounds (@p to > daSize() or @p from > @p to).
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if any index is out of bounds (@p to or @p from > daSize() or @p from > @p to).
  */
 int daRemoveRange(DaStruct *da, int *err, size_t from, size_t to);
 
