@@ -528,7 +528,7 @@ int daRemoveRange(DaStruct *da, int *err, size_t from, size_t to)
         return -1;
     }
 
-    if (to >= da->used || from >= da->used)
+    if (to >= da->used || from >= da->used || from > to)
     {
         *err = DA_PARAM_ERR | DA_OUT_OF_BOUNDS;
         return -1;

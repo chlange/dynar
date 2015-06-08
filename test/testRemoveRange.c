@@ -71,25 +71,56 @@ static void testRemoveRange(void)
 
     sput_fail_if(da->used != 0, "daRemoveRange should update used counter (0,4)");
 
+
+    src = "12345";
+    memcpy(da->firstAddr, src, 5);
+    da->used = 5;
+
+    sput_fail_if(daRemoveRange(da, &err, 0, 0) != 0, "daRemoveRange should delete existing elements (0,0)");
+    sput_fail_if(err != DA_OK, "err != DA_OK");
+
+    expect = "2345";
+    sput_fail_if(memcmp(da->firstAddr, expect, 4) != 0, "daRemoveRange should remove elements (0,0)");
+    sput_fail_if(da->used != 4, "daRemoveRange should update used counter (0,0)");
+
+
+    src = "12345";
+    memcpy(da->firstAddr, src, 5);
+    da->used = 5;
+
+    sput_fail_if(daRemoveRange(da, &err, 3, 3) != 0, "daRemoveRange should delete existing elements (3,3)");
+    sput_fail_if(err != DA_OK, "err != DA_OK");
+
+    expect = "1235";
+    sput_fail_if(memcmp(da->firstAddr, expect, 4) != 0, "daRemoveRange should remove elements (3,3)");
+    sput_fail_if(da->used != 4, "daRemoveRange should update used counter (3,3)");
+
     daDestroy(da, &err);
 }
 
 static void testOutOfBounds(void)
 {
     int err;
-    DaStruct da;
+    DaDesc desc;
+    DaStruct *da;
 
-    memset(&da, '0', sizeof(DaStruct));
-    da.used = 3;
+    desc.elements = 3;
+    desc.bytesPerElement = 1;
+    da = daCreate(&desc, &err);
+    sput_fail_if(da == NULL, "Unable to create dynamic array.");
 
-    sput_fail_if(daRemoveRange(&da, &err, 1, 0) != -1, "daRemoveRange should fail if from > to");
-    sput_fail_if(err != (DA_PARAM_ERR | DA_PARAM_NULL), "err != (DA_PARAM_ERR | DA_PARAM_NULL)");
+    da->used = 3;
 
-    sput_fail_if(daRemoveRange(&da, &err, 0, da.used) != -1, "daRemoveRange should fail if to is out of bounds");
-    sput_fail_if(err != (DA_PARAM_ERR | DA_PARAM_NULL), "err != (DA_PARAM_ERR | DA_PARAM_NULL)");
+    sput_fail_if(daRemoveRange(da, &err, 1, 0) != -1, "daRemoveRange should fail if from > to");
+    sput_fail_if(err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS), "err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS)");
 
-    sput_fail_if(daRemoveRange(&da, &err, da.used, da.used) != -1, "daRemoveRange should fail if from is out of bounds");
-    sput_fail_if(err != (DA_PARAM_ERR | DA_PARAM_NULL), "err != (DA_PARAM_ERR | DA_PARAM_NULL)");
+    sput_fail_if(daRemoveRange(da, &err, 0, da->used) != -1, "daRemoveRange should fail if to is out of bounds");
+    sput_fail_if(err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS), "err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS)");
+
+    sput_fail_if(daRemoveRange(da, &err, da->used, da->used) != -1, "daRemoveRange should fail if from is out of bounds");
+    sput_fail_if(err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS), "err != (DA_PARAM_ERR | DA_OUT_OF_BOUNDS)");
+
+    daDestroy(da, &err);
 }
 
 static void testMagic(void)
