@@ -153,11 +153,6 @@ typedef struct __str_da_ptr
     void *firstAddr;
 
     /**
-     * Next free address in the array.
-     */
-    void *freeAddr;
-
-    /**
      * Amount of elements currently used.
      */
     size_t used;

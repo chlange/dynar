@@ -28,7 +28,6 @@ static void testRemove(void)
 
     src = "123";
     memcpy(da->firstAddr, src, 3);
-    da->freeAddr = (char *)da->firstAddr + 3;
     da->used = 3;
 
     sput_fail_if(daRemoveDirty(da, &err, 0) != 0, "daRemoveDirty should remove the first element and succeed");
@@ -36,7 +35,6 @@ static void testRemove(void)
     sput_fail_if(da->used != 2, "daRemoveDirty should decrease the used counter");
     expect = "32";
     sput_fail_if(memcmp(da->firstAddr, expect, 2), "daRemoveDirty should shift all other elements to the left");
-    sput_fail_if(da->freeAddr != (char *)da->firstAddr + 2, "daRemoveDirty should update the freeAddr pointer");
 
 
     sput_fail_if(daRemoveDirty(da, &err, 1) != 0, "daRemoveDirty should remove the second (endmost) element and succeed");
@@ -44,19 +42,16 @@ static void testRemove(void)
     sput_fail_if(da->used != 1, "daRemoveDirty should decrease the used counter");
     expect = "3";
     sput_fail_if(memcmp(da->firstAddr, expect, 1), "daRemoveDirty should remain the last remaining (not touched) element at the position");
-    sput_fail_if(da->freeAddr != (char *)da->firstAddr + 1, "daRemoveDirty should update the freeAddr pointer");
 
 
     sput_fail_if(daRemoveDirty(da, &err, 0) != 0, "daRemoveDirty should remove the last element and succeed");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->used != 0, "daRemoveDirty should decrease the used counter");
-    sput_fail_if(da->freeAddr != da->firstAddr, "daRemoveDirty should update the freeAddr pointer");
 
 
 
     src = "123";
     memcpy(da->firstAddr, src, 3);
-    da->freeAddr = (char *)da->firstAddr + 3;
     da->used = 3;
 
     sput_fail_if(daRemoveDirty(da, &err, 2) != 0, "daRemoveDirty should remove the third (endmost) element and succeed");
@@ -64,7 +59,6 @@ static void testRemove(void)
     sput_fail_if(da->used != 2, "daRemoveDirty should decrease the used counter");
     expect = "12";
     sput_fail_if(memcmp(da->firstAddr, expect, 1), "daRemoveDirty should remain the last remaining (not touched) elements at the positions");
-    sput_fail_if(da->freeAddr != (char *)da->firstAddr + 2, "daRemoveDirty should update the freeAddr pointer");
 
     daDestroy(da, &err);
 }

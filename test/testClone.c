@@ -36,7 +36,6 @@ static void testClone(void)
     sput_fail_if(clone->bytesPerElement != desc.bytesPerElement, "daClone should copy the bytesPerElement counter");
     sput_fail_if(clone->used != da->used, "daClone should copy the used counter");
     sput_fail_if(memcmp(clone->firstAddr, src, 3) != 0, "daClone should copy the array content");
-    sput_fail_if(clone->freeAddr != (char *)clone->firstAddr + 3, "daClone should set the freeAddr pointer");
     sput_fail_if(clone->magic != DA_MAGIC, "daClone should set the magic number");
 
     daDestroy(da, &err);

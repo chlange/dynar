@@ -92,7 +92,6 @@ static int daRealloc(DaStruct *da, int *err)
     free(da->firstAddr);
 
     da->firstAddr = newArray;
-    da->freeAddr = (char *)da->firstAddr + (da->used * da->bytesPerElement);
     da->max = nrElements;
 
     *err = DA_OK;
@@ -140,7 +139,6 @@ DaStruct *daCreate(DaDesc *desc, int *err)
         goto err;
     }
 
-    da->freeAddr = da->firstAddr;
     da->used = 0;
     da->max = desc->elements;
     da->bytesPerElement = desc->bytesPerElement;
@@ -281,7 +279,6 @@ int daClear(DaStruct *da, int *err, int mode)
         break;
     }
 
-    da->freeAddr = da->firstAddr;
     da->used = 0;
 
     *err = DA_OK;
@@ -443,7 +440,6 @@ DaStruct *daClone(const DaStruct *da, int *err)
     if (clone)
     {
         clone->used = da->used;
-        clone->freeAddr = (char *)clone->firstAddr + (clone->used * clone->bytesPerElement);
         memcpy(clone->firstAddr, da->firstAddr, clone->used * clone->bytesPerElement);
     }
 
@@ -477,7 +473,6 @@ int daRemove(DaStruct *da, int *err, size_t pos)
         memmove(dst, src, bytes);
     }
 
-    da->freeAddr = (char *)da->freeAddr - da->bytesPerElement;
     da->used--;
 
     *err = DA_OK;
@@ -509,7 +504,6 @@ int daRemoveDirty(DaStruct *da, int *err, size_t pos)
         memcpy(dst, src, da->bytesPerElement);
     }
 
-    da->freeAddr = (char *)da->freeAddr - da->bytesPerElement;
     da->used--;
 
     *err = DA_OK;
@@ -553,6 +547,7 @@ int daRemoveRange(DaStruct *da, int *err, size_t from, size_t to)
 void *daAppend(DaStruct *da, int *err, const void *element)
 {
     void *ret;
+    void *freeAddr;
 
     if (paramNotValid(da, err))
     {
@@ -572,9 +567,8 @@ void *daAppend(DaStruct *da, int *err, const void *element)
         }
     }
 
-    ret = da->freeAddr;
-    memcpy(da->freeAddr, element, da->bytesPerElement);
-    da->freeAddr = (char *)da->freeAddr + da->bytesPerElement;
+    ret = freeAddr = (char *)da->firstAddr + (da->used * da->bytesPerElement);
+    memcpy(freeAddr, element, da->bytesPerElement);
     da->used++;
 
     *err = DA_OK;
@@ -603,7 +597,6 @@ void *daPrepend(DaStruct *da, int *err, const void *element)
 
     memmove((char*)da->firstAddr + da->bytesPerElement, da->firstAddr, da->used * da->bytesPerElement);
     memcpy(da->firstAddr, element, da->bytesPerElement);
-    da->freeAddr = (char *)da->freeAddr + da->bytesPerElement;
     da->used++;
 
     *err = DA_OK;
@@ -646,7 +639,6 @@ void *daInsertAt(DaStruct *da, int *err, const void *element, size_t pos)
     memmove(dst, src, bytes);
     memcpy(src, element, da->bytesPerElement);
 
-    da->freeAddr = (char *)da->freeAddr + da->bytesPerElement;
     da->used++;
 
     *err = DA_OK;
@@ -706,7 +698,6 @@ int daIncrease(DaStruct *da, int *err, size_t n, int mode)
         free(da->firstAddr);
 
         da->firstAddr = newArray;
-        da->freeAddr = (char *)da->firstAddr + (da->used * da->bytesPerElement);
         da->max = da->max + overflow;
     }
 
@@ -854,7 +845,6 @@ int daDump(DaStruct *da, int *err)
     printf("\nDynamic array header\n");
     printf("--------------------\n");
     printf("da->firstAddr:   %10p\n", da->firstAddr);
-    printf("da->freeAddr:    %10p\n", da->freeAddr);
     printf("da->used:        %10lu\n", (unsigned long)da->used);
     printf("da->max:         %10lu\n", (unsigned long)da->max);
     printf("da->bytesPerElement: %6lu\n", (unsigned long)da->bytesPerElement);

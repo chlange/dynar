@@ -42,7 +42,6 @@ static void testPrepend(void)
     sput_fail_if(daPrepend(da, &err, src) != da->firstAddr, "daPrepend should return the address of the prepended element");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(memcmp(da->firstAddr, expect, 1) != 0, "daPrepend should copy the element to the first position");
-    sput_fail_if(da->freeAddr != (char *)da->firstAddr + 1, "daPrepend should update the freeAddr pointer");
     sput_fail_if(da->used != 1, "daPrepend should increase the used counter");
 
 
@@ -51,7 +50,6 @@ static void testPrepend(void)
     sput_fail_if(daPrepend(da, &err, src) != da->firstAddr, "daPrepend should return the address of the prepended element");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(memcmp(da->firstAddr, expect, 2) != 0, "daPrepend should copy the element to the first position");
-    sput_fail_if(da->freeAddr != (char *)da->firstAddr + 2, "daPrepend should update the freeAddr pointer");
     sput_fail_if(da->used != 2, "daPrepend should increase the used counter");
 
 
@@ -60,7 +58,6 @@ static void testPrepend(void)
     sput_fail_if(daPrepend(da, &err, src) !=  da->firstAddr, "daPrepend should return the address of the prepended element");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(memcmp(da->firstAddr, expect, 3) != 0, "daPrepend should copy the element to the first position");
-    sput_fail_if(da->freeAddr != (char *)da->firstAddr + 3, "daPrepend should update the freeAddr pointer");
     sput_fail_if(da->used != 3, "daPrepend should increase the used counter");
 
     daDestroy(da, &err);
@@ -70,7 +67,6 @@ static void testRealloc(void)
 {
     int err;
     void *firstAddrCmp;
-    void *freeAddrCmp;
     const char *src;
     const char *expect;
     DaDesc desc;
@@ -91,32 +87,26 @@ static void testRealloc(void)
 
 
     firstAddrCmp = da->firstAddr;
-    freeAddrCmp = da->freeAddr;
     src = "1";
     expect = "10";
     sput_fail_if(daPrepend(da, &err, src) != da->firstAddr, "daPrepend should return the address of the prepended element");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(memcmp(da->firstAddr, expect, 2) != 0, "daPrepend should copy the element to the second position");
-    sput_fail_if(da->freeAddr != (char *)da->firstAddr + 2, "daPrepend should update the freeAddr pointer");
     sput_fail_if(da->used != 2, "daPrepend should increase the used counter");
     sput_fail_if(da->firstAddr == firstAddrCmp, "daPrepend should update the firstAddr pointer");
-    sput_fail_if(da->freeAddr == freeAddrCmp, "daPrepend should update the freeAddr pointer");
     sput_fail_if(da->max != 2, "daPrepend should double the maximum amount of elements");
 
 
 
 
     firstAddrCmp = da->firstAddr;
-    freeAddrCmp = da->freeAddr;
     src = "2";
     expect = "210";
     sput_fail_if(daPrepend(da, &err, src) !=  da->firstAddr, "daPrepend should return the address of the prepended element");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(memcmp(da->firstAddr, expect, 3) != 0, "daPrepend should copy the element to the third position");
-    sput_fail_if(da->freeAddr != (char *)da->firstAddr + 3, "daPrepend should update the freeAddr pointer");
     sput_fail_if(da->used != 3, "daPrepend should increase the used counter");
     sput_fail_if(da->firstAddr == firstAddrCmp, "daPrepend should update the firstAddr pointer");
-    sput_fail_if(da->freeAddr == freeAddrCmp, "daPrepend should update the freeAddr pointer");
     sput_fail_if(da->max != 4, "daPrepend should double the maximum amount of elements");
 
     daDestroy(da, &err);

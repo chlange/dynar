@@ -26,11 +26,9 @@ static void testValid(void)
     sput_fail_if(da == NULL, "Unable to create dynamic array.");
 
 
-    da->freeAddr = (void *)1;
     sput_fail_if(daClear(da, &err, DA_FAST) != 0, "daClear should succeed if we clear fast");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->used != 0, "daClear should reset the used counter");
-    sput_fail_if(da->freeAddr != da->firstAddr, "daClear should reset the freeAddr pointer");
 
 
 
@@ -38,11 +36,9 @@ static void testValid(void)
     memcpy(da->firstAddr, src, 10);
     da->used = 10;
 
-    da->freeAddr = (void *)1;
     sput_fail_if(daClear(da, &err, DA_SECURE) != 0, "daClear should succeed if we clear fast");
     sput_fail_if(err != DA_OK, "err != DA_OK");
     sput_fail_if(da->used != 0, "daClear should reset the used counter");
-    sput_fail_if(da->freeAddr != da->firstAddr, "daClear should reset the freeAddr pointer");
     src = "0000000000";
     sput_fail_if(memcmp(da->firstAddr, src, 10) != 0, "daClear in secure mode doesn't erase the array content");
 
