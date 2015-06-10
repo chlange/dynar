@@ -716,46 +716,42 @@ int daIncrease(DaStruct *da, int *err, size_t n, int mode)
 
 const char *daErrToString(int err)
 {
-    const char *errString;
-
-    errString = "UNKNOWN ERROR";
-
     if (err == DA_OK)
     {
-        errString = "DA_OK";
+        return "DA_OK";
     }
     else if (err & DA_PARAM_ERR)
     {
         if (err & DA_PARAM_NULL)
         {
-            errString = "DA_PARAM_ERR | DA_PARAM_NULL";
+            return "DA_PARAM_ERR | DA_PARAM_NULL";
         }
         else if (err & DA_UNKNOWN_MODE)
         {
-            errString = "DA_PARAM_ERR | DA_UNKNOWN_MODE";
+            return "DA_PARAM_ERR | DA_UNKNOWN_MODE";
         }
         else if (err & DA_OUT_OF_BOUNDS)
         {
-            errString = "DA_PARAM_ERR | DA_OUT_OF_BOUNDS";
+            return "DA_PARAM_ERR | DA_OUT_OF_BOUNDS";
         }
         else if (err & DA_EXCEEDS_SIZE_LIMIT)
         {
-            errString = "DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT";
+            return "DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT";
         }
     }
     else if (err & DA_FATAL)
     {
         if (err & DA_ENOMEM)
         {
-            errString = "DA_FATAL | DA_ENOMEM";
+            return "DA_FATAL | DA_ENOMEM";
         }
     }
     else if (err == DA_NOT_FOUND)
     {
-        errString = "DA_NOT_FOUND";
+        return "DA_NOT_FOUND";
     }
 
-    return errString;
+    return "UNKNOWN ERROR";
 }
 
 #ifdef INCLUDE_DUMP
