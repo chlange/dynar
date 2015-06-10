@@ -1,2 +1,6 @@
+v1.0.2 - 10.06.2015: Fixed daRemoveRange() function and tests.
+                     Fixed daDestroy() test.
+                     Removed unnecessary local variable from daErrToString().
+                     Use memcpy instead of memmove in daRemoveDirty().
 v1.0.1 - 25.04.2015: Added daRemoveDirty().
 v1.0.0 - 23.04.2015: Initial version.
