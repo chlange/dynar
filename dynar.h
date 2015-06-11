@@ -359,7 +359,7 @@ int daRemoveDirty(DaStruct *da, int *err, size_t pos);
 /**
  * @brief The function removes a range of elements.
  *
- * It will remove all elements between (inclusive) @p from and @p (inclusive) to.
+ * It will remove all elements between (inclusive) @p from and (inclusive) @p to.
  *
  * @param[in]  da   Delete the elements from this array.
  * @param[out] err  Indicates what went wrong in the event of an error.
