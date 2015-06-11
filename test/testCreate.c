@@ -30,8 +30,9 @@ static void testBytesLimit(void)
     int err;
     DaDesc desc;
 
-    desc.elements = 1;
-    desc.bytesPerElement = DA_MAX_BYTES + 1;
+    desc.elements = 10;
+    desc.bytesPerElement = 10;
+    desc.maxBytes = 1;
 
     sput_fail_if(daCreate(&desc, &err)  != NULL, "daCreate(...) should return NULL if the byte limit gets exceeded.");
     sput_fail_if(err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT), "err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT)");

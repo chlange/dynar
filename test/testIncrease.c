@@ -22,6 +22,7 @@ static void testIncreaseSoft(void)
 
     desc.elements = 1;
     desc.bytesPerElement = 1;
+    desc.maxBytes = 100;
     da = daCreate(&desc, &err);
     sput_fail_if(da == NULL, "Unable to create dynamic array.");
 
@@ -68,6 +69,7 @@ static void testIncreaseHard(void)
 
     desc.elements = 1;
     desc.bytesPerElement = 1;
+    desc.maxBytes = 100;
     da = daCreate(&desc, &err);
     sput_fail_if(da == NULL, "Unable to create dynamic array.");
 
@@ -112,6 +114,10 @@ static void testNullSize(void)
 
     memset(&da, '0', sizeof(DaStruct));
     da.magic = DA_MAGIC;
+    da.max = 10;
+    da.used = 1;
+    da.bytesPerElement = 1;
+    da.maxBytes = 10;
 
     sput_fail_if(daIncrease(&da, &err, 0, DA_SOFT) != 0, "daIncrease should succeed if the size parameter is 0 (DA_SOFT mode)");
     sput_fail_if(err != DA_OK, "err != DA_OK");
@@ -141,7 +147,9 @@ static void testBytesLimit(void)
     DaStruct *da;
 
     desc.elements = 1;
-    desc.bytesPerElement = DA_MAX_BYTES;
+    desc.bytesPerElement = 1;
+    desc.maxBytes = 1;
+
     da = daCreate(&desc, &err);
     sput_fail_if(da == NULL, "Unable to create dynamic array.");
 

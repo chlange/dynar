@@ -57,12 +57,12 @@ static int daRealloc(DaStruct *da, int *err)
     newArray = NULL;
     bytes = da->max * da->bytesPerElement;
 
-    if (bytes == DA_MAX_BYTES)
+    if (bytes == da->maxBytes)
     {
         *err = DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT;
         return -1;
     }
-    else if (bytes <= (DA_MAX_BYTES / 2))
+    else if (bytes <= (da->maxBytes / 2))
     {
         /* Enough room to double the array space */
         nrElements = da->max * 2;
@@ -70,10 +70,10 @@ static int daRealloc(DaStruct *da, int *err)
     else
     {
         /* Calculate maximum possible number of elements for this array */
-        nrElements = DA_MAX_BYTES / da->bytesPerElement;
+        nrElements = da->maxBytes / da->bytesPerElement;
     }
 
-    if (nrElements <= da->max || (nrElements * da->bytesPerElement) > DA_MAX_BYTES)
+    if (nrElements <= da->max || (nrElements * da->bytesPerElement) > da->maxBytes)
     {
         *err = DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT;
         return -1;
@@ -113,12 +113,12 @@ DaStruct *daCreate(DaDesc *desc, int *err)
         return NULL;
     }
 
-    if (desc->elements == 0 || desc->bytesPerElement == 0)
+    if (desc->elements == 0 || desc->bytesPerElement == 0 || desc->maxBytes == 0)
     {
         *err = DA_PARAM_ERR | DA_PARAM_NULL;
         return NULL;
     }
-    else if (desc->elements * desc->bytesPerElement > DA_MAX_BYTES)
+    else if (desc->elements * desc->bytesPerElement > desc->maxBytes)
     {
         *err = DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT;
         return NULL;
@@ -142,6 +142,7 @@ DaStruct *daCreate(DaDesc *desc, int *err)
     da->used = 0;
     da->max = desc->elements;
     da->bytesPerElement = desc->bytesPerElement;
+    da->maxBytes = desc->maxBytes;
 
     *err = DA_OK;
     return da;
@@ -434,6 +435,7 @@ DaStruct *daClone(const DaStruct *da, int *err)
 
     desc.elements = da->max;
     desc.bytesPerElement = da->bytesPerElement;
+    desc.maxBytes = da->maxBytes;
 
     clone = daCreate(&desc, err);
 
@@ -678,7 +680,7 @@ int daIncrease(DaStruct *da, int *err, size_t n, int mode)
         break;
     }
 
-    if ((da->max + overflow) * da->bytesPerElement > DA_MAX_BYTES)
+    if ((da->max + overflow) * da->bytesPerElement > da->maxBytes)
     {
         *err = DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT;
         return -1;

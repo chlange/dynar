@@ -23,6 +23,7 @@ static void testClone(void)
 
     desc.elements = 3;
     desc.bytesPerElement = 1;
+    desc.maxBytes = 3;
     da = daCreate(&desc, &err);
     sput_fail_if(da == NULL, "Unable to create dynamic array.");
 

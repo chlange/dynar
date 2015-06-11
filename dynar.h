@@ -40,11 +40,6 @@
  */
 
 /**
- * Add SIZE_MAX definition because it's not defined in C89 aka ANSI C.
- */
-#define SIZE_MAX ((size_t)-1)
-
-/**
  * Indicates that the operation was successful.
  */
 #define DA_OK            0x00000000
@@ -95,14 +90,6 @@
  */
 #define DA_MAGIC         0x71238924
 
-/**
- * Maximum number of bytes all elements of an array can have.
- */
-#if (SIZE_MAX > 0 && SIZE_MAX < 100000000)
-#define DA_MAX_BYTES SIZE_MAX
-#else
-#define DA_MAX_BYTES 100000000
-#endif
 
 /**
  * Operation mode for daIncrease()
@@ -140,6 +127,12 @@ typedef struct __str_da_desc
      */
     size_t bytesPerElement;
 
+    /**
+     * Overall byte limit for the array.
+     * Must be greater than 0.
+     */
+    size_t maxBytes;
+
 } DaDesc;
 
 /**
@@ -168,6 +161,11 @@ typedef struct __str_da_ptr
     size_t bytesPerElement;
 
     /**
+     * Overall byte limit of the array.
+     */
+    size_t maxBytes;
+
+    /**
      * Magic number to avoid use-after-free or similar errors.
      *
      * Gets set to ::DA_MAGIC when the array gets created and set to 0 when it gets destroyed.
@@ -191,7 +189,7 @@ typedef struct __str_da_ptr
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
- * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the settings given by @p desc exceeds the bytes limit ::DA_MAX_BYTES. @n
+ * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the settings given by @p desc exceed the bytes limit DaDesc#maxBytes. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p desc is a NULL-pointer. @n
  */
 DaStruct *daCreate(DaDesc *desc, int *err);
@@ -264,7 +262,7 @@ int daIsEmpty(DaStruct *da, int *err);
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the reallocation whould exceed the bytes limit ::DA_MAX_BYTES.
+ * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the reallocation whould exceed the bytes limit DaStruct#maxBytes.
  */
 void *daPrepend(DaStruct *da, int *err, const void *element);
 
@@ -285,7 +283,7 @@ void *daPrepend(DaStruct *da, int *err, const void *element);
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device.@n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p element is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the reallocation whould exceed the bytes limit ::DA_MAX_BYTES.
+ * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the reallocation whould exceed the bytes limit DaStruct#maxBytes.
  */
 void *daAppend(DaStruct *da, int *err, const void *element);
 
@@ -468,7 +466,7 @@ void *daSet(DaStruct *da, int *err, const void *element, size_t pos);
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n@n
- * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the a reallocation whould exceed the bytes limit ::DA_MAX_BYTES.
+ * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the a reallocation whould exceed the bytes limit DaStruct#maxBytes.
  * ::DA_PARAM_ERR | ::DA_UNKNOWN_MODE if @p mode is unknown.
  */
 int daIncrease(DaStruct *da, int *err, size_t n, int mode);

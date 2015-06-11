@@ -15,6 +15,7 @@ static void testSystem(void)
 
     desc.elements = 1;
     desc.bytesPerElement = 50;
+    desc.maxBytes = 1000000;
 
     da = daCreate(&desc, &err);
     sput_fail_if(da == NULL, "Unable to create dynamic array");

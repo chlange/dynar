@@ -34,6 +34,7 @@ static void testPrepend(void)
 
     desc.elements = 3;
     desc.bytesPerElement = 1;
+    desc.maxBytes = 10;
     da = daCreate(&desc, &err);
     sput_fail_if(da == NULL, "Unable to create dynamic array.");
 
@@ -74,6 +75,7 @@ static void testRealloc(void)
 
     desc.elements = 1;
     desc.bytesPerElement = 1;
+    desc.maxBytes = 10;
     da = daCreate(&desc, &err);
     sput_fail_if(da == NULL, "Unable to create dynamic array.");
 
@@ -120,13 +122,14 @@ static void testBytesLimit(void)
     DaStruct *da;
 
     desc.elements = 1;
-    desc.bytesPerElement = DA_MAX_BYTES;
+    desc.bytesPerElement = 1;
+    desc.maxBytes = 1;
     da = daCreate(&desc, &err);
     sput_fail_if(da == NULL, "Unable to create dynamic array.");
 
-    src = malloc(DA_MAX_BYTES);
+    src = malloc(desc.maxBytes);
     sput_fail_if(src == NULL, "Unable to allocate space for the input");
-    memset(src, '0', DA_MAX_BYTES);
+    memset(src, '0', desc.maxBytes);
 
 
     sput_fail_if(daPrepend(da, &err, src) == NULL, "daPrepend should succeed if the bytes limit isn't reached");
@@ -140,11 +143,12 @@ static void testBytesLimit(void)
     daDestroy(da, &err);
 
 
-    desc.elements = DA_MAX_BYTES;
+    desc.elements = 1;
     desc.bytesPerElement = 1;
+    desc.maxBytes = 1;
     da = daCreate(&desc, &err);
     sput_fail_if(da == NULL, "Unable to create dynamic array.");
-    da->used = DA_MAX_BYTES;
+    da->used = 1;
 
     sput_fail_if(daPrepend(da, &err, src) != NULL, "daPrepend should fail if the bytes limit is reached");
     sput_fail_if(err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT), "err != (DA_PARAM_ERR | DA_EXCEEDS_SIZE_LIMIT)");
