@@ -9,6 +9,7 @@
 ./testGetFirst | grep "failed" | grep -v " 0 failed" 
 ./testGetLast | grep "failed" | grep -v " 0 failed" 
 ./testIndexOf | grep "failed" | grep -v " 0 failed" 
+./testIncrease | grep "failed" | grep -v " 0 failed" 
 ./testInsertAt | grep "failed" | grep -v " 0 failed" 
 ./testIsEmpty | grep "failed" | grep -v " 0 failed" 
 ./testLastIndexOf | grep "failed" | grep -v " 0 failed" 
