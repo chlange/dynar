@@ -23,6 +23,12 @@ static void testNull(void)
     desc.bytesPerElement = 0;
     sput_fail_if(daCreate(&desc, &err)  != NULL, "daCreate(&desc, &err) with 0 bytesPerElement != NULL");
     sput_fail_if(err != (DA_PARAM_ERR | DA_PARAM_NULL), "err != (DA_PARAM_ERR | DA_PARAM_NULL)");
+
+    desc.elements = 1;
+    desc.bytesPerElement = 1;
+    desc.maxBytes = 0;
+    sput_fail_if(daCreate(&desc, &err)  != NULL, "daCreate(&desc, &err) with 0 maxBytes != NULL");
+    sput_fail_if(err != (DA_PARAM_ERR | DA_PARAM_NULL), "err != (DA_PARAM_ERR | DA_PARAM_NULL)");
 }
 
 static void testBytesLimit(void)
@@ -46,6 +52,7 @@ static void testInit(void)
 
     desc.elements = 1;
     desc.bytesPerElement = 1;
+    desc.maxBytes = 1;
 
     da = daCreate(&desc, &err);
     sput_fail_if(da == NULL, "daCreate(&desc, &err) with valid values: fails.");
@@ -53,6 +60,7 @@ static void testInit(void)
     sput_fail_if(da->firstAddr == NULL, "da->firstAddr == NULL");
     sput_fail_if(da->used != 0, "da->used != 0");
     sput_fail_if(da->max != desc.elements, "da->max != desc.elements");
+    sput_fail_if(da->maxBytes != desc.maxBytes, "da->maxBytes != desc.maxBytes");
     sput_fail_if(da->bytesPerElement != desc.bytesPerElement, "da->bytesPerElement != desc.bytesPerElement");
     sput_fail_if(da->magic != DA_MAGIC, "da->magic != DA_MAGIC");
 
