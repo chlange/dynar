@@ -371,7 +371,7 @@ int daRemoveDirty(DaStruct *da, int *err, size_t pos);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
- * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if any index is out of bounds (@p to or @p from > daSize() or @p from > @p to).
+ * ::DA_PARAM_ERR | ::DA_OUT_OF_BOUNDS if any index is out of bounds (@p to > daSize() or @p from > daSize() or @p from > @p to).
  */
 int daRemoveRange(DaStruct *da, int *err, size_t from, size_t to);
 
@@ -465,8 +465,8 @@ void *daSet(DaStruct *da, int *err, const void *element, size_t pos);
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_FATAL | ::DA_ENOMEM if no space is left on device. @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n@n
- * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the a reallocation whould exceed the bytes limit DaStruct#maxBytes.
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_EXCEEDS_SIZE_LIMIT if the a reallocation whould exceed the bytes limit DaStruct#maxBytes. @n
  * ::DA_PARAM_ERR | ::DA_UNKNOWN_MODE if @p mode is unknown.
  */
 int daIncrease(DaStruct *da, int *err, size_t n, int mode);
