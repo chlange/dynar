@@ -1,3 +1,5 @@
+v1.0.3 - 11.06.2016: Removed freeAddr struct member.
+                     Added maxBytes member to allow user specific bytes limit.
 v1.0.2 - 10.06.2015: Fixed daRemoveRange() function and tests.
                      Fixed daDestroy() test.
                      Removed unnecessary local variable from daErrToString().
