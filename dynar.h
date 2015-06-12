@@ -246,14 +246,15 @@ int daIsEmpty(DaStruct *da, int *err);
 /**
  * @brief The function prepends the @p element to the array.
  *
- * Shifts all elements in the array one position to the right before prepending the new @p element.
+ * It shifts all elements in the array one position to the right before prepending the new @p element.
+ * The function copies the bytes of @p element to the free slot.
  *
  * The array will be increased if necessary.
  * It remains unchanged in the event of an error.
  *
  * @param[in]  da      Prepend the element to this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
- * @param[in]  element The element that shall be appended.
+ * @param[in]  element The element that shall be prepended.
  *
  * @returns The function returns a pointer to the appended element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
@@ -269,12 +270,14 @@ void *daPrepend(DaStruct *da, int *err, const void *element);
 /**
  * @brief The function appends the @p element to the array.
  *
+ * It copies the bytes of @p element to the end of the array.
+ *
  * The array will be increased if necessary.
  * It remains unchanged in the event of an error.
  *
  * @param[in]  da      Append the element to this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
- * @param[in]  element The element that shall be prepended.
+ * @param[in]  element The element that shall be appended.
  *
  * @returns The function returns a pointer to the prepended element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
@@ -290,7 +293,9 @@ void *daAppend(DaStruct *da, int *err, const void *element);
 /**
  * @brief The function inserts the @p element at @p pos.
  *
- * Shifts the element and any subsequent elements from @p pos one position to the right before inserting the new @p element.
+ * It shifts the element and any subsequent elements from @p pos one position to the right before inserting the new @p element.
+ *
+ * The function copies the bytes of @p element to @p pos.
  *
  * It's allowed to use 0 for @p pos if the array is empty to append the element.
  *
