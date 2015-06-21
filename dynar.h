@@ -219,14 +219,14 @@ int daDestroy(DaStruct *da, int *err);
  * @param[out] err  Indicates what went wrong in the event of an error.
  * @param[out] size Number of elements in @p da.
  *
- * @returns The function returns 0 and @p size gets set to the number of elements in the array on success.
- * @returns Otherwise, the function returns -1 and @p err is set appropriately.
+ * @returns The function returns the number of elements in the array on success.
+ * @returns Otherwise, the function returns 0 and @p err is set appropriately.
  *
  * @b Errors @n
  * ::DA_OK on success. @n
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p size is a NULL-pointer. @n
  */
-int daSize(DaStruct *da, int *err, size_t *size);
+size_t daSize(DaStruct *da, int *err);
 
 /**
  * @brief The function returns the fill state of the array.

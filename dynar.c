@@ -177,22 +177,15 @@ int daDestroy(DaStruct *da, int *err)
 }
 
 
-int daSize(DaStruct *da, int *err, size_t *size)
+size_t daSize(DaStruct *da, int *err)
 {
     if (paramNotValid(da, err))
     {
-        return -1;
+        return 0;
     }
-    else if (!size)
-    {
-        *err = DA_PARAM_ERR | DA_PARAM_NULL;
-        return -1;
-    }
-
-    *size = da->used;
 
     *err = DA_OK;
-    return 0;
+    return da->used;
 }
 
 

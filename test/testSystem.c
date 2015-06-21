@@ -31,7 +31,7 @@ static void testSystem(void)
     retPtr = daGet(da, &err, 0);
     sput_fail_if(daGetFirst(da, &err) != retPtr, "daGetFirst should return the same as daGet with index 0");
 
-    sput_fail_if(daSize(da, &err, &size) != 0, "daSize should return 0");
+    sput_fail_if((size = daSize(da, &err)) != 1000, "daSize should return 1000");
     retPtr = daGet(da, &err, size - 1);
     sput_fail_if(daGetLast(da, &err) != retPtr, "daGetLast should return the same as daGet with the last index");
 
@@ -86,7 +86,7 @@ static void testSystem(void)
     retPtr = daGet(da, &err, 0);
     sput_fail_if(daGetFirst(da, &err) != retPtr, "daGetFirst should return the same as daGet with index 0");
 
-    sput_fail_if(daSize(da, &err, &size) != 0, "daSize should return 0");
+    sput_fail_if((size = daSize(da, &err)) != 1000, "daSize should return 1000");
     retPtr = daGet(da, &err, size - 1);
     sput_fail_if(daGetLast(da, &err) != retPtr, "daGetLast should return the same as daGet with the last index");
 
