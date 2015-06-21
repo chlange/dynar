@@ -217,7 +217,6 @@ int daDestroy(DaStruct *da, int *err);
  *
  * @param[in]  da   Return the number of elements of this array.
  * @param[out] err  Indicates what went wrong in the event of an error.
- * @param[out] size Number of elements in @p da.
  *
  * @returns The function returns the number of elements in the array on success.
  * @returns Otherwise, the function returns 0 and @p err is set appropriately.
