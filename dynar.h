@@ -224,7 +224,7 @@ int daDestroy(DaStruct *da, int *err);
  *
  * @b Errors @n
  * ::DA_OK on success. @n
- * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da or @p size is a NULL-pointer. @n
+ * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
 size_t daSize(DaStruct *da, int *err);
 
