@@ -304,7 +304,7 @@ void *daAppend(DaStruct *da, int *err, const void *element);
  * @param[in]  da      Insert the element into this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
  * @param[in]  element The element that shall be inserted.
- * @param[in]  pos     Insert the @p element at this position into the array.
+ * @param[in]  pos     Insert the @p element at this position into the array (0 based).
  *
  * @returns The function returns a pointer to the inserted element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
@@ -384,7 +384,7 @@ int daRemoveRange(DaStruct *da, int *err, size_t from, size_t to);
  *
  * @param[in]  da      Get the element from this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
- * @param[in]  pos     Get the @p element at this position from the array.
+ * @param[in]  pos     Get the @p element at this position from the array (0 based).
  *
  * @returns The function returns a pointer to the element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
