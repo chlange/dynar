@@ -740,17 +740,8 @@ const char *daErrToString(int err)
     return "UNKNOWN ERROR";
 }
 
-#ifdef INCLUDE_DUMP
 int daDump(DaStruct *da, int *err)
 {
-    /*
-    This function calls printf very often instead of using a fixed stack
-    buffer but guessing a buffer size is error prone and I assume this
-    function will not be called often in productive environments if ever.
-    It's meant for testing purposes were you want to see if your first
-    ten elements or so were inserted correctly and performance doesn't matter.
-    */
-
     int i;
     int j;
     int ret;
@@ -849,7 +840,6 @@ int daDump(DaStruct *da, int *err)
     *err = DA_OK;
     return 0;
 }
-#endif
 
 /**
 * @brief The function checks wheter the parameters are valid.

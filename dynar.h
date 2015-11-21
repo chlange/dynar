@@ -27,10 +27,8 @@
 
 #include <stdlib.h>
 #include <string.h>
-#ifdef INCLUDE_DUMP
 #include <stdio.h>
 #include <ctype.h>
-#endif
 
 /**
  * @file
@@ -577,7 +575,6 @@ DaStruct *daClone(const DaStruct *da, int *err);
  */
 const char *daErrToString(int err);
 
-#ifdef INCLUDE_DUMP
 /**
  * @brief The function prints the header and array of the dynamic array pointed to by @p da to stdout.
  *
@@ -591,6 +588,5 @@ const char *daErrToString(int err);
  * ::DA_PARAM_ERR | ::DA_PARAM_NULL if @p da is a NULL-pointer. @n
  */
 int daDump(DaStruct *da, int *err);
-#endif
 
 #endif
