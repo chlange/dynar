@@ -255,7 +255,7 @@ int daIsEmpty(DaStruct *da, int *err);
  * @param[out] err     Indicates what went wrong in the event of an error.
  * @param[in]  element The element that shall be prepended.
  *
- * @returns The function returns a pointer to the appended element on success.
+ * @returns The function returns a pointer to the prepended element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
  *
  * @b Errors @n
@@ -278,7 +278,7 @@ void *daPrepend(DaStruct *da, int *err, const void *element);
  * @param[out] err     Indicates what went wrong in the event of an error.
  * @param[in]  element The element that shall be appended.
  *
- * @returns The function returns a pointer to the prepended element on success.
+ * @returns The function returns a pointer to the appended element on success.
  * @returns Otherwise, the function returns a NULL pointer and @p err is set appropriately.
  *
  * @b Errors @n
