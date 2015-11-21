@@ -327,7 +327,7 @@ void *daInsertAt(DaStruct *da, int *err, const void *element, size_t pos);
  *
  * @param[in]  da      Delete the element from this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
- * @param[in]  pos     Delete the @p element at this position from the array.
+ * @param[in]  pos     Delete the @p element at this position from the array (0 based).
  *
  * @returns Returns 0 on success, otherwise -1 is returned and @p err is set appropriately.
  *
@@ -349,7 +349,7 @@ int daRemove(DaStruct *da, int *err, size_t pos);
  *
  * @param[in]  da      Delete the element from this array.
  * @param[out] err     Indicates what went wrong in the event of an error.
- * @param[in]  pos     Delete the @p element at this position from the array.
+ * @param[in]  pos     Delete the @p element at this position from the array (0 based).
  *
  * @returns Returns 0 on success, otherwise -1 is returned and @p err is set appropriately.
  *
