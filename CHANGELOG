@@ -1,4 +1,6 @@
-v1.0.3 - 11.06.2016: Removed freeAddr struct member.
+v1.0.4 - 21.11.2015: Always include dump function.
+                     The function daSize() returns the number of elements through the return value.
+v1.0.3 - 11.06.2015: Removed freeAddr struct member.
                      Added maxBytes member to allow user specific bytes limit.
 v1.0.2 - 10.06.2015: Fixed daRemoveRange() function and tests.
                      Fixed daDestroy() test.
