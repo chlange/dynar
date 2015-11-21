@@ -578,7 +578,8 @@ const char *daErrToString(int err);
 /**
  * @brief The function prints the header and array of the dynamic array pointed to by @p da to stdout.
  *
- * @param da Print this dynamic array.
+ * @param[in] da Print this dynamic array.
+ * @param[out] err Indicates what went wrong in the event of an error.
  *
  * @returns The function returns 0 on success, otherwise -1 is returned and @p err is set appropriately.
  *
