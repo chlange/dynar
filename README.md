@@ -3,10 +3,10 @@
 ##### Features
 * ANSI / C89 / C90 standard conform code
 * Compiler independent code
-* 32-/64-bit compatible
-* CPU Cache friendly
+* 32-/64-bit compatible 
+* CPU cache friendliness checked with [Cachegrind](http://www.valgrind.org)
 * [Valgrind](http://www.valgrind.org) memory leak checked
-* Unit tested and system tested with [sput](http://www.lingua-systems.com/unit-testing/) framework
+* Unit tests and integration test carried out with [sput](http://www.lingua-systems.com/unit-testing/) framework
 * Fully documented with [Doxygen](http://www.doxygen.org)
 * MIT license
 
@@ -57,4 +57,4 @@ Use the test target of the makefile to build all tests under the test/ directory
 $ make test
 ```
 ##### Interoperability
-If you send the array across the network or write it to a binary file and send it to another process on a different computer it may produce garbage on the other end because this implementation uses size_t which may not be equal in bytes on different machines.
+If you send the array across the network it may produce garbage on the other end because this implementation uses size_t which may not be equal in bytes on different machines and/or the struct alignment may produce errors.
