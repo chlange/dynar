@@ -111,7 +111,7 @@
 /**
  * @brief The structure defines the initial setup for an array.
  */
-typedef struct __str_da_desc
+typedef struct str_da_desc
 {
     /**
      * Initial amount of elements for the array.
@@ -136,7 +136,7 @@ typedef struct __str_da_desc
 /**
  * @brief The structure holds all relevant information about the dynamic array.
  */
-typedef struct __str_da_ptr
+typedef struct str_da_struct
 {
     /**
      * First address of the array.
